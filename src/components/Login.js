@@ -32,6 +32,8 @@ import {
   BACKGROUND_COLOR_HEADER
 } from "../const/Const";
 
+
+
 class Login extends Component {
   static navigationOptions = {
     title: "Đăng Nhập / Đăng Kí"

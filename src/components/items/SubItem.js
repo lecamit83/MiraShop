@@ -40,11 +40,11 @@ class ProductItem extends Component {
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
-    margin: 10,
+    margin: 4,
     height: height / 2 + 10,
-    width: width / 2 - 20,
+    width: width / 2 - 8,
     backgroundColor: BACKGROUND_COLOR_INPUT,
-    borderRadius: 10,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: BORDER_COLOR
   },

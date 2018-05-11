@@ -11,7 +11,7 @@ import {
   ScrollView
 } from "react-native";
 import {connect} from "react-redux";
-import { BACKGROUND_COLOR , BACKGROUND_COLOR_INPUT } from "../const/Const";
+import { BACKGROUND_COLOR , BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER } from "../const/Const";
 
 // create a component
 class SearchScreen extends Component {
@@ -82,7 +82,7 @@ const { width ,height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: BACKGROUND_COLOR_HEADER,
   },
   logoApp: {
     flex: 5,

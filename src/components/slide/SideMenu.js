@@ -12,15 +12,27 @@ import { DrawerItems, SafeAreaView } from "react-navigation";
 
 import * as CONST from "../../const/Const";
 
-export default class SideMenu extends Component {
+import { connect } from "react-redux";
+
+class SideMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLogin: true
-    };
   }
   render() {
-    const { container, wrapLogo, wrapIndex, item, imageLogo } = styles;
+    const {
+      container,
+      wrapLogo,
+      wrapIndex,
+      item,
+      imageLogo,
+      sign,
+      line,
+      index,
+      wrapImage,
+      icon,
+      wrapText,
+      text
+    } = styles;
     const { navigation } = this.props;
 
     const IsntLoginJSX = (
@@ -29,25 +41,73 @@ export default class SideMenu extends Component {
           style={item}
           onPress={() => navigation.navigate("MainStack")}
         >
-          <Text>{CONST.ALL_SP}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/hospital_products.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.ALL_SP}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.THUOC}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/medicine.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.THUOC}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.TP_CN}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/healthy_foods.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.TP_CN}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.VT_YT}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/medical_supplies.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.VT_YT}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.TIM_CONG_TY}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={item}
-          onPress={() => this.props.navigation.navigate("LoginStack")}
-        >
-          <Text>{CONST.SIGN_IN}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/searchIcon.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.TIM_CONG_TY}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -57,36 +117,113 @@ export default class SideMenu extends Component {
           style={item}
           onPress={() => navigation.navigate("MainStack")}
         >
-          <Text>{CONST.ALL_SP}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/hospital_products.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.ALL_SP}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.THUOC}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/medicine.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.THUOC}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.TP_CN}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/healthy_foods.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.TP_CN}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity style={item}>
-          <Text>{CONST.VT_YT}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/medical_supplies.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.VT_YT}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity
           style={item}
           onPress={() => this.props.navigation.navigate("ManageStack")}
         >
-          <Text>{CONST.QUAN_LI}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/profile.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.QUAN_LI}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
         <TouchableOpacity
           style={item}
           onPress={() => this.setState({ isLogin: false })}
         >
-          <Text>{CONST.SIGN_OUT}</Text>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image style={icon} source={require("../../images/logout.png")} />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.SIGN_OUT}</Text>
+            </View>
+          </View>
         </TouchableOpacity>
+        <View style={line} />
       </ScrollView>
     );
-    const SideMenuJSX = this.state.isLogin ? IsLoginJSX : IsntLoginJSX;
+    const LOGIN = (
+      <View style={sign}>
+        <TouchableOpacity>
+          <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
+        </TouchableOpacity>
+        <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
+        <TouchableOpacity>
+          <Text style={styles.signIn}>{CONST.SIGN_UP}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+
+    const SideMenuJSX = this.props.isLogin ? IsLoginJSX : IsntLoginJSX;
+    const LOGINJSX = this.props.isLogin ? null : LOGIN;
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
           <Image style={imageLogo} source={require("../../images/logo.png")} />
+          {LOGINJSX}
         </View>
         <View style={wrapIndex}>{SideMenuJSX}</View>
       </SafeAreaView>
@@ -94,32 +231,58 @@ export default class SideMenu extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    isLogin: state.login
+  };
+}
+
+export default connect(mapStateToProps)(SideMenu);
+
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CONST.BACKGROUND_COLOR,
+    backgroundColor: "#FFF"
   },
   wrapLogo: {
     flex: 3,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER
   },
-  imageLogo : {
+  imageLogo: {
     width: width * 2 / 3,
-    height : (width * 2 / 3) * 66 / 144,
+    height: width * 2 / 3 * 66 / 144
   },
   wrapIndex: {
     flex: 7,
-    alignItems: "center"
+    marginLeft: 16,
+    marginRight: 16
   },
   item: {
     backgroundColor: "#FFF",
-    width: width * 2 / 3,
-    height: height / 16,
+    height: 48,
+    justifyContent: "center"
+  },
+  sign: {
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: height / 32,
-    marginTop: 10
-  }
+    alignItems: "center"
+  },
+  signIn: {
+    fontSize: 15,
+    padding: 4
+  },
+  line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6, },
+  index: { flexDirection: "row" },
+  wrapImage: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  icon: { height: 20, width: 20, resizeMode: "contain", opacity: 0.6 },
+  wrapText: { marginLeft: 16, justifyContent: "center", alignItems: "center" },
+  text: { fontSize: 16 }
 });

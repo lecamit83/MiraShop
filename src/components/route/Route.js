@@ -52,6 +52,6 @@ export default (MainStack = StackNavigator(
     }
   },
   {
-    initialRouteName: "SearchStack"
+    initialRouteName: "MainStack"
   }
 ));

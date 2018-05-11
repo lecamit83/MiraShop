@@ -13,19 +13,21 @@ import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROU
 class ProductItem extends Component {
   render() {
     const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation } = this.props;
+    const { navigation, name, cost } = this.props;
     return (
       <TouchableOpacity
         style={item}
-        onPress={() => navigation.navigate("DetailsScreen")}
+        onPress={() => navigation.navigate("DetailsScreen", {name: name, cost: cost})}
       >
         <Image style={image} source={require("../../images/sp.png")} />
         <View style={info}>
           <View  style={textWrap}>
-            <Text style={{fontSize: 17, color: "#FF8F00" }} >Paradol Extra</Text>
-            <Text style={{ marginTop: 5 }}>650.000đ</Text>
+            <Text style={{fontSize: 17, color: "#FF8F00" }} >{name}</Text>
+            <Text style={{ marginTop: 5 }}>{`${cost}đ`}</Text>
           </View>
-          <TouchableOpacity style={wrap}>
+          <TouchableOpacity style={wrap}
+            onPress={()=>alert("ADD")}
+          >
             <View style={buttonAdd}>
               <Image style={icon} source={require("../../images/add.png")} />
               <Text>Thêm Sản Phẩm</Text>
@@ -40,11 +42,11 @@ class ProductItem extends Component {
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
-    margin: 10,
+    margin: 4,
     height: height / 2 + 10,
-    width: width / 2 - 20,
+    width: width / 2 - 8,
     backgroundColor: BACKGROUND_COLOR_INPUT,
-    borderRadius: 10,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: BORDER_COLOR
   },

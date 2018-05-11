@@ -15,7 +15,8 @@ import Slide from "./slide/Slide";
 import {
   BORDER_COLOR,
   BACKGROUND_COLOR_INPUT,
-  BACKGROUND_COLOR
+  BACKGROUND_COLOR,
+  LINE
 } from "../const/Const";
 // create a component
 
@@ -45,6 +46,7 @@ class Details extends Component {
       wrapImage,
       icon
     } = styles;
+    const {name, cost} = this.props.navigation.state.params;
     return (
       <ScrollView style={{ backgroundColor: BACKGROUND_COLOR }}>
         <View style={container}>
@@ -61,9 +63,11 @@ class Details extends Component {
           <View style={product}>
             <View style={wrapImage} />
             <View style={wrap}>
-              <Text style={textStyle}>PARADOL EXTRA - MR20</Text>
+              <Text style={textStyle}>{name}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}>
+            <TouchableOpacity style={wrapImage}
+              onPress={()=>alert("MAP VIEW")}
+            >
               <Image style={icon} source={require("../images/pos.png")} />
             </TouchableOpacity>
           </View>
@@ -71,9 +75,11 @@ class Details extends Component {
           <View style={product}>
             <View style={wrapImage} />
             <View style={wrap}>
-              <Text style={textStyle}>650.000 đ</Text>
+              <Text style={textStyle}>{`${cost} đ`}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}>
+            <TouchableOpacity style={wrapImage}
+             onPress={()=>alert("ADD")}
+            >
               <Image style={icon} source={require("../images/add.png")} />
             </TouchableOpacity>
           </View>
@@ -119,34 +125,25 @@ const styles = StyleSheet.create({
     height: height * 4 / 10,
     marginTop: 2
   },
-  line: {
-    backgroundColor: "#81C784",
-    height: 1,
-    width: width - 10,
-    marginTop: 10
-  },
+  line: { backgroundColor: LINE, height: 1, opacity: 0.6, },
   intro: {
     margin: 5
   },
   product: {
     flexDirection: "row",
     justifyContent: "space-between",
-    height: height / 15
+    height: height / 15, 
   },
   wrap: {
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
     padding: 3,
-    backgroundColor: BACKGROUND_COLOR_INPUT
+    marginBottom: 5,
   },
   wrapImage: {
     height: height / 15,
     width: height / 15,
-    marginTop: 5,
     justifyContent: "center",
     alignItems: "center"
   },

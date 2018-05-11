@@ -1,30 +1,32 @@
 //import liraries
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import {connect} from "react-redux";
+import { View, Text, StyleSheet, ListView, FlatList, StatusBar } from "react-native";
+import { connect } from "react-redux";
 
 import MainHeader from "./header/MainHeaders";
-import ProductItem from "./items/ProductItem";
-import {BACKGROUND_COLOR} from '../const/Const'
+import Item from "./items/ProductItem";
+import { BACKGROUND_COLOR } from "../const/Const";
 
 // create a component
 class Main extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: <MainHeader navigation={navigation} />
   });
+  constructor() {
+    super();
+  }
   render() {
     const { container, wrapperItem } = styles;
-    const { navigation } = this.props;
+    const { navigation, products } = this.props;
     return (
-      <ScrollView style={container}>
-        <View style={wrapperItem}>
-          <ProductItem navigation={navigation} />
-          <ProductItem navigation={navigation} />
-          <ProductItem navigation={navigation} />
-          <ProductItem navigation={navigation} />
-          <ProductItem navigation={navigation} />
-        </View>
-      </ScrollView>
+      <View style={container}>
+        <FlatList
+          data={products}
+          renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost}/>}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+        />
+      </View>
     );
   }
 }
@@ -33,7 +35,7 @@ class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: BACKGROUND_COLOR
   },
   wrapperItem: {
     flexDirection: "row",
@@ -41,10 +43,10 @@ const styles = StyleSheet.create({
   }
 });
 
+//make this component available to the app
 function mapStateToProps(state) {
   return {
-    textSearch,
-  }
+    products : state.products,
+  };
 }
-//make this component available to the app
-export default connect()(Main);
+export default connect(mapStateToProps)(Main);

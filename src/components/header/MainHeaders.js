@@ -46,10 +46,10 @@ class MainHeader extends Component {
         <View style={wrapperSearch}>
           <TextInput
             style={inputText}
-            value={this.props.textSearch}
+            value={this.state.ip}
             underlineColorAndroid="transparent"//ios khong ho tro
             placeholder="Nhập tên sản phẩm..."
-            onChangeText={text => this.setState({ ip: text })}
+            onChangeText={(text) => this.setState({ ip: text })}
           />
           <TouchableOpacity
             onPress={() => {
@@ -96,13 +96,14 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 20,
     marginLeft: 10,
-    width: width - 128
+    width: width - 128,
+    height: 40,
   },
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
     margin: 4,
-    borderRadius: 25,
+    borderRadius: 5,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
     borderColor: CONST.BORDER_COLOR,
   },
