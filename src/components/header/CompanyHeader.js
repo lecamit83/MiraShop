@@ -16,7 +16,7 @@ class CompanyHeader extends Component {
   constructor(props) {
     super(props);
     this.state={
-      kindOfCompany : this.props.title,
+      title : this.props.title,
     }
   }
 
@@ -31,7 +31,7 @@ class CompanyHeader extends Component {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{color:"#212121", fontSize: 22, fontWeight: "400",}} >{this.state.kindOfCompany}</Text>
+          <Text style={{color:"#212121", fontSize: 22, fontWeight: "400",}} >{this.state.title}</Text>
         </View>
         <View>
           <Image source={require('../../images/settings.png')} style={icon}/>

@@ -191,7 +191,7 @@ class SideMenu extends Component {
         <View style={line} />
         <TouchableOpacity
           style={item}
-          onPress={() => this.setState({ isLogin: false })}
+          onPress={() => this.props.dispatch({type: "SIGN_OUT"})}
         >
           <View style={index}>
             <View style={wrapImage}>
@@ -207,11 +207,11 @@ class SideMenu extends Component {
     );
     const LOGIN = (
       <View style={sign}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate("SignInStack")}} >
           <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
         </TouchableOpacity>
         <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate("SignUpStack")}} >
           <Text style={styles.signIn}>{CONST.SIGN_UP}</Text>
         </TouchableOpacity>
       </View>

@@ -5,7 +5,8 @@ import SearchScreen from "../SearchScreen";
 import Details from "../Details";
 import Management from "../Management";
 import SideMenu from "../slide/SideMenu";
-import Login from "../Login";
+import SignIn from "../SignIn";
+import SignUp from "../SignUp";
 
 const ProductStack = StackNavigator(
   {
@@ -29,8 +30,11 @@ const Drawer = DrawerNavigator(
     ManageStack: {
       screen: Management,
     },
-    LoginStack: {
-      screen: Login,
+    SignInStack: {
+      screen: SignIn,
+    },
+    SignUpStack : {
+      screen: SignUp,
     }
   },
   {
