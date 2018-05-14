@@ -9,14 +9,20 @@ import {
   TouchableOpacity,
   Dimensions
 } from "react-native";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger
+} from "react-native-popup-menu";
 import * as CONST from "../../const/Const";
 // create a component
 class MainHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ip: this.props.textSearch,
+      ip: this.props.textSearch
     };
   }
 
@@ -30,8 +36,70 @@ class MainHeader extends Component {
       container,
       wrapperSearch,
       iconSearch,
-      inputText
+      inputText,
+      line,
+      index,
+      wrapImage,
+      wrapText,
+      icon,
+      text,
+      item
     } = styles;
+    const MENUJSX = (
+      <Menu>
+        <MenuTrigger>
+          <Image
+            style={iconSettings}
+            source={require("../../images/add.png")}
+          />
+        </MenuTrigger>
+        <MenuOptions customStyles={optionsStyles}>
+          <View>
+            <MenuOption onSelect={() => alert(`Save`)}>
+              <View style={index}>
+                <View style={wrapImage}>
+                  <Image
+                    style={icon}
+                    source={require("../../images/medicine.png")}
+                  />
+                </View>
+                <View style={wrapText}>
+                  <Text style={text}>{CONST.THUOC}</Text>
+                </View>
+              </View>
+            </MenuOption>
+            <View style={line} />
+            <MenuOption onSelect={() => alert(`Delete`)} style={item}>
+              <View style={index}>
+                <View style={wrapImage}>
+                  <Image
+                    style={icon}
+                    source={require("../../images/medical_supplies.png")}
+                  />
+                </View>
+                <View style={wrapText}>
+                  <Text style={text}>{CONST.VT_YT}</Text>
+                </View>
+              </View>
+            </MenuOption>
+            <View style={line} />
+            <MenuOption>
+              <View style={index}>
+                <View style={wrapImage}>
+                  <Image
+                    style={icon}
+                    source={require("../../images/healthy_foods.png")}
+                  />
+                </View>
+                <View style={wrapText}>
+                  <Text style={text}>{CONST.TP_CN}</Text>
+                </View>
+              </View>
+            </MenuOption>
+          </View>
+        </MenuOptions>
+      </Menu>
+    );
     return (
       <View style={container}>
         <View style={wrapMenu}>
@@ -47,9 +115,9 @@ class MainHeader extends Component {
           <TextInput
             style={inputText}
             value={this.state.ip}
-            underlineColorAndroid="transparent"//ios khong ho tro
+            underlineColorAndroid="transparent" //ios khong ho tro
             placeholder="Nhập tên sản phẩm..."
-            onChangeText={(text) => this.setState({ ip: text })}
+            onChangeText={text => this.setState({ ip: text })}
           />
           <TouchableOpacity
             onPress={() => {
@@ -63,22 +131,20 @@ class MainHeader extends Component {
           </TouchableOpacity>
         </View>
         <View style={wrapSettings}>
-          <TouchableOpacity
-            onPress={() => {
-              alert("SETTINGS");
-            }}
-          >
-            <Image
-              source={require("../../images/settings.png")}
-              style={iconSettings}
-            />
-          </TouchableOpacity>
+          <TouchableOpacity>{MENUJSX}</TouchableOpacity>
         </View>
       </View>
     );
   }
 }
 
+const optionsStyles = {
+  optionsContainer: {
+    borderColor: CONST.BORDER_COLOR,
+    borderWidth: 1,
+    width: 300
+  }
+};
 const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
@@ -95,17 +161,21 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 20,
-    marginLeft: 10,
-    width: width - 128,
-    height: 40,
+    marginLeft: 0,
+    width: width - 124,
+    height: 40
+  },
+  item: {
+    backgroundColor: "#FFF",
+    height: 48,
+    justifyContent: "center"
   },
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 4,
     borderRadius: 5,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
-    borderColor: CONST.BORDER_COLOR,
+    borderColor: CONST.BORDER_COLOR
   },
   wrapMenu: {
     height: 30,
@@ -119,19 +189,29 @@ const styles = StyleSheet.create({
   },
   wrapSettings: {
     height: 30,
-    width: 26
+    width: 40
   },
   iconSettings: {
     height: 30,
-    width: 10,
-    marginLeft: 8
-  }
+    width: 30,
+    marginLeft: 4
+  },
+  line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6 },
+  index: { flexDirection: "row" },
+  wrapImage: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  icon: { height: 20, width: 20, resizeMode: "contain", opacity: 0.6 },
+  wrapText: { marginLeft: 16, justifyContent: "center", alignItems: "center" },
+  text: { fontSize: 16 }
 });
-
 
 function mapStateToProps(state) {
   return {
-    textSearch : state.textSearch,
+    textSearch: state.textSearch
   };
 }
 //make this component available to the app

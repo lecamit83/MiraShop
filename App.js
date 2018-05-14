@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { YellowBox } from "react-native";
 import { Provider } from "react-redux";
+import { MenuProvider } from "react-native-popup-menu";
 import Route from "./src/components/route/Route";
 import store from "./src/redux/store/store";
 YellowBox.ignoreWarnings([
@@ -12,7 +13,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Route />
+        <MenuProvider>
+          <Route />
+        </MenuProvider>
       </Provider>
     );
   }

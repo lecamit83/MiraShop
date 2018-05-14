@@ -2,10 +2,12 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ListView, FlatList, StatusBar } from "react-native";
 import { connect } from "react-redux";
+import { MenuProvider } from "react-native-popup-menu";
 
 import MainHeader from "./header/MainHeaders";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR } from "../const/Const";
+
 
 // create a component
 class Main extends Component {
