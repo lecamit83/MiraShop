@@ -23,7 +23,7 @@ const ProductStack = StackNavigator(
   },
 
   {
-    initialRouteName: "MainScreen"
+    initialRouteName: "MapScreen"
   }
 );
 
