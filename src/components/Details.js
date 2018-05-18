@@ -46,7 +46,8 @@ class Details extends Component {
       wrapImage,
       icon
     } = styles;
-    const {name, cost} = this.props.navigation.state.params;
+    const { name, cost } = this.props.navigation.state.params;
+    const { navigation } = this.props;
     return (
       <ScrollView style={{ backgroundColor: BACKGROUND_COLOR }}>
         <View style={container}>
@@ -65,8 +66,11 @@ class Details extends Component {
             <View style={wrap}>
               <Text style={textStyle}>{name}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}
-              onPress={()=>alert("MAP VIEW")}
+            <TouchableOpacity
+              style={wrapImage}
+              onPress={() => {
+                navigation.navigate("MapScreen");
+              }}
             >
               <Image style={icon} source={require("../images/pos.png")} />
             </TouchableOpacity>
@@ -77,9 +81,7 @@ class Details extends Component {
             <View style={wrap}>
               <Text style={textStyle}>{`${cost} đ`}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}
-             onPress={()=>alert("ADD")}
-            >
+            <TouchableOpacity style={wrapImage} onPress={() => alert("ADD")}>
               <Image style={icon} source={require("../images/add.png")} />
             </TouchableOpacity>
           </View>
@@ -125,21 +127,21 @@ const styles = StyleSheet.create({
     height: height * 4 / 10,
     marginTop: 2
   },
-  line: { backgroundColor: LINE, height: 1, opacity: 0.6, },
+  line: { backgroundColor: LINE, height: 1, opacity: 0.6 },
   intro: {
     margin: 5
   },
   product: {
     flexDirection: "row",
     justifyContent: "space-between",
-    height: height / 15, 
+    height: height / 15
   },
   wrap: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
     padding: 3,
-    marginBottom: 5,
+    marginBottom: 5
   },
   wrapImage: {
     height: height / 15,

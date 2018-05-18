@@ -3,6 +3,7 @@ import { DrawerNavigator, StackNavigator } from "react-navigation";
 import Main from "../Main";
 import SearchScreen from "../SearchScreen";
 import Details from "../Details";
+import MapViews from "../MapViews";
 import Management from "../Management";
 import SideMenu from "../slide/SideMenu";
 import SignIn from "../SignIn";
@@ -15,8 +16,12 @@ const ProductStack = StackNavigator(
     },
     DetailsScreen: {
       screen: Details
+    },
+    MapScreen: {
+      screen: MapViews
     }
   },
+
   {
     initialRouteName: "MainScreen"
   }
@@ -25,16 +30,16 @@ const ProductStack = StackNavigator(
 const Drawer = DrawerNavigator(
   {
     MainStack: {
-      screen: ProductStack,
+      screen: ProductStack
     },
     ManageStack: {
-      screen: Management,
+      screen: Management
     },
     SignInStack: {
-      screen: SignIn,
+      screen: SignIn
     },
-    SignUpStack : {
-      screen: SignUp,
+    SignUpStack: {
+      screen: SignUp
     }
   },
   {
@@ -47,7 +52,7 @@ export default (MainStack = StackNavigator(
   {
     SearchStack: {
       screen: SearchScreen
-    },  
+    },
     MainStack: {
       screen: Drawer,
       navigationOptions: {
