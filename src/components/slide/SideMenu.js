@@ -101,6 +101,20 @@ class SideMenu extends Component {
             <View style={wrapImage}>
               <Image
                 style={icon}
+                source={require("../../images/medical_supplies.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.MY_PHAM}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <View style={line} />
+        <TouchableOpacity style={item}>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
                 source={require("../../images/searchIcon.png")}
               />
             </View>
@@ -168,6 +182,20 @@ class SideMenu extends Component {
             </View>
             <View style={wrapText}>
               <Text style={text}>{CONST.VT_YT}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <View style={line} />
+        <TouchableOpacity style={item}>
+          <View style={index}>
+            <View style={wrapImage}>
+              <Image
+                style={icon}
+                source={require("../../images/medical_supplies.png")}
+              />
+            </View>
+            <View style={wrapText}>
+              <Text style={text}>{CONST.MY_PHAM}</Text>
             </View>
           </View>
         </TouchableOpacity>

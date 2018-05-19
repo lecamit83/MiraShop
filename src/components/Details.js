@@ -2,27 +2,31 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+  // Text,
   StyleSheet,
   ScrollView,
   Image,
   Dimensions,
   TouchableOpacity
 } from "react-native";
+
 import Swiper from "react-native-swiper";
-import Header from "./header/CompanyHeader";
+import Headers from "./header/CompanyHeader";
 import Slide from "./slide/Slide";
 import {
   BORDER_COLOR,
+  BACKGROUND_COLOR_HEADER,
   BACKGROUND_COLOR_INPUT,
   BACKGROUND_COLOR,
   LINE
 } from "../const/Const";
-// create a component
 
+import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, Body, Left, Right, IconNB } from "native-base";
+
+// create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <Header navigation={navigation} title="Chi tiết" />
+    header: <Headers navigation={navigation} title="Chi tiết" />
   });
   constructor(props) {
     super(props);
@@ -34,6 +38,7 @@ class Details extends Component {
       ]
     };
   }
+
   render() {
     const {
       container,
@@ -46,10 +51,12 @@ class Details extends Component {
       wrapImage,
       icon
     } = styles;
+
     const {name, cost} = this.props.navigation.state.params;
+
     return (
-      <ScrollView style={{ backgroundColor: BACKGROUND_COLOR }}>
-        <View style={container}>
+      <ScrollView style={{ backgroundColor: BACKGROUND_COLOR, marginLeft: 5, marginRight: 5 }}>
+        {/* <View style={container}>
           <View style={frameImage}>
             <Swiper autoplay={true}>
               {this.state.arrImage.map((item, index) => (
@@ -107,7 +114,76 @@ class Details extends Component {
               semi-transparently for a few seconds any time that gesture occurs.
             </Text>
           </View>
-        </View>
+        </View> */}
+        <Card>
+            <CardItem bordered>
+              <Left>
+                <Text style = {{fontWeight: 'bold', fontSize: 17, color: '#000000'}}>Tên Sản Phẩm</Text>
+              </Left>
+              <Right>
+                <Image style = {{height: 35, width: 35}}
+                  source = {require("../images/directions_black.png")} />
+              </Right>
+            </CardItem>
+            <CardItem bordered>
+              <Body>
+                <Image source={require("../images/sp.png")} style={{height: 200, width: width - 40, flex: 1}}/>
+              </Body>
+            </CardItem>
+            <CardItem style = {{backgroundColor: BACKGROUND_COLOR_HEADER, height: 45}}>
+              <Left>
+                <Text style = {{color: '#FFFFFF', fontWeight: 'bold', fontSize: 20}}>1.500.000 đ</Text>
+              </Left>
+              <Right>
+                <Image style = {icon}
+                  source={require("../images/add_to_company_white.png")}
+                />
+              </Right>
+            </CardItem>
+        </Card>
+        <Card>
+          <CardItem header>
+              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Thành Phần</Text>
+          </CardItem>
+          <CardItem bordered>
+            <Body>
+              <Text>
+                Mô tả về thành phần của thuốc hoặc sản phẩm. Tại đây có thể là thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà cung cấp.
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem header>
+              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Thông tin mô tả</Text>
+          </CardItem>
+          <CardItem bordered>
+            <Body>
+              <Text>
+                Immersive Immersive mode is best when users need to interact
+                heavily with the screen, such as playing a game or interacting
+                with an image gallery. You may show and hide your app’s controls
+                along with the system bars as needed. Interaction: Swipe from any
+                edge of the screen to make the system bars appear. The first time
+                an app goes full-screen, this swipe gesture is explained. Edge
+                swipe exception: Apps that use the swipe-from-edge gesture to
+                perform actions should also display the system bars when that
+                gesture is used. For example, a drawing app that uses an edge
+                swipe (such as to draw a line) should also display the system bars
+                semi-transparently for a few seconds any time that gesture occurs.
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem header>
+              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Tác dụng</Text>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Text>
+              Mô tả về tác dụng của thuốc hoặc sản phẩm.
+              Tại đây có thể là thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà cung cấp.
+              </Text>
+            </Body>
+          </CardItem>
+        </Card>
       </ScrollView>
     );
   }

@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 10,
+    height: 50,
   },
   inputData: {
     flex: 1,

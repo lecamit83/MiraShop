@@ -1,11 +1,12 @@
 export const ALL_SP = "Tất Cả Sản Phẩm";
 export const THUOC = "Thuốc";
 export const TP_CN = "Thực Phẩm Chức Năng";
-export const VT_YT = "Vật Tư Y Tế";
+export const VT_YT = "Vật Tư & Thiết Bị Y Tế";
+export const MY_PHAM = "Mỹ Phẩm";
 export const QUAN_LI = "Quản Lý Thông Tin";
 export const TIM_CONG_TY = "Tìm Công Ty";
-export const BACKGROUND_COLOR_HEADER = "#43A047";
-export const BACKGROUND_COLOR = "#F5F5F5";
+export const BACKGROUND_COLOR_HEADER = "#019688"; //"#43A047";
+export const BACKGROUND_COLOR = "#EBEBEB"; //"#F5F5F5";
 export const BACKGROUND_COLOR_INPUT = "#FFF";
 export const LINE = "#9E9E9E";
 export const BORDER_COLOR = 'lightgray';

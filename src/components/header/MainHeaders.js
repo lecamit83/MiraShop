@@ -7,7 +7,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -43,14 +44,16 @@ class MainHeader extends Component {
       wrapText,
       icon,
       text,
-      item
+      item,
+      statusBar,
+      containerAll,
     } = styles;
     const MENUJSX = (
       <Menu>
         <MenuTrigger>
           <Image
             style={iconSettings}
-            source={require("../../images/add.png")}
+            source={require("../../images/news_add_white.png")}
           />
         </MenuTrigger>
         <MenuOptions customStyles={optionsStyles}>
@@ -83,6 +86,20 @@ class MainHeader extends Component {
               </View>
             </MenuOption>
             <View style={line} />
+            <MenuOption onSelect={() => alert(`Delete`)} style={item}>
+              <View style={index}>
+                <View style={wrapImage}>
+                  <Image
+                    style={icon}
+                    source={require("../../images/medical_supplies.png")}
+                  />
+                </View>
+                <View style={wrapText}>
+                  <Text style={text}>{CONST.MY_PHAM}</Text>
+                </View>
+              </View>
+            </MenuOption>
+            <View style={line} />
             <MenuOption>
               <View style={index}>
                 <View style={wrapImage}>
@@ -101,14 +118,17 @@ class MainHeader extends Component {
       </Menu>
     );
     return (
-      <View style={container}>
+     <View style={containerAll}>
+       <View style={statusBar} ></View>
+        <View style={container}>
+        
         <View style={wrapMenu}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("DrawerOpen");
             }}
           >
-            <Image source={require("../../images/menu.png")} style={iconMenu} />
+            <Image source={require("../../images/menu_white.png")} style={iconMenu} />
           </TouchableOpacity>
         </View>
         <View style={wrapperSearch}>
@@ -116,7 +136,7 @@ class MainHeader extends Component {
             style={inputText}
             value={this.state.ip}
             underlineColorAndroid="transparent" //ios khong ho tro
-            placeholder="Nhập tên sản phẩm..."
+            placeholder="tên sản phẩm"
             onChangeText={text => this.setState({ ip: text })}
           />
           <TouchableOpacity
@@ -125,7 +145,7 @@ class MainHeader extends Component {
             }}
           >
             <Image
-              source={require("../../images/searchIcon.png")}
+              source={require("../../images/search_black.png")}
               style={iconSearch}
             />
           </TouchableOpacity>
@@ -134,6 +154,7 @@ class MainHeader extends Component {
           <TouchableOpacity>{MENUJSX}</TouchableOpacity>
         </View>
       </View>
+       </View>
     );
   }
 }
@@ -148,62 +169,83 @@ const optionsStyles = {
 const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
+  containerAll : {
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
+ 
+  },
   container: {
-    height: height / 10.5,
+    height: 56,
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
+
   iconSearch: {
     height: 30,
     width: 30,
-    marginRight: 8
   },
+
   inputText: {
     fontSize: 20,
     marginLeft: 0,
     width: width - 124,
-    height: 40
+    height: 30
   },
+
   item: {
     backgroundColor: "#FFF",
     height: 48,
     justifyContent: "center"
   },
+
+  statusBar:{
+    height: (Platform.OS === 'ios') ? 20 : 0,
+    backgroundColor: "#FFF",
+  },
+
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius:3,
+    padding: 5,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
     borderColor: CONST.BORDER_COLOR
   },
+
   wrapMenu: {
     height: 30,
     width: 46
   },
+
   iconMenu: {
     height: 30,
     width: 30,
     marginLeft: 8,
     marginRight: 8
   },
+
   wrapSettings: {
     height: 30,
     width: 40
   },
+
   iconSettings: {
     height: 30,
     width: 30,
     marginLeft: 4
   },
+
   line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6 },
+
   index: { flexDirection: "row" },
+
   wrapImage: {
     height: 40,
     width: 40,
     justifyContent: "center",
     alignItems: "center"
   },
+
   icon: { height: 20, width: 20, resizeMode: "contain", opacity: 0.6 },
   wrapText: { marginLeft: 16, justifyContent: "center", alignItems: "center" },
   text: { fontSize: 16 }

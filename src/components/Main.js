@@ -8,7 +8,6 @@ import MainHeader from "./header/MainHeaders";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 
-
 // create a component
 class Main extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -26,7 +25,7 @@ class Main extends Component {
           data={products}
           renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost}/>}
           keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
+          numColumns={1}
         />
       </View>
     );
@@ -37,8 +36,10 @@ class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // margin: 5,
     backgroundColor: BACKGROUND_COLOR
   },
+
   wrapperItem: {
     flexDirection: "row",
     flexWrap: "wrap"

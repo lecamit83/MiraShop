@@ -35,6 +35,7 @@ class SearchScreen extends Component {
       iconSearch,
       inputText,
       welcomeText,
+      line,
       welcomeWrapper
     } = styles;
 
@@ -48,9 +49,10 @@ class SearchScreen extends Component {
             <TextInput
               style={inputText}
               underlineColorAndroid="transparent"
-              placeholder="Nhập tên sản phẩm..."
+              placeholder="Nhập tên sản phẩm bạn muốn tìm"
               onChangeText={(textSearch)=>this.setState({textSearch})}
             />
+            <View style={line} />
             <TouchableOpacity
               onPress={() => {
                 this.props.dispatch({
@@ -62,7 +64,7 @@ class SearchScreen extends Component {
               }}
             >
               <Image
-                source={require("../images/searchIcon.png")}
+                source={require("../images/search_black.png")}
                 style={iconSearch}
               />
             </TouchableOpacity>
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_HEADER,
+    padding: 10,
   },
   logoApp: {
     flex: 5,
@@ -95,27 +98,46 @@ const styles = StyleSheet.create({
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 4,
+    margin: 5,
+    padding: 5,
     backgroundColor: BACKGROUND_COLOR_INPUT,
-    borderRadius: 25
+    borderRadius: 25,
+    //backgroundColor: 'rgba(0,0,0,0)', 
   },
   image: {
     height: (width - 10) * 66 / 144,
     width: width - 10,
     resizeMode: "contain"
   },
+
   iconSearch: {
     height: 30,
     width: 30,
-    marginRight: 8
+    marginLeft: 5,
+    marginRight: 5,
   },
-  inputText: { flex: 1, fontSize: 20, marginLeft: 10 },
+
+  inputText: { 
+    flex: 1, 
+    height: 40,
+    fontSize: 20, 
+    marginLeft: 5,
+    marginRight: 5,
+  },
+
   welcomeText: {
     fontSize: 20,
     color: "#FFF",
     fontWeight: "bold",
     opacity: 0.6
   },
+
+  line: { 
+    backgroundColor: BACKGROUND_COLOR_HEADER,
+    width: 1, 
+    height: 30, 
+  },
+
   welcomeWrapper: {
     justifyContent: "center",
     alignItems: "center",
