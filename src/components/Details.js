@@ -21,7 +21,7 @@ import {
   LINE
 } from "../const/Const";
 
-import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, Body, Left, Right, IconNB } from "native-base";
+import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, Body, Left, Right, IconNB} from "native-base";
 
 // create a component
 class Details extends Component {
@@ -52,8 +52,8 @@ class Details extends Component {
       icon
     } = styles;
 
-    const {name, cost} = this.props.navigation.state.params;
-
+    const { name, cost } = this.props.navigation.state.params;
+    const { navigation } = this.props;
     return (
       
       <ScrollView style={{ backgroundColor: BACKGROUND_COLOR, marginLeft: 5, marginRight: 5 }}>
@@ -73,8 +73,11 @@ class Details extends Component {
             <View style={wrap}>
               <Text style={textStyle}>{name}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}
-              onPress={()=>alert("MAP VIEW")}
+            <TouchableOpacity
+              style={wrapImage}
+              onPress={() => {
+                navigation.navigate("MapScreen");
+              }}
             >
               <Image style={icon} source={require("../images/pos.png")} />
             </TouchableOpacity>
@@ -85,9 +88,7 @@ class Details extends Component {
             <View style={wrap}>
               <Text style={textStyle}>{`${cost} đ`}</Text>
             </View>
-            <TouchableOpacity style={wrapImage}
-             onPress={()=>alert("ADD")}
-            >
+            <TouchableOpacity style={wrapImage} onPress={() => alert("ADD")}>
               <Image style={icon} source={require("../images/add.png")} />
             </TouchableOpacity>
           </View>
@@ -122,7 +123,8 @@ class Details extends Component {
                 <Text style = {{fontWeight: 'bold', fontSize: 17, color: '#000000'}}>Tên Sản Phẩm</Text>
               </Left>
               <Right>
-                <Image style = {{height: 35, width: 35}}
+                <Image 
+                  style = {{height: 35, width: 35}}
                   source = {require("../images/directions_black.png")} />
               </Right>
             </CardItem>
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
 
-  line: { backgroundColor: LINE, height: 1, opacity: 0.6, },
+  line: { backgroundColor: LINE, height: 1, opacity: 0.6 },
   intro: {
     margin: 5
   },
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
   product: {
     flexDirection: "row",
     justifyContent: "space-between",
-    height: height / 15, 
+    height: height / 15
   },
 
   wrap: {
@@ -221,7 +223,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 5,
     padding: 3,
-    marginBottom: 5,
+    marginBottom: 5
   },
 
   wrapImage: {
