@@ -26,7 +26,7 @@ import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, 
 // create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <Headers navigation={navigation} title="Chi tiết" />
+    header: <Headers navigation={navigation} title = "Chi tiết" />
   });
   constructor(props) {
     super(props);
@@ -55,6 +55,7 @@ class Details extends Component {
     const {name, cost} = this.props.navigation.state.params;
 
     return (
+      
       <ScrollView style={{ backgroundColor: BACKGROUND_COLOR, marginLeft: 5, marginRight: 5 }}>
         {/* <View style={container}>
           <View style={frameImage}>
@@ -190,26 +191,31 @@ class Details extends Component {
 }
 
 const { height, width } = Dimensions.get("window");
+
 // define your styles
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center"
   },
+
   frameImage: {
     width: width - 6,
     height: height * 4 / 10,
     marginTop: 2
   },
+
   line: { backgroundColor: LINE, height: 1, opacity: 0.6, },
   intro: {
     margin: 5
   },
+
   product: {
     flexDirection: "row",
     justifyContent: "space-between",
     height: height / 15, 
   },
+
   wrap: {
     justifyContent: "center",
     alignItems: "center",
@@ -217,17 +223,20 @@ const styles = StyleSheet.create({
     padding: 3,
     marginBottom: 5,
   },
+
   wrapImage: {
     height: height / 15,
     width: height / 15,
     justifyContent: "center",
     alignItems: "center"
   },
+
   icon: {
     height: 24,
     width: 24,
     resizeMode: "contain"
   },
+  
   textStyle: {
     color: "#FF8F00",
     fontSize: 15

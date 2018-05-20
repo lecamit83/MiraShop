@@ -1,27 +1,47 @@
 //import liraries
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Container, Content, Form, Item, Button, Input, Label } from 'native-base';
 
 import UserInput from "./items/UserInput";
 import Header from "./header/CompanyHeader";
-import { SO_DIEN_THOAI, PASSWORD, SIGN_IN } from "../const/Const";
+import { SO_DIEN_THOAI, PASSWORD, SIGN_IN, BACKGROUND_COLOR_HEADER } from "../const/Const";
 // create a component
 class SignIn extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={styles.contentWrapper}>
+      // <View style={styles.contentWrapper}>
+      //   <Header navigation={navigation} title={SIGN_IN} />
+      //   <View>
+      //     <View>
+      //       <UserInput placeholder={SO_DIEN_THOAI} />
+      //       <UserInput placeholder={PASSWORD} secure={true} />
+      //       <TouchableOpacity style={styles.borderButton}>
+      //         <Text style={styles.textButton}>{SIGN_IN}</Text>
+      //       </TouchableOpacity>
+      //     </View>
+      //   </View>
+      // </View>
+
+      <Container>
         <Header navigation={navigation} title={SIGN_IN} />
-        <View>
-          <View>
-            <UserInput placeholder={SO_DIEN_THOAI} />
-            <UserInput placeholder={PASSWORD} secure={true} />
-            <TouchableOpacity style={styles.borderButton}>
-              <Text style={styles.textButton}>{SIGN_IN}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+        <Content style = {{marginLeft: 15, marginRight: 15, alignContent: "center"}}>
+          <Form>
+            <Item floatingLabel >
+              <Label>{SO_DIEN_THOAI}</Label>
+              <Input />
+            </Item>
+            <Item floatingLabel>
+              <Label>{PASSWORD}</Label>
+              <Input />
+            </Item>
+            <Button full info style = {{margin: 15, marginTop: 45, borderRadius: 5, backgroundColor: BACKGROUND_COLOR_HEADER}}>
+              <Text>ĐĂNG NHẬP</Text>
+            </Button>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }
@@ -32,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white"
   },
+
   borderButton: {
     marginTop: 5,
     borderColor: "gray",

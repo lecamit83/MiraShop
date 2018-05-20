@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   View,
-  Text,
+  // Text,
   Image,
   ScrollView,
   TouchableOpacity,
   Dimensions
 } from "react-native";
+
 import { DrawerItems, SafeAreaView } from "react-navigation";
-
+import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import * as CONST from "../../const/Const";
-
 import { connect } from "react-redux";
 
 class SideMenu extends Component {
@@ -125,6 +125,7 @@ class SideMenu extends Component {
         </TouchableOpacity>
       </ScrollView>
     );
+
     const IsLoginJSX = (
       <ScrollView>
         <TouchableOpacity
@@ -219,7 +220,7 @@ class SideMenu extends Component {
         <View style={line} />
         <TouchableOpacity
           style={item}
-          onPress={() => this.props.dispatch({type: "SIGN_OUT"})}
+          onPress={() => this.props.dispatch({ type: "SIGN_OUT" })}
         >
           <View style={index}>
             <View style={wrapImage}>
@@ -233,27 +234,104 @@ class SideMenu extends Component {
         <View style={line} />
       </ScrollView>
     );
+
     const LOGIN = (
       <View style={sign}>
-        <TouchableOpacity onPress={()=>{navigation.navigate("SignInStack")}} >
+        <Button transparent onPress={() => { navigation.navigate("SignInStack") }} >
           <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
-        </TouchableOpacity>
+        </Button>
         <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
-        <TouchableOpacity onPress={()=>{navigation.navigate("SignUpStack")}} >
+        <Button transparent onPress={() => { navigation.navigate("SignUpStack") }} >
           <Text style={styles.signIn}>{CONST.SIGN_UP}</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
     );
 
-    const SideMenuJSX = this.props.isLogin ? IsLoginJSX : IsntLoginJSX;
+    const LIST_MENU_ITEM = (
+      <Content>
+        <List>
+          <ListItem itemDivider style = {{marginTop: 15}}>
+            <Text style = {{fontWeight: 'bold'}}>DANH MỤC SẢN PHẨM</Text>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="plane" />
+            </Left>
+            <Body>
+              <Text>Thuốc</Text>
+            </Body>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="wifi" />
+            </Left>
+            <Body>
+              <Text>Thực Phẩm Chức Năng</Text>
+            </Body>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="bluetooth" />
+            </Left>
+            <Body>
+              <Text>Vật Tư & Thiết Bị Y Tế</Text>
+            </Body>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="bluetooth" />
+            </Left>
+            <Body>
+              <Text>Mỹ Phẩm</Text>
+            </Body>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem itemDivider style = {{marginTop: 15}}>
+            <Text style = {{fontWeight: 'bold'}}>CÔNG TY</Text>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="plane" />
+            </Left>
+            <Body>
+              <Text>Tìm Công Ty</Text>
+            </Body>
+            <Right>
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+        </List>
+      </Content>
+    );
+
+    // const SideMenuJSX = this.props.isLogin ? IsLoginJSX : IsntLoginJSX;
     const LOGINJSX = this.props.isLogin ? null : LOGIN;
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
-          <Image style={imageLogo} source={require("../../images/logo.png")} />
-          {LOGINJSX}
+          {/* <Image style={imageLogo} source={require("../../images/logo.png")} /> */}
+          <Left>
+            <Thumbnail source={require("../../images/profile.png")} />
+          </Left>
+          <Body>
+            <Text style={{ fontSize: 17, color: '#FFF', fontWeight: 'bold', marginTop: 10, marginBottom: 5 }}>USER NAME</Text>
+            <Text note>31 Trần Phú, Q. Hải Châu, TP. Đà Nẵng</Text>
+          </Body>
+          {LOGINJSX}  
         </View>
-        <View style={wrapIndex}>{SideMenuJSX}</View>
+        {/* <View style={wrapIndex}>{SideMenuJSX}</View> */}
+        <View style={wrapIndex}>{LIST_MENU_ITEM}</View>
       </SafeAreaView>
     );
   }
@@ -273,43 +351,56 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFF"
   },
+
   wrapLogo: {
     flex: 3,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: CONST.BACKGROUND_COLOR_HEADER
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
+    paddingTop: 15,
+    padding: 5
   },
+
   imageLogo: {
     width: width * 2 / 3,
     height: width * 2 / 3 * 66 / 144
   },
+
   wrapIndex: {
-    flex: 7,
-    marginLeft: 16,
-    marginRight: 16
+    flex: 10,
+    // marginLeft: 16,
+    // marginRight: 16
   },
+
   item: {
     backgroundColor: "#FFF",
     height: 48,
     justifyContent: "center"
   },
+
   sign: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    // marginTop: 15
   },
+
   signIn: {
-    fontSize: 15,
-    padding: 4
+    fontSize: 17,
+    // padding: 4,
+    color: "#000"
   },
+
   line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6, },
   index: { flexDirection: "row" },
+
   wrapImage: {
     height: 40,
     width: 40,
     justifyContent: "center",
     alignItems: "center"
   },
+
   icon: { height: 20, width: 20, resizeMode: "contain", opacity: 0.6 },
   wrapText: { marginLeft: 16, justifyContent: "center", alignItems: "center" },
   text: { fontSize: 16 }

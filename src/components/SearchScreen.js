@@ -85,16 +85,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_HEADER,
-    padding: 10,
+    padding: 15,
   },
+
   logoApp: {
     flex: 5,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginLeft: 15,
+    marginRight: 15
   },
+
   searchIcon: {
     flex: 5,
   },
+
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
@@ -104,6 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     //backgroundColor: 'rgba(0,0,0,0)', 
   },
+
   image: {
     height: (width - 10) * 66 / 144,
     width: width - 10,

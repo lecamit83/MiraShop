@@ -9,7 +9,7 @@ import {
   Image
 } from "react-native";
 
-import {BACKGROUND_COLOR_HEADER , BACKGROUND_COLOR} from "../../const/Const";
+import { HEADER_HEIGHT, BACKGROUND_COLOR_HEADER , BACKGROUND_COLOR} from "../../const/Const";
 
 // create a component
 class CompanyHeader extends Component {
@@ -42,21 +42,24 @@ class CompanyHeader extends Component {
 }
 
 const { height, width } = Dimensions.get("window");
+
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    height: height / 10.5,
+    height: HEADER_HEIGHT,
     backgroundColor: BACKGROUND_COLOR_HEADER,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center"
   },
+  
   icon: {
     height: 30,
     width: 30,
     marginLeft: 8,
     marginRight: 8
   },
+  
   iconBack: {
     height: 35,
     width: 35,

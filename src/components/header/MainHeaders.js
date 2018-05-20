@@ -2,13 +2,12 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+  // Text,
   StyleSheet,
   Image,
   TextInput,
   TouchableOpacity,
-  Dimensions,
-  Platform
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -17,7 +16,12 @@ import {
   MenuOption,
   MenuTrigger
 } from "react-native-popup-menu";
-import * as CONST from "../../const/Const";
+
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
+
+import * as CONST from "../../const/Const.js";
+// import * as STYLES from "../../const/Styles.js";
+
 // create a component
 class MainHeader extends Component {
   constructor(props) {
@@ -45,7 +49,6 @@ class MainHeader extends Component {
       icon,
       text,
       item,
-      statusBar,
       containerAll,
     } = styles;
     const MENUJSX = (
@@ -56,8 +59,8 @@ class MainHeader extends Component {
             source={require("../../images/news_add_white.png")}
           />
         </MenuTrigger>
-        <MenuOptions customStyles={optionsStyles}>
-          <View>
+        <MenuOptions style={{ padding: 3, backgroundColor: CONST.BACKGROUND_COLOR }}>
+          {/* <View>
             <MenuOption onSelect={() => alert(`Save`)}>
               <View style={index}>
                 <View style={wrapImage}>
@@ -113,48 +116,81 @@ class MainHeader extends Component {
                 </View>
               </View>
             </MenuOption>
-          </View>
+          </View> */}
+          <Card>
+            <CardItem header style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}>
+              <Text style={{ fontSize: 17, color: '#FFF' }}>Thêm Mới</Text>
+            </CardItem>
+            <CardItem bordered>
+              <Icon active name="logo-googleplus" />
+              <Text>Thuốc</Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem bordered>
+              <Icon active name="logo-googleplus" />
+              <Text>Thực Phẩm Chức Năng</Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem bordered>
+              <Icon active name="logo-googleplus" />
+              <Text>Vật Tư & Thiết Bị Y Tế</Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Icon active name="logo-googleplus" />
+              <Text>Mỹ Phẩm</Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+          </Card>
         </MenuOptions>
       </Menu>
     );
     return (
-     <View style={containerAll}>
-       <View style={statusBar} ></View>
+      <View style={containerAll}>
+        {/* <View style={STYLES.statusBar} ></View> */}
         <View style={container}>
-        
-        <View style={wrapMenu}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("DrawerOpen");
-            }}
-          >
-            <Image source={require("../../images/menu_white.png")} style={iconMenu} />
-          </TouchableOpacity>
-        </View>
-        <View style={wrapperSearch}>
-          <TextInput
-            style={inputText}
-            value={this.state.ip}
-            underlineColorAndroid="transparent" //ios khong ho tro
-            placeholder="tên sản phẩm"
-            onChangeText={text => this.setState({ ip: text })}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              console.log("SEARCH IN HEADER: " + this.props.textSearch);
-            }}
-          >
-            <Image
-              source={require("../../images/search_black.png")}
-              style={iconSearch}
+
+          <View style={wrapMenu}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("DrawerOpen");
+              }}
+            >
+              <Image source={require("../../images/menu_white.png")} style={iconMenu} />
+            </TouchableOpacity>
+          </View>
+          <View style={wrapperSearch}>
+            <TextInput
+              style={inputText}
+              value={this.state.ip}
+              underlineColorAndroid="transparent" //ios khong ho tro
+              placeholder="tên sản phẩm"
+              onChangeText={text => this.setState({ ip: text })}
             />
-          </TouchableOpacity>
-        </View>
-        <View style={wrapSettings}>
-          <TouchableOpacity>{MENUJSX}</TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("SEARCH IN HEADER: " + this.props.textSearch);
+              }}
+            >
+              <Image
+                source={require("../../images/search_black.png")}
+                style={iconSearch}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={wrapSettings}>
+            <TouchableOpacity>{MENUJSX}</TouchableOpacity>
+          </View>
         </View>
       </View>
-       </View>
     );
   }
 }
@@ -166,15 +202,17 @@ const optionsStyles = {
     width: 300
   }
 };
+
 const { height, width } = Dimensions.get("window");
+
 // define your styles
 const styles = StyleSheet.create({
-  containerAll : {
+  containerAll: {
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
- 
   },
+
   container: {
-    height: 56,
+    height: CONST.HEADER_HEIGHT,
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
     flexDirection: "row",
     alignItems: "center",
@@ -198,15 +236,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
-  statusBar:{
-    height: (Platform.OS === 'ios') ? 20 : 0,
-    backgroundColor: "#FFF",
-  },
-
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius:3,
+    borderRadius: 3,
     padding: 5,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
     borderColor: CONST.BORDER_COLOR
