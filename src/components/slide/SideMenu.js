@@ -10,7 +10,22 @@ import {
 } from "react-native";
 
 import { DrawerItems, SafeAreaView } from "react-navigation";
-import { Container, Header, Content, Card, CardItem, Thumbnail, List, ListItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Thumbnail,
+  List,
+  ListItem,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right
+} from "native-base";
 import * as CONST from "../../const/Const";
 import { connect } from "react-redux";
 
@@ -237,11 +252,21 @@ class SideMenu extends Component {
 
     const LOGIN = (
       <View style={sign}>
-        <Button transparent onPress={() => { navigation.navigate("SignInStack") }} >
+        <Button
+          transparent
+          onPress={() => {
+            navigation.navigate("SignInStack");
+          }}
+        >
           <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
         </Button>
         <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
-        <Button transparent onPress={() => { navigation.navigate("SignUpStack") }} >
+        <Button
+          transparent
+          onPress={() => {
+            navigation.navigate("SignUpStack");
+          }}
+        >
           <Text style={styles.signIn}>{CONST.SIGN_UP}</Text>
         </Button>
       </View>
@@ -250,8 +275,8 @@ class SideMenu extends Component {
     const LIST_MENU_ITEM = (
       <Content>
         <List>
-          <ListItem itemDivider style = {{marginTop: 15}}>
-            <Text style = {{fontWeight: 'bold'}}>DANH MỤC SẢN PHẨM</Text>
+          <ListItem itemDivider>
+            <Text style={{ fontWeight: "bold" }}>DANH MỤC SẢN PHẨM</Text>
           </ListItem>
           <ListItem icon>
             <Left>
@@ -297,19 +322,21 @@ class SideMenu extends Component {
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem itemDivider style = {{marginTop: 15}}>
-            <Text style = {{fontWeight: 'bold'}}>CÔNG TY</Text>
+          <ListItem itemDivider>
+            <Text style={{ fontWeight: "bold" }}>CÔNG TY</Text>
           </ListItem>
           <ListItem icon>
-            <Left>
-              <Icon name="plane" />
-            </Left>
-            <Body>
-              <Text>Tìm Công Ty</Text>
-            </Body>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
+            <TouchableOpacity style={{flexDirection: "row"}} onPress={()=>{navigation.navigate("CompanyStack")}}>
+              <Left>
+                <Icon name="plane" />
+              </Left>
+              <Body>
+                <Text>Tìm Công Ty</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
           </ListItem>
         </List>
       </Content>
@@ -320,17 +347,25 @@ class SideMenu extends Component {
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
-          {/* <Image style={imageLogo} source={require("../../images/logo.png")} /> */}
           <Left>
             <Thumbnail source={require("../../images/profile.png")} />
           </Left>
           <Body>
-            <Text style={{ fontSize: 17, color: '#FFF', fontWeight: 'bold', marginTop: 10, marginBottom: 5 }}>USER NAME</Text>
+            <Text
+              style={{
+                fontSize: 17,
+                color: "#FFF",
+                fontWeight: "bold",
+                marginTop: 10,
+                marginBottom: 5
+              }}
+            >
+              USER NAME
+            </Text>
             <Text note>31 Trần Phú, Q. Hải Châu, TP. Đà Nẵng</Text>
           </Body>
-          {LOGINJSX}  
+          {LOGINJSX}
         </View>
-        {/* <View style={wrapIndex}>{SideMenuJSX}</View> */}
         <View style={wrapIndex}>{LIST_MENU_ITEM}</View>
       </SafeAreaView>
     );
@@ -353,7 +388,7 @@ const styles = StyleSheet.create({
   },
 
   wrapLogo: {
-    flex: 3,
+    flex: 4,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
@@ -367,7 +402,7 @@ const styles = StyleSheet.create({
   },
 
   wrapIndex: {
-    flex: 10,
+    flex: 10
     // marginLeft: 16,
     // marginRight: 16
   },
@@ -381,7 +416,7 @@ const styles = StyleSheet.create({
   sign: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
     // marginTop: 15
   },
 
@@ -391,7 +426,7 @@ const styles = StyleSheet.create({
     color: "#000"
   },
 
-  line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6, },
+  line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6 },
   index: { flexDirection: "row" },
 
   wrapImage: {

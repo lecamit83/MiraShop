@@ -7,7 +7,9 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  StatusBar,
+  Platform
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -59,7 +61,9 @@ class MainHeader extends Component {
             source={require("../../images/news_add_white.png")}
           />
         </MenuTrigger>
-        <MenuOptions style={{ padding: 3, backgroundColor: CONST.BACKGROUND_COLOR }}>
+        <MenuOptions 
+          customStyles={optionsStyles}
+        >
           {/* <View>
             <MenuOption onSelect={() => alert(`Save`)}>
               <View style={index}>
@@ -117,45 +121,47 @@ class MainHeader extends Component {
               </View>
             </MenuOption>
           </View> */}
+          
           <Card>
             <CardItem header style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}>
               <Text style={{ fontSize: 17, color: '#FFF' }}>Thêm Mới</Text>
             </CardItem>
-            <CardItem bordered>
-              <Icon active name="logo-googleplus" />
-              <Text>Thuốc</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Icon active name="logo-googleplus" />
-              <Text>Thực Phẩm Chức Năng</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Icon active name="logo-googleplus" />
-              <Text>Vật Tư & Thiết Bị Y Tế</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
-            <CardItem>
-              <Icon active name="logo-googleplus" />
-              <Text>Mỹ Phẩm</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
+            <MenuOption onSelect={() => alert(`THUOC`)} style={item} >
+              <CardItem bordered>
+                <Icon active name="logo-googleplus" />
+                <Text>Thuốc</Text>
+              </CardItem>
+            </MenuOption>
+            <MenuOption onSelect={() => alert(`TPCN`)} style={item} >
+              <CardItem bordered>
+                <Icon active name="logo-googleplus" />
+                <Text>Thực Phẩm Chức Năng</Text>
+              </CardItem>
+            </MenuOption>
+            <MenuOption onSelect={() => alert(`TBYT`)} style={item} >
+              <CardItem bordered>
+                <Icon active name="logo-googleplus" />
+                <Text>Vật Tư & Thiết Bị Y Tế</Text>
+              </CardItem>
+            </MenuOption>
+            <MenuOption onSelect={() => alert(`MP`)} style={item} >
+              <CardItem bordered>
+                <Icon active name="logo-googleplus" />
+                <Text>Mỹ Phẩm</Text>
+              </CardItem>
+            </MenuOption>
           </Card>
         </MenuOptions>
       </Menu>
     );
     return (
       <View style={containerAll}>
-        {/* <View style={STYLES.statusBar} ></View> */}
+        <StatusBar
+          style={{
+            height: Platform.OS === "ios" ? 20 : 0,
+            backgroundColor: CONST.BACKGROUND_COLOR_HEADER
+          }}
+        />
         <View style={container}>
 
           <View style={wrapMenu}>
@@ -172,7 +178,7 @@ class MainHeader extends Component {
               style={inputText}
               value={this.state.ip}
               underlineColorAndroid="transparent" //ios khong ho tro
-              placeholder="tên sản phẩm"
+              placeholder="Tên sản phẩm"
               onChangeText={text => this.setState({ ip: text })}
             />
             <TouchableOpacity
@@ -199,7 +205,7 @@ const optionsStyles = {
   optionsContainer: {
     borderColor: CONST.BORDER_COLOR,
     borderWidth: 1,
-    width: 300
+    width: 300,
   }
 };
 
@@ -224,23 +230,20 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
-    fontSize: 20,
-    marginLeft: 0,
+    fontSize: 18,
     width: width - 124,
-    height: 30
+    height: 40
   },
 
   item: {
-    backgroundColor: "#FFF",
-    height: 48,
-    justifyContent: "center"
+    padding: 0,
   },
 
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 3,
-    padding: 5,
+    height: 40,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
     borderColor: CONST.BORDER_COLOR
   },

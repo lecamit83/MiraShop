@@ -8,6 +8,9 @@ import Management from "../Management";
 import SideMenu from "../slide/SideMenu";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
+import ListCompany from "../ListCompany";
+
+
 
 const ProductStack = StackNavigator(
   {
@@ -21,7 +24,6 @@ const ProductStack = StackNavigator(
       screen: MapViews
     }
   },
-
   {
     initialRouteName: "MainScreen"
   }
@@ -32,8 +34,8 @@ const Drawer = DrawerNavigator(
     MainStack: {
       screen: ProductStack
     },
-    ManageStack: {
-      screen: Management
+    CompanyStack: {
+      screen: ListCompany,
     },
     SignInStack: {
       screen: SignIn
@@ -48,6 +50,8 @@ const Drawer = DrawerNavigator(
   }
 );
 
+
+
 export default (MainStack = StackNavigator(
   {
     SearchStack: {
@@ -61,7 +65,9 @@ export default (MainStack = StackNavigator(
     }
   },
   {
-    // initialRouteName: "MainStack"
     initialRouteName: "SearchStack"
   }
 ));
+
+
+

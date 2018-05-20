@@ -8,15 +8,33 @@ import {
   Image
 } from "react-native";
 
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Thumbnail,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right
+} from "native-base";
+import {
+  BORDER_COLOR,
+  BACKGROUND_COLOR_INPUT,
+  BACKGROUND_COLOR_HEADER,
+  BACKGROUND_COLOR
+} from "../../const/Const";
 
 // create a component
 class ProductItem extends Component {
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
     const { navigation, name, cost } = this.props;
- 
+
     return (
       // <TouchableOpacity
       //   // style={item}
@@ -41,44 +59,61 @@ class ProductItem extends Component {
       // </TouchableOpacity>
 
       <TouchableOpacity
-        // style={item}
-        style = {{marginLeft: 5, marginRight: 5}}
-        onPress={() => navigation.navigate("DetailsScreen", {name: name, cost: cost})}
+        style={{ marginLeft: 5, marginRight: 5 }}
+        onPress={() =>
+          navigation.navigate("DetailsScreen", { name: name, cost: cost })
+        }
       >
-        <Card style={{flex: 0}}>
-            <CardItem bordered>
-              <Left>
-                <Thumbnail source={require("../../images/sp.png")} />
-                <Body>
-                  <Text style = {{fontSize: 17}}>Tên Sản Phẩm</Text>
-                  <Text style = {{marginTop: 5}} note>April 15, 2018</Text>
-                </Body>
-              </Left>
-              <Right>
-                <Image style = {{height: 35, width: 35}}
-                  source = {require("../../images/directions_black.png")} />
-              </Right>
-            </CardItem>
-            {/* <View style={line} /> */}
-            <CardItem>
+        <Card style={{ flex: 0 }}>
+          <CardItem bordered>
+            <Left>
+              <Thumbnail source={require("../../images/sp.png")} />
               <Body>
-                <Image source={require("../../images/sp.png")} style={{height: 200, width: width - 40, flex: 1}}/>
-                <Text style = {{marginTop: 10}}>
-                  Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai day
+                <Text style={{ fontSize: 17 }}>Tên Sản Phẩm</Text>
+                <Text style={{ marginTop: 5 }} note>
+                  April 15, 2018
                 </Text>
               </Body>
-            </CardItem>
-            <CardItem style = {{backgroundColor: BACKGROUND_COLOR_HEADER, height: 45}}>
-              <Left>
-                <Text style = {{color: '#FFFFFF', fontWeight: 'bold', fontSize: 20}}>1.500.000 đ</Text>
-              </Left>
+            </Left>
+            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
               <Right>
-                <Image style = {icon}
-                  source={require("../../images/add_to_company_white.png")}
+                <Image
+                  style={{ height: 35, width: 35 }}
+                  source={require("../../images/directions_black.png")}
                 />
               </Right>
-            </CardItem>
-          </Card>
+            </TouchableOpacity>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Image
+                source={require("../../images/sp.png")}
+                style={{ height: 200, width: width - 40, flex: 1 }}
+              />
+              <Text style={{ marginTop: 10 }}>
+                Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
+                day
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem
+            style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
+          >
+            <Left>
+              <Text
+                style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
+              >
+                1.500.000 đ
+              </Text>
+            </Left>
+            <Right>
+              <Image
+                style={icon}
+                source={require("../../images/add_to_company_white.png")}
+              />
+            </Right>
+          </CardItem>
+        </Card>
       </TouchableOpacity>
     );
   }
@@ -96,7 +131,8 @@ const styles = StyleSheet.create({
     borderColor: BORDER_COLOR
   },
 
-  line: { backgroundColor: BACKGROUND_COLOR_HEADER, 
+  line: {
+    backgroundColor: BACKGROUND_COLOR_HEADER,
     height: 0.3,
     marginLeft: 15,
     marginRight: 15
@@ -116,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 3,
+    marginTop: 3
   },
 
   wrap: {
@@ -132,7 +168,7 @@ const styles = StyleSheet.create({
   icon: {
     height: 30,
     width: 30,
-    marginLeft: 5,
+    marginLeft: 5
   },
 
   buttonAdd: {

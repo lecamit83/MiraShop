@@ -21,12 +21,26 @@ import {
   LINE
 } from "../const/Const";
 
-import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, Body, Left, Right, IconNB} from "native-base";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Button,
+  Icon,
+  Card,
+  CardItem,
+  Text,
+  Body,
+  Left,
+  Right,
+  IconNB
+} from "native-base";
 
 // create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <Headers navigation={navigation} title = "Chi tiết" />
+    header: <Headers navigation={navigation} title="Chi tiết" />
   });
   constructor(props) {
     super(props);
@@ -55,8 +69,13 @@ class Details extends Component {
     const { name, cost } = this.props.navigation.state.params;
     const { navigation } = this.props;
     return (
-      
-      <ScrollView style={{ backgroundColor: BACKGROUND_COLOR, marginLeft: 5, marginRight: 5 }}>
+      <ScrollView
+        style={{
+          backgroundColor: BACKGROUND_COLOR,
+          marginLeft: 5,
+          marginRight: 5
+        }}
+      >
         {/* <View style={container}>
           <View style={frameImage}>
             <Swiper autoplay={true}>
@@ -118,45 +137,68 @@ class Details extends Component {
           </View>
         </View> */}
         <Card>
-            <CardItem bordered>
-              <Left>
-                <Text style = {{fontWeight: 'bold', fontSize: 17, color: '#000000'}}>Tên Sản Phẩm</Text>
-              </Left>
+          <CardItem bordered>
+            <Left>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 17, color: "#000000" }}
+              >
+                Tên Sản Phẩm
+              </Text>
+            </Left>
+            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
               <Right>
-                <Image 
-                  style = {{height: 35, width: 35}}
-                  source = {require("../images/directions_black.png")} />
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Body>
-                <Image source={require("../images/sp.png")} style={{height: 200, width: width - 40, flex: 1}}/>
-              </Body>
-            </CardItem>
-            <CardItem style = {{backgroundColor: BACKGROUND_COLOR_HEADER, height: 45}}>
-              <Left>
-                <Text style = {{color: '#FFFFFF', fontWeight: 'bold', fontSize: 20}}>1.500.000 đ</Text>
-              </Left>
-              <Right>
-                <Image style = {icon}
-                  source={require("../images/add_to_company_white.png")}
+                <Image
+                  style={{ height: 35, width: 35 }}
+                  source={require("../images/directions_black.png")}
                 />
               </Right>
-            </CardItem>
+            </TouchableOpacity>
+          </CardItem>
+          <CardItem bordered>
+            <Body>
+              <Image
+                source={require("../images/sp.png")}
+                style={{ height: 200, width: width - 40, flex: 1 }}
+              />
+            </Body>
+          </CardItem>
+          <CardItem
+            style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
+          >
+            <Left>
+              <Text
+                style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
+              >
+                1.500.000 đ
+              </Text>
+            </Left>
+            <Right>
+              <Image
+                style={icon}
+                source={require("../images/add_to_company_white.png")}
+              />
+            </Right>
+          </CardItem>
         </Card>
         <Card>
           <CardItem header>
-              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Thành Phần</Text>
+            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+              Thành Phần
+            </Text>
           </CardItem>
           <CardItem bordered>
             <Body>
               <Text>
-                Mô tả về thành phần của thuốc hoặc sản phẩm. Tại đây có thể là thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà cung cấp.
+                Mô tả về thành phần của thuốc hoặc sản phẩm. Tại đây có thể là
+                thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
+                cung cấp.
               </Text>
             </Body>
           </CardItem>
           <CardItem header>
-              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Thông tin mô tả</Text>
+            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+              Thông tin mô tả
+            </Text>
           </CardItem>
           <CardItem bordered>
             <Body>
@@ -164,25 +206,29 @@ class Details extends Component {
                 Immersive Immersive mode is best when users need to interact
                 heavily with the screen, such as playing a game or interacting
                 with an image gallery. You may show and hide your app’s controls
-                along with the system bars as needed. Interaction: Swipe from any
-                edge of the screen to make the system bars appear. The first time
-                an app goes full-screen, this swipe gesture is explained. Edge
-                swipe exception: Apps that use the swipe-from-edge gesture to
-                perform actions should also display the system bars when that
+                along with the system bars as needed. Interaction: Swipe from
+                any edge of the screen to make the system bars appear. The first
+                time an app goes full-screen, this swipe gesture is explained.
+                Edge swipe exception: Apps that use the swipe-from-edge gesture
+                to perform actions should also display the system bars when that
                 gesture is used. For example, a drawing app that uses an edge
-                swipe (such as to draw a line) should also display the system bars
-                semi-transparently for a few seconds any time that gesture occurs.
+                swipe (such as to draw a line) should also display the system
+                bars semi-transparently for a few seconds any time that gesture
+                occurs.
               </Text>
             </Body>
           </CardItem>
           <CardItem header>
-              <Text style = {{fontSize: 17, color: BACKGROUND_COLOR_HEADER}}>Tác dụng</Text>
+            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+              Tác dụng
+            </Text>
           </CardItem>
           <CardItem>
             <Body>
               <Text>
-              Mô tả về tác dụng của thuốc hoặc sản phẩm.
-              Tại đây có thể là thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà cung cấp.
+                Mô tả về tác dụng của thuốc hoặc sản phẩm. Tại đây có thể là
+                thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
+                cung cấp.
               </Text>
             </Body>
           </CardItem>
@@ -238,7 +284,7 @@ const styles = StyleSheet.create({
     width: 24,
     resizeMode: "contain"
   },
-  
+
   textStyle: {
     color: "#FF8F00",
     fontSize: 15
