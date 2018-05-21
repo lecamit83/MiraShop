@@ -102,7 +102,7 @@ class ProductItem extends Component {
             <Right>
               <Image
                 style={icon}
-                source={require("../../images/add_to_company_white.png")}
+                source={require("../../images/remove_from_company_white.png")}
               />
             </Right>
           </CardItem>

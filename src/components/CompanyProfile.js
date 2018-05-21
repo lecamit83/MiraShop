@@ -30,7 +30,7 @@ import {
 } from "native-base";
 
 import Header from "./header/CompanyHeader";
-import Item from "./items/ProductItem";
+import Item from "./items/SubItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 
 // create a component
