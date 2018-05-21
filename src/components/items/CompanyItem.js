@@ -20,8 +20,8 @@ class ProductItem extends Component {
     return (
       <TouchableOpacity
         // style={item}
-        style={{ marginLeft: 5, marginRight: 5 }}
-        onPress={() => navigation.navigate("DetailCompany", { name: name, address: address })}
+        style = {{ marginLeft: 5, marginRight: 5 }}
+        onPress = {() => navigation.navigate("DetailCompany", { name: name, address: address })}
       >
         {/* <Image style={image} source={require("../../images/sp.png")} />
         <View style={info}>
@@ -65,9 +65,9 @@ class ProductItem extends Component {
               </Button>
             </Body>
             <Right>
-              <Button transparent>
-                <Icon active name="chatboxes" />
-                <Text>Zalo</Text>
+            <Button transparent>
+              <Icon active name = "chatboxes" />
+              <Text>Zalo</Text>
               </Button>
             </Right>
           </CardItem>

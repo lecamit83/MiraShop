@@ -6,6 +6,7 @@ import SearchScreen from "../SearchScreen";
 import Details from "../Details";
 import MapViews from "../MapViews";
 import Management from "../Management";
+import AddThuoc from "../AddThuoc";
 import CompanyProfile from "../CompanyProfile";
 import SideMenu from "../slide/SideMenu";
 import SignIn from "../SignIn";
@@ -24,7 +25,10 @@ const ProductStack = StackNavigator(
     },
     MapScreen: {
       screen: MapViews
-    }
+    },
+    AddThuoc: {
+      screen: AddThuoc
+    },
   },
   {
     initialRouteName: "MainScreen"
@@ -44,7 +48,7 @@ const CompanyStack = StackNavigator(
     },
     MapScreen: {
       screen: MapViews
-    }
+    },
   },
   {
     initialRouteName: "ListScreen"
@@ -64,6 +68,14 @@ const CompanyProfileStack = StackNavigator(
     initialRouteName: "CompanyProfile"
   }
 );
+
+const AddNewStack = StackNavigator(
+  {
+    AddThuoc: {
+      screen: AddThuoc
+    },
+  }
+)
 
 const Drawer = DrawerNavigator(
   {

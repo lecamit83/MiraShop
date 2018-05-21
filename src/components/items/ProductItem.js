@@ -20,7 +20,8 @@ import {
   Icon,
   Left,
   Body,
-  Right
+  Right,
+  Toast
 } from "native-base";
 
 import {
@@ -76,7 +77,7 @@ class ProductItem extends Component {
                 </Text>
               </Body>
             </Left>
-            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
+            <TouchableOpacity onPress={() => { navigation.navigate("MapScreen") }} >
               <Right>
                 <Image
                   style={{ height: 35, width: 35 }}
@@ -108,10 +109,18 @@ class ProductItem extends Component {
               </Text>
             </Left>
             <Right>
-              <Image
-                style={icon}
-                source={require("../../images/add_to_company_white.png")}
-              />
+              <TouchableOpacity onPress={() =>
+                Toast.show({
+                  text: "Wrong password!",
+                  buttonText: "Okay",
+                  buttonTextStyle: { color: "#008000" },
+                  buttonStyle: { backgroundColor: "#5cb85c" }
+                })}>
+                <Image
+                  style={icon}
+                  source={require("../../images/add_to_company_white.png")}
+                />
+              </TouchableOpacity>
             </Right>
           </CardItem>
         </Card>

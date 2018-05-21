@@ -23,6 +23,7 @@ import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'n
 
 import * as CONST from "../../const/Const.js";
 // import * as STYLES from "../../const/Styles.js";
+import AddThuoc from "../AddThuoc.js";
 
 // create a component
 class MainHeader extends Component {
@@ -126,7 +127,7 @@ class MainHeader extends Component {
             <CardItem header style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}>
               <Text style={{ fontSize: 17, color: '#FFF' }}>Thêm Mới</Text>
             </CardItem>
-            <MenuOption onSelect={() => { navigation.navigate("CompanyStack") }} >
+            <MenuOption onSelect={() => { navigation.navigate("AddThuoc") }} >
               <CardItem bordered>
                 <Icon active name="logo-googleplus" />
                 <Text>Thuốc</Text>
