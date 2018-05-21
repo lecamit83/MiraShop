@@ -1,37 +1,112 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+  // Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
   ImageBackground,
   Image
 } from "react-native";
+
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Thumbnail,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right
+} from "native-base";
+
 import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
+
 // create a component
 class ProductItem extends Component {
   render() {
     const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation } = this.props;
+    const { navigation, products } = this.props;
     return (
+      // <TouchableOpacity
+      //   style={item}
+      //   onPress={() =>{}}
+      // >
+      //   <Image style={image} source={require("../../images/sp.png")} />
+      //   <View style={info}>
+      //     <View  style={textWrap}>
+      //       <Text style={{fontSize: 17, color: "#FF8F00" }} >Paradol Extra</Text>
+      //       <Text style={{ marginTop: 5 }}>650.000đ</Text>
+      //     </View>
+      //     <TouchableOpacity style={wrap}>
+      //       <View style={buttonAdd}>
+      //         <Image style={icon} source={require("../../images/sub.png")} />
+      //         <Text>Xóa Sản Phẩm</Text>
+      //       </View>
+      //     </TouchableOpacity>
+      //   </View>
+      // </TouchableOpacity>
+
       <TouchableOpacity
-        style={item}
-        onPress={() =>{}}
+        style={{ marginLeft: 5, marginRight: 5 }}
+        onPress={() =>
+          navigation.navigate("DetailsScreen", { name: name, cost: cost })
+        }
       >
-        <Image style={image} source={require("../../images/sp.png")} />
-        <View style={info}>
-          <View  style={textWrap}>
-            <Text style={{fontSize: 17, color: "#FF8F00" }} >Paradol Extra</Text>
-            <Text style={{ marginTop: 5 }}>650.000đ</Text>
-          </View>
-          <TouchableOpacity style={wrap}>
-            <View style={buttonAdd}>
-              <Image style={icon} source={require("../../images/sub.png")} />
-              <Text>Xóa Sản Phẩm</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <Card style={{ flex: 0 }}>
+          <CardItem bordered>
+            <Left>
+              <Thumbnail source={require("../../images/sp.png")} />
+              <Body>
+                <Text style={{ fontSize: 17 }}>Tên Sản Phẩm</Text>
+                <Text style={{ marginTop: 5 }} note>
+                  April 15, 2018
+                </Text>
+              </Body>
+            </Left>
+            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
+              <Right>
+                <Image
+                  style={{ height: 35, width: 35 }}
+                  source={require("../../images/directions_black.png")}
+                />
+              </Right>
+            </TouchableOpacity>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Image
+                source={require("../../images/sp.png")}
+                style={{ height: 200, width: width - 40, flex: 1 }}
+              />
+              <Text style={{ marginTop: 10 }}>
+                Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
+                day
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem
+            style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
+          >
+            <Left>
+              <Text
+                style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
+              >
+                1.500.000 đ
+              </Text>
+            </Left>
+            <Right>
+              <Image
+                style={icon}
+                source={require("../../images/add_to_company_white.png")}
+              />
+            </Right>
+          </CardItem>
+        </Card>
       </TouchableOpacity>
     );
   }

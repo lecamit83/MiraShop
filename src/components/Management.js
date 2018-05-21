@@ -6,9 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  FlatList,
   ScrollView,
   Dimensions
 } from "react-native";
+
+import { connect } from "react-redux";
 
 import {
   Container,
@@ -40,7 +43,7 @@ class Management extends Component {
     };
   }
   render() {
-    const { navigation } = this.props;
+    const { navigation, companyProduct } = this.props;
     return (
       <View style={styles.container}>
         <Header navigation={navigation} title="Quản lí cửa hàng" />
@@ -49,7 +52,7 @@ class Management extends Component {
             <View style={styles.wrapInfo}>
               {/* <Image
                 style={styles.imageLogo}
-                source={require("../images/profile.png")}
+                source={require("../images/logo.png")}
               /> */}
               <Thumbnail source={require("../images/profile.png")} />
               <View style={styles.wrapText}>
@@ -85,13 +88,13 @@ class Management extends Component {
           </View>
           <View style={styles.line} />
           <View style={styles.listItems}>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </View>
+        <FlatList
+          data={companyProduct}
+          renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost}/>}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={1}
+        />
+      </View>
         </ScrollView>
       </View>
     );
@@ -151,10 +154,17 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   listItems: {
-    flexWrap: "wrap",
-    flexDirection: "row"
+    // flexWrap: "wrap",
+    flex: 1,
+    // flexDirection: "row"
+    backgroundColor: BACKGROUND_COLOR
   }
 });
 
 //make this component available to the app
-export default Management;
+function mapStateToProps(state) {
+  return {
+    companyProduct: state.companyProduct,
+  };
+}
+export default connect(mapStateToProps)(Management);
