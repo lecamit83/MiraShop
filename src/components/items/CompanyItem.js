@@ -21,7 +21,7 @@ class ProductItem extends Component {
       <TouchableOpacity
         // style={item}
         style={{ marginLeft: 5, marginRight: 5 }}
-        onPress={() => navigation.navigate("CompanyDetailsScreen", { name: name, address: address })}
+        onPress={() => navigation.navigate("DetailCompany", { name: name, address: address })}
       >
         {/* <Image style={image} source={require("../../images/sp.png")} />
         <View style={info}>

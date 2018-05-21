@@ -35,6 +35,9 @@ import { BACKGROUND_COLOR } from "../const/Const";
 
 // create a component
 class Management extends Component {
+  static navigationOptions = ({navigation}) => ({
+    header: <Header navigation={navigation} title="Quản lí cửa hàng"  />
+  })
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +49,6 @@ class Management extends Component {
     const { navigation, companyProduct } = this.props;
     return (
       <View style={styles.container}>
-        <Header navigation={navigation} title="Quản lí cửa hàng" />
         <ScrollView>
           <View style={styles.intro}>
             <View style={styles.wrapInfo}>

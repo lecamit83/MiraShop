@@ -6,6 +6,9 @@ import Item from "./items/CompanyItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 
 class ListCompany extends Component {
+  static navigationOptions = ({navigation})=>({
+    header: <Header navigation={navigation}/>
+  });
   constructor(props) {
     super(props);
   }
@@ -14,7 +17,6 @@ class ListCompany extends Component {
     const { navigation, companys } = this.props;
     return (
       <View style={container}>
-        <Header navigation={navigation} />
         <FlatList
           data={companys}
           renderItem={({item}) => <Item navigation={navigation} name={item.name} address={item.address}/>}
