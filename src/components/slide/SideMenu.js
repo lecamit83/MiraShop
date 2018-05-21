@@ -258,6 +258,7 @@ class SideMenu extends Component {
             navigation.navigate("SignInStack");
           }}
         >
+          {/* <Icon name = "log-in" /> */}
           <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
         </Button>
         <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
@@ -281,7 +282,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="plane" />
+                <Icon name="medical" />
               </Left>
               <Body>
                 <Text>Thuốc</Text>
@@ -294,7 +295,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="wifi" />
+                <Icon name="medkit" />
               </Left>
               <Body>
                 <Text>Thực Phẩm Chức Năng</Text>
@@ -307,7 +308,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="bluetooth" />
+                <Icon name="cog" />
               </Left>
               <Body>
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
@@ -320,7 +321,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="bluetooth" />
+                <Icon name="color-filter" />
               </Left>
               <Body>
                 <Text>Mỹ Phẩm</Text>
@@ -336,7 +337,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("CompanyStack") }}>
               <Left>
-                <Icon name="plane" />
+                <Icon name="search" />
               </Left>
               <Body>
                 <Text>Tìm Công Ty</Text>
