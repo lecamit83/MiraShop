@@ -22,13 +22,14 @@ class CompanyHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.title
+      title: this.props.title,
+
     };
   }
 
   render() {
     const { container, icon, iconBack } = styles;
-    const { navigation } = this.props;
+    const { navigation, Goto } = this.props;
     return (
       <View style={container}>
         {/* <StatusBar
@@ -38,7 +39,10 @@ class CompanyHeader extends Component {
           }}
         /> */}
         <View>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {
+            if(Goto !== undefined) navigation.navigate(Goto);
+            else navigation.goBack();
+          }}>
             <Image source={require("../../images/back.png")} style={iconBack} />
           </TouchableOpacity>
         </View>
