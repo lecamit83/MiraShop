@@ -34,7 +34,8 @@ import {
   Body,
   Left,
   Right,
-  IconNB
+  IconNB,
+  Toast
 } from "native-base";
 
 // create a component
@@ -182,10 +183,21 @@ class Details extends Component {
             </Left>
             <Right>
               {!isProfile ? (
-                <Image
-                  style={icon}
-                  source={require("../images/add_to_company_white.png")}
-                />
+                <TouchableOpacity
+                  onPress={() => {
+                    Toast.show({
+                      text: "Wrong password!",
+                      buttonText: "Okay",
+                      buttonTextStyle: { color: "#008000" },
+                      buttonStyle: { backgroundColor: "#5cb85c" }
+                    });
+                  }}
+                >
+                  <Image
+                    style={icon}
+                    source={require("../images/add_to_company_white.png")}
+                  />
+                </TouchableOpacity>
               ) : (
                 <Image
                   style={icon}

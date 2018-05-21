@@ -115,7 +115,8 @@ class ProductItem extends Component {
                   buttonText: "Okay",
                   buttonTextStyle: { color: "#008000" },
                   buttonStyle: { backgroundColor: "#5cb85c" }
-                })}>
+                })
+              }>
                 <Image
                   style={icon}
                   source={require("../../images/add_to_company_white.png")}

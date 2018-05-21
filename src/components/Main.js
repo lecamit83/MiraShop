@@ -23,7 +23,7 @@ class Main extends Component {
       <View style={container}>
         <FlatList
           data={products}
-          renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost}/>}
+          renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost} />}
           keyExtractor={(item, index) => index.toString()}
           numColumns={1}
         />
