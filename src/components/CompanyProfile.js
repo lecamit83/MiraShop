@@ -39,7 +39,7 @@ import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
 // create a component
 class Management extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <Header navigation={navigation} title="Thông Tin Công Ty" />
+    header: <Header navigation={navigation} title="Thông Tin Công Ty" Goto="MainStack" />
   })
   constructor(props) {
     super(props);
