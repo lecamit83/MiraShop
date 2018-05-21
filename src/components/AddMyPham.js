@@ -31,7 +31,7 @@ const {width, height} = Dimensions.get("window");
 
 class SignUp extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <CompanyHeader navigation={navigation} title="Thêm Thực Phẩm Chức Năng" />
+    header: <CompanyHeader navigation={navigation} title="Thêm Mỹ Phẩm" />
   })
   
   constructor(props) {

@@ -281,7 +281,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="plane" />
+                <Icon name="medical" />
               </Left>
               <Body>
                 <Text>Thuốc</Text>
@@ -294,7 +294,7 @@ class SideMenu extends Component {
           <ListItem icon>
             <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
               <Left>
-                <Icon name="wifi" />
+                <Icon name="medkit" />
               </Left>
               <Body>
                 <Text>Thực Phẩm Chức Năng</Text>

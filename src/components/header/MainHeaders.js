@@ -24,6 +24,9 @@ import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'n
 import * as CONST from "../../const/Const.js";
 // import * as STYLES from "../../const/Styles.js";
 import AddThuoc from "../AddThuoc.js";
+import AddTPCN from "../AddTPCN.js";
+import AddVTandTBYT from "../AddVTandTBYT.js";
+import AddMyPham from "../AddMyPham.js";
 
 // create a component
 class MainHeader extends Component {
@@ -133,19 +136,19 @@ class MainHeader extends Component {
                 <Text>Thuốc</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => alert(`TPCN`)} style={item} >
+            <MenuOption onSelect={() => {navigation.navigate("AddTPCN")}} >
               <CardItem bordered>
                 <Icon active name="logo-googleplus" />
                 <Text>Thực Phẩm Chức Năng</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => alert(`TBYT`)} style={item} >
+            <MenuOption onSelect={() => {navigation.navigate("AddVTandTBYT")}} >
               <CardItem bordered>
                 <Icon active name="logo-googleplus" />
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => alert(`MP`)} style={item} >
+            <MenuOption onSelect={() => {navigation.navigate("AddMyPham")}} >
               <CardItem bordered>
                 <Icon active name="logo-googleplus" />
                 <Text>Mỹ Phẩm</Text>

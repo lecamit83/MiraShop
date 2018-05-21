@@ -102,6 +102,7 @@ class ProductItem extends Component {
             style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
           >
             <Left>
+              {/* <Icon active name = "logo-usd" style={{ color: "#FFFFFF", width: 15, height: 15 }} /> */}
               <Text
                 style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
               >

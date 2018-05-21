@@ -7,6 +7,9 @@ import Details from "../Details";
 import MapViews from "../MapViews";
 import Management from "../Management";
 import AddThuoc from "../AddThuoc";
+import AddTPCN from "../AddTPCN";
+import AddVTandTBYT from "../AddVTandTBYT";
+import AddMyPham from "../AddMyPham";
 import CompanyProfile from "../CompanyProfile";
 import SideMenu from "../slide/SideMenu";
 import SignIn from "../SignIn";
@@ -28,6 +31,15 @@ const ProductStack = StackNavigator(
     },
     AddThuoc: {
       screen: AddThuoc
+    },
+    AddTPCN: {
+      screen: AddTPCN
+    },
+    AddVTandTBYT: {
+      screen: AddVTandTBYT
+    },
+    AddMyPham: {
+      screen: AddMyPham
     },
   },
   {
