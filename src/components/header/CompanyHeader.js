@@ -31,12 +31,12 @@ class CompanyHeader extends Component {
     const { navigation } = this.props;
     return (
       <View style={container}>
-        <StatusBar
+        {/* <StatusBar
           style={{
             height: Platform.OS === "ios" ? 20 : 0,
             backgroundColor: BACKGROUND_COLOR_HEADER
           }}
-        />
+        /> */}
         <View>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={require("../../images/back.png")} style={iconBack} />

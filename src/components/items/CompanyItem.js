@@ -16,12 +16,12 @@ import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROU
 class ProductItem extends Component {
   render() {
     const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, name, cost } = this.props;
+    const { navigation, name, address } = this.props;
     return (
       <TouchableOpacity
         // style={item}
-        style = {{marginLeft: 5, marginRight: 5}}
-       // onPress={() => navigation.navigate("DetailsScreen", {name: name, cost: cost})}
+        style={{ marginLeft: 5, marginRight: 5 }}
+        onPress={() => navigation.navigate("CompanyDetailsScreen", { name: name, address: address })}
       >
         {/* <Image style={image} source={require("../../images/sp.png")} />
         <View style={info}>
@@ -39,36 +39,39 @@ class ProductItem extends Component {
           </TouchableOpacity>
         </View> */}
         <Card>
-            <CardItem>
-              <Left>
-                <Thumbnail source={require("../../images/sp.png")} />
-                <Body>
-                  <Text style={{ fontSize: 17 }}>Tên Công Ty</Text>
-                  <Text style={{ marginTop: 5 }} note>địa chỉ công ty</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Image source={require("../../images/sp.png")} style={{height: 200, width: null, flex: 1}}/>
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Button transparent>
-                  {/* <Icon active name="thumbs-up" /> */}
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
+          <CardItem>
+            <Left>
+              <Thumbnail source={require("../../images/sp.png")} />
               <Body>
-                <Button transparent>
-                  {/* <Icon active name="chatbubbles" /> */}
-                  <Text>4 Comments</Text>
-                </Button>
+                <Text style={{ fontSize: 17 }}>Tên Công Ty</Text>
+                <Text style={{ marginTop: 5 }} note>địa chỉ công ty</Text>
               </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
-            </CardItem>
-          </Card>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={require("../../images/sp.png")} style={{ height: 200, width: null, flex: 1 }} />
+          </CardItem>
+          <CardItem>
+            <Left>
+              <Button transparent>
+                <Icon active name="call" />
+                <Text>Phone</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Button transparent>
+                <Icon active name="logo-facebook" />
+                <Text>Messenger</Text>
+              </Button>
+            </Body>
+            <Right>
+              <Button transparent>
+                <Icon active name="chatboxes" />
+                <Text>Zalo</Text>
+              </Button>
+            </Right>
+          </CardItem>
+        </Card>
       </TouchableOpacity>
     );
   }

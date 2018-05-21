@@ -2,23 +2,41 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+  // Text,
   StyleSheet,
   TouchableOpacity,
   Image,
   ScrollView,
   Dimensions
 } from "react-native";
+
+import {
+  Container,
+  Content,
+  Card,
+  CardItem,
+  Thumbnail,
+  List,
+  ListItem,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right
+} from "native-base";
+
 import Header from "./header/CompanyHeader";
 import Item from "./items/SubItem";
 import { BACKGROUND_COLOR } from "../const/Const";
+
 // create a component
 class Management extends Component {
   constructor(props) {
     super(props);
     this.state = {
       nameOfCompany: "MiRa Shop",
-      emailCompany: "31 Trấn Phú - Q. Hải Châu - TP. Đà Nẵng"
+      emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng"
     };
   }
   render() {
@@ -29,10 +47,11 @@ class Management extends Component {
         <ScrollView>
           <View style={styles.intro}>
             <View style={styles.wrapInfo}>
-              <Image
+              {/* <Image
                 style={styles.imageLogo}
-                source={require("../images/logo.png")}
-              />
+                source={require("../images/profile.png")}
+              /> */}
+              <Thumbnail source={require("../images/profile.png")} />
               <View style={styles.wrapText}>
                 <Text style={styles.nameCompany}>
                   {this.state.nameOfCompany}
@@ -103,9 +122,9 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   imageLogo: {
-    width: width / 2,
-    height: width / 2,
-    borderRadius: width / 4,
+    width: 100,
+    height: 100,
+    borderRadius: 10,
     resizeMode: "contain"
   },
   wrapText: {

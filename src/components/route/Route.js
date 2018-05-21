@@ -10,8 +10,6 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import ListCompany from "../ListCompany";
 
-
-
 const ProductStack = StackNavigator(
   {
     MainScreen: {
@@ -19,6 +17,9 @@ const ProductStack = StackNavigator(
     },
     DetailsScreen: {
       screen: Details
+    },
+    CompanyDetailsScreen: {
+      screen: Management
     },
     MapScreen: {
       screen: MapViews
@@ -49,8 +50,6 @@ const Drawer = DrawerNavigator(
     contentComponent: props => <SideMenu {...props} />
   }
 );
-
-
 
 export default (MainStack = StackNavigator(
   {
