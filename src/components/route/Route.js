@@ -18,9 +18,6 @@ const ProductStack = StackNavigator(
     DetailsScreen: {
       screen: Details
     },
-    CompanyDetailsScreen: {
-      screen: Management
-    },
     MapScreen: {
       screen: MapViews
     }
@@ -30,20 +27,34 @@ const ProductStack = StackNavigator(
   }
 );
 
+const CompanyStack = StackNavigator(
+  {
+    ListScreen: {
+      screen: ListCompany
+    },
+    DetailCompany: {
+      screen: Management
+    }
+  },
+  {
+    initialRouteName: "ListScreen"
+  }
+);
+
 const Drawer = DrawerNavigator(
   {
     MainStack: {
       screen: ProductStack
     },
     CompanyStack: {
-      screen: ListCompany,
+      screen: CompanyStack
     },
     SignInStack: {
       screen: SignIn
     },
     SignUpStack: {
       screen: SignUp
-    }
+    },
   },
   {
     initialRouteName: "MainStack",
@@ -64,9 +75,6 @@ export default (MainStack = StackNavigator(
     }
   },
   {
-    initialRouteName: "SearchStack"
+    initialRouteName: "MainStack"
   }
 ));
-
-
-
