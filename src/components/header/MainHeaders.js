@@ -126,7 +126,7 @@ class MainHeader extends Component {
             <CardItem header style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}>
               <Text style={{ fontSize: 17, color: '#FFF' }}>Thêm Mới</Text>
             </CardItem>
-            <MenuOption onSelect={() => alert(`THUOC`)} style={item} >
+            <MenuOption onSelect={() => { navigation.navigate("CompanyStack") }} >
               <CardItem bordered>
                 <Icon active name="logo-googleplus" />
                 <Text>Thuốc</Text>
