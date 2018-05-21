@@ -43,8 +43,8 @@ class ProductItem extends Component {
               <Left>
                 <Thumbnail source={require("../../images/sp.png")} />
                 <Body>
-                  <Text>NativeBase</Text>
-                  <Text note>GeekyAnts</Text>
+                  <Text style={{ fontSize: 17 }}>Tên Công Ty</Text>
+                  <Text style={{ marginTop: 5 }} note>địa chỉ công ty</Text>
                 </Body>
               </Left>
             </CardItem>

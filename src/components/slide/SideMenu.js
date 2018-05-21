@@ -279,54 +279,62 @@ class SideMenu extends Component {
             <Text style={{ fontWeight: "bold" }}>DANH MỤC SẢN PHẨM</Text>
           </ListItem>
           <ListItem icon>
-            <Left>
-              <Icon name="plane" />
-            </Left>
-            <Body>
-              <Text>Thuốc</Text>
-            </Body>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+              <Left>
+                <Icon name="plane" />
+              </Left>
+              <Body>
+                <Text>Thuốc</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <Left>
-              <Icon name="wifi" />
-            </Left>
-            <Body>
-              <Text>Thực Phẩm Chức Năng</Text>
-            </Body>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+              <Left>
+                <Icon name="wifi" />
+              </Left>
+              <Body>
+                <Text>Thực Phẩm Chức Năng</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <Left>
-              <Icon name="bluetooth" />
-            </Left>
-            <Body>
-              <Text>Vật Tư & Thiết Bị Y Tế</Text>
-            </Body>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+              <Left>
+                <Icon name="bluetooth" />
+              </Left>
+              <Body>
+                <Text>Vật Tư & Thiết Bị Y Tế</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <Left>
-              <Icon name="bluetooth" />
-            </Left>
-            <Body>
-              <Text>Mỹ Phẩm</Text>
-            </Body>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+              <Left>
+                <Icon name="bluetooth" />
+              </Left>
+              <Body>
+                <Text>Mỹ Phẩm</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
           </ListItem>
           <ListItem itemDivider>
             <Text style={{ fontWeight: "bold" }}>CÔNG TY</Text>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{flexDirection: "row"}} onPress={()=>{navigation.navigate("CompanyStack")}}>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("CompanyStack") }}>
               <Left>
                 <Icon name="plane" />
               </Left>
@@ -388,7 +396,7 @@ const styles = StyleSheet.create({
   },
 
   wrapLogo: {
-    flex: 4,
+    flex: 3,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
@@ -402,7 +410,7 @@ const styles = StyleSheet.create({
   },
 
   wrapIndex: {
-    flex: 10
+    flex: 8
     // marginLeft: 16,
     // marginRight: 16
   },

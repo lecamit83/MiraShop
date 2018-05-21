@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ListView, FlatList, StatusBar } from "react-native";
 import { connect } from "react-redux";
-import Header from "./header/CompanyHeader"
+import Header from "./header/MainHeaders"
 import Item from "./items/CompanyItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 
@@ -15,7 +15,7 @@ class ListCompany extends Component {
       const { navigation, products } = this.props;
       return (
         <View style={container}>
-          <Header navigation={navigation} title="Danh Sach Cong Ty" />
+          <Header navigation={navigation} />
           <FlatList
             data={products}
             renderItem={({item}) => <Item/>}
