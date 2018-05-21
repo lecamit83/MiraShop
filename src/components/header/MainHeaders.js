@@ -132,25 +132,25 @@ class MainHeader extends Component {
             </CardItem>
             <MenuOption onSelect={() => { navigation.navigate("AddThuoc") }} >
               <CardItem bordered>
-                <Icon active name="logo-googleplus" />
+                <Icon active name="medical" />
                 <Text>Thuốc</Text>
               </CardItem>
             </MenuOption>
             <MenuOption onSelect={() => {navigation.navigate("AddTPCN")}} >
               <CardItem bordered>
-                <Icon active name="logo-googleplus" />
+                <Icon active name="medkit" />
                 <Text>Thực Phẩm Chức Năng</Text>
               </CardItem>
             </MenuOption>
             <MenuOption onSelect={() => {navigation.navigate("AddVTandTBYT")}} >
               <CardItem bordered>
-                <Icon active name="logo-googleplus" />
+                <Icon active name="cog" />
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
               </CardItem>
             </MenuOption>
             <MenuOption onSelect={() => {navigation.navigate("AddMyPham")}} >
               <CardItem bordered>
-                <Icon active name="logo-googleplus" />
+                <Icon active name="color-filter" />
                 <Text>Mỹ Phẩm</Text>
               </CardItem>
             </MenuOption>
@@ -209,7 +209,7 @@ const optionsStyles = {
   optionsContainer: {
     borderColor: CONST.BORDER_COLOR,
     borderWidth: 1,
-    width: 300,
+    width: 250,
   }
 };
 
