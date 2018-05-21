@@ -55,7 +55,10 @@ const CompanyProfileStack = StackNavigator(
   {
     CompanyProfile: {
       screen: CompanyProfile
-    }
+    },
+    DetailsScreen: {
+      screen: Details
+    },
   },
   {
     initialRouteName: "CompanyProfile"

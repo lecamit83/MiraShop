@@ -145,14 +145,22 @@ class Details extends Component {
                 Tên Sản Phẩm
               </Text>
             </Left>
-            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
-              <Right>
-                <Image
-                  style={{ height: 35, width: 35 }}
-                  source={require("../images/directions_black.png")}
-                />
-              </Right>
-            </TouchableOpacity>
+            <View>
+              {!isProfile ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("MapScreen");
+                  }}
+                >
+                  <Right>
+                    <Image
+                      style={{ height: 35, width: 35 }}
+                      source={require("../images/directions_black.png")}
+                    />
+                  </Right>
+                </TouchableOpacity>
+              ) : null}
+            </View>
           </CardItem>
           <CardItem bordered>
             <Body>
@@ -173,10 +181,17 @@ class Details extends Component {
               </Text>
             </Left>
             <Right>
-              <Image
-                style={icon}
-                source={require("../images/add_to_company_white.png")}
-              />
+              {!isProfile ? (
+                <Image
+                  style={icon}
+                  source={require("../images/add_to_company_white.png")}
+                />
+              ) : (
+                <Image
+                  style={icon}
+                  source={require("../images/remove_from_company_white.png")}
+                />
+              )}
             </Right>
           </CardItem>
         </Card>
