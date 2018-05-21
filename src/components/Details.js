@@ -66,7 +66,7 @@ class Details extends Component {
       icon
     } = styles;
 
-    const { name, cost } = this.props.navigation.state.params;
+    const { name, cost, isProfile } = this.props.navigation.state.params;
     const { navigation } = this.props;
     return (
       <ScrollView

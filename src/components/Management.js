@@ -31,12 +31,12 @@ import {
 
 import Header from "./header/CompanyHeader";
 import Item from "./items/ProductItem";
-import { BACKGROUND_COLOR } from "../const/Const";
+import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
 
 // create a component
 class Management extends Component {
-  static navigationOptions = ({navigation}) => ({
-    header: <Header navigation={navigation} title="Quản lí cửa hàng"  />
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header navigation={navigation} title="Thông Tin Công Ty" />
   })
   constructor(props) {
     super(props);
@@ -48,57 +48,54 @@ class Management extends Component {
   render() {
     const { navigation, companyProduct } = this.props;
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.intro}>
-            <View style={styles.wrapInfo}>
-              {/* <Image
+      <ScrollView>
+        <Card style={styles.intro}>
+          <View style={styles.wrapInfo}>
+            {/* <Image
                 style={styles.imageLogo}
                 source={require("../images/logo.png")}
               /> */}
-              <Thumbnail source={require("../images/profile.png")} />
-              <View style={styles.wrapText}>
-                <Text style={styles.nameCompany}>
-                  {this.state.nameOfCompany}
-                </Text>
-                <Text>{this.state.emailCompany}</Text>
-              </View>
+            <Thumbnail source={require("../images/profile.png")} />
+            <View style={styles.wrapText}>
+              <Text style={styles.nameCompany}>
+                {this.state.nameOfCompany}
+              </Text>
+              <Text note >{this.state.emailCompany}</Text>
             </View>
           </View>
-          <View style={styles.contact}>
-            <TouchableOpacity  style={styles.intro} >
-              <Image
-                style={styles.icon}
-                source={require("../images/phone.png")}
-              />
-              <Text style={styles.textContact} >Phone</Text>
-            </TouchableOpacity>
-            <TouchableOpacity  style={styles.intro}>
-              <Image
-                style={styles.icon}
-                source={require("../images/mes.png")}
-              />
-              <Text style={styles.textContact} >Messenger</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.intro}>
-              <Image
-                style={styles.icon}
-                source={require("../images/zalo.png")}
-              />
-              <Text style={styles.textContact} >Zalo</Text>
-            </TouchableOpacity>  
-          </View>
-          <View style={styles.line} />
-          <View style={styles.listItems}>
-        <FlatList
-          data={companyProduct}
-          renderItem={({item}) => <Item navigation={navigation} name={item.name} cost={item.cost}/>}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={1}
-        />
-      </View>
-        </ScrollView>
-      </View>
+          <CardItem>
+            <Left>
+              <Button transparent>
+                <Icon active name="call" />
+                <Text>Phone</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Button transparent>
+                <Icon active name="logo-facebook" />
+                <Text>Messenger</Text>
+              </Button>
+            </Body>
+            <Right>
+              <Button transparent>
+                <Icon active name="chatboxes" />
+                <Text>Zalo</Text>
+              </Button>
+            </Right>
+          </CardItem>
+        </Card>
+        <View style={styles.listItems}>
+          <ListItem itemDivider>
+            <Text style={{ fontWeight: "bold" }}>DANH DÁCH SẢN PHẨM BÁN</Text>
+          </ListItem>
+          <FlatList
+            data={companyProduct}
+            renderItem={({ item }) => <Item navigation={navigation} name={item.name} cost={item.cost} />}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={1}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -107,15 +104,18 @@ const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex : 1,
-    backgroundColor: BACKGROUND_COLOR
+    flex: 1,
+    // backgroundColor: BACKGROUND_COLOR
   },
   intro: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    margin: 5,
+    marginLeft: 5,
+    marginRight: 5
   },
   wrapInfo: {
-    marginBottom: 20,
+    marginTop: 10,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -134,17 +134,19 @@ const styles = StyleSheet.create({
   },
   wrapText: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 5
   },
   icon: {
-    height: 24,
-    width: 24,
-    resizeMode: "contain"
+    height: 35,
+    width: 35,
+    // resizeMode: "contain"
   },
   nameCompany: {
-    fontSize: 25,
-    color: "red",
-    fontWeight: "bold"
+    fontSize: 17,
+    color: BACKGROUND_COLOR_HEADER,
+    fontWeight: "bold",
+    marginBottom: 5
   },
   contact: {
     flexDirection: "row",

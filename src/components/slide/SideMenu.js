@@ -356,7 +356,9 @@ class SideMenu extends Component {
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
           <Left>
-            <Thumbnail source={require("../../images/profile.png")} />
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("CompanyProfileStack") }}>
+              <Thumbnail source={require("../../images/profile.png")} />
+            </TouchableOpacity>
           </Left>
           <Body>
             <Text
@@ -372,6 +374,7 @@ class SideMenu extends Component {
             </Text>
             <Text note>31 Trần Phú, Q. Hải Châu, TP. Đà Nẵng</Text>
           </Body>
+
           {LOGINJSX}
         </View>
         <View style={wrapIndex}>{LIST_MENU_ITEM}</View>

@@ -30,31 +30,12 @@ import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROU
 class ProductItem extends Component {
   render() {
     const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, products } = this.props;
+    const { navigation, name, cost } = this.props;
     return (
-      // <TouchableOpacity
-      //   style={item}
-      //   onPress={() =>{}}
-      // >
-      //   <Image style={image} source={require("../../images/sp.png")} />
-      //   <View style={info}>
-      //     <View  style={textWrap}>
-      //       <Text style={{fontSize: 17, color: "#FF8F00" }} >Paradol Extra</Text>
-      //       <Text style={{ marginTop: 5 }}>650.000đ</Text>
-      //     </View>
-      //     <TouchableOpacity style={wrap}>
-      //       <View style={buttonAdd}>
-      //         <Image style={icon} source={require("../../images/sub.png")} />
-      //         <Text>Xóa Sản Phẩm</Text>
-      //       </View>
-      //     </TouchableOpacity>
-      //   </View>
-      // </TouchableOpacity>
-
       <TouchableOpacity
         style={{ marginLeft: 5, marginRight: 5 }}
         onPress={() =>
-          navigation.navigate("DetailsScreen", { name: name, cost: cost })
+          navigation.navigate("DetailsScreen", { name: name, cost: cost, isProfile: true })
         }
       >
         <Card style={{ flex: 0 }}>
@@ -68,14 +49,6 @@ class ProductItem extends Component {
                 </Text>
               </Body>
             </Left>
-            <TouchableOpacity onPress={()=>{navigation.navigate("MapScreen")}} >
-              <Right>
-                <Image
-                  style={{ height: 35, width: 35 }}
-                  source={require("../../images/directions_black.png")}
-                />
-              </Right>
-            </TouchableOpacity>
           </CardItem>
           <CardItem>
             <Body>
