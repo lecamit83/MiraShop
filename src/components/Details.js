@@ -60,15 +60,15 @@ class Details extends Component {
       frameImage,
       line,
       intro,
-      product,
       wrap,
       textStyle,
       wrapImage,
       icon
     } = styles;
 
-    const { name, cost, isProfile } = this.props.navigation.state.params;
+    const { items, isProfile } = this.props.navigation.state.params;
     const { navigation } = this.props;
+
     return (
       <ScrollView
         style={{
@@ -143,7 +143,7 @@ class Details extends Component {
               <Text
                 style={{ fontWeight: "bold", fontSize: 17, color: "#000000" }}
               >
-                Tên Sản Phẩm
+                {items.product_name}
               </Text>
             </Left>
             <View>
@@ -166,7 +166,7 @@ class Details extends Component {
           <CardItem bordered>
             <Body>
               <Image
-                source={require("../images/sp.png")}
+                source={{uri: items.product_image}}
                 style={{ height: 200, width: width - 40, flex: 1 }}
               />
             </Body>

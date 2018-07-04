@@ -19,7 +19,18 @@ import {
   MenuTrigger
 } from "react-native-popup-menu";
 
-import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
+import Autocomplete from "react-native-autocomplete-input";
+
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Icon,
+  Right
+} from "native-base";
 
 import * as CONST from "../../const/Const.js";
 // import * as STYLES from "../../const/Styles.js";
@@ -33,13 +44,15 @@ class MainHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ip: this.props.textSearch
+      query: this.props.textSearch,
     };
   }
+
 
   render() {
     const { navigation } = this.props;
     const {
+      wrapTextInput,
       wrapMenu,
       iconMenu,
       wrapSettings,
@@ -55,7 +68,7 @@ class MainHeader extends Component {
       icon,
       text,
       item,
-      containerAll,
+      containerAll
     } = styles;
     const MENUJSX = (
       <Menu>
@@ -65,9 +78,7 @@ class MainHeader extends Component {
             source={require("../../images/news_add_white.png")}
           />
         </MenuTrigger>
-        <MenuOptions 
-          customStyles={optionsStyles}
-        >
+        <MenuOptions customStyles={optionsStyles}>
           {/* <View>
             <MenuOption onSelect={() => alert(`Save`)}>
               <View style={index}>
@@ -125,30 +136,49 @@ class MainHeader extends Component {
               </View>
             </MenuOption>
           </View> */}
-          
+
           <Card>
-            <CardItem header style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}>
-              <Text style={{ fontSize: 17, color: '#FFF' }}>Thêm Mới</Text>
+            <CardItem
+              header
+              style={{ backgroundColor: CONST.BACKGROUND_COLOR_HEADER }}
+            >
+              <Text style={{ fontSize: 17, color: "#FFF" }}>Thêm Mới</Text>
             </CardItem>
-            <MenuOption onSelect={() => { navigation.navigate("AddThuoc") }} >
+            <MenuOption
+              onSelect={() => {
+                navigation.navigate("AddThuoc");
+              }}
+            >
               <CardItem bordered>
                 <Icon active name="medical" />
                 <Text>Thuốc</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => {navigation.navigate("AddTPCN")}} >
+            <MenuOption
+              onSelect={() => {
+                navigation.navigate("AddTPCN");
+              }}
+            >
               <CardItem bordered>
                 <Icon active name="medkit" />
                 <Text>Thực Phẩm Chức Năng</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => {navigation.navigate("AddVTandTBYT")}} >
+            <MenuOption
+              onSelect={() => {
+                navigation.navigate("AddVTandTBYT");
+              }}
+            >
               <CardItem bordered>
                 <Icon active name="cog" />
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
               </CardItem>
             </MenuOption>
-            <MenuOption onSelect={() => {navigation.navigate("AddMyPham")}} >
+            <MenuOption
+              onSelect={() => {
+                navigation.navigate("AddMyPham");
+              }}
+            >
               <CardItem bordered>
                 <Icon active name="color-filter" />
                 <Text>Mỹ Phẩm</Text>
@@ -158,6 +188,8 @@ class MainHeader extends Component {
         </MenuOptions>
       </Menu>
     );
+    const {query} = this.state;
+
     return (
       <View style={containerAll}>
         <StatusBar
@@ -167,27 +199,32 @@ class MainHeader extends Component {
           }}
         />
         <View style={container}>
-
           <View style={wrapMenu}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("DrawerOpen");
               }}
             >
-              <Image source={require("../../images/menu_white.png")} style={iconMenu} />
+              <Image
+                source={require("../../images/menu_white.png")}
+                style={iconMenu}
+              />
             </TouchableOpacity>
           </View>
           <View style={wrapperSearch}>
-            <TextInput
+            <TextInput 
+              placeholder="Nhập tên sản phẩm ..."
+              underlineColorAndroid="transparent"
               style={inputText}
-              value={this.state.ip}
-              underlineColorAndroid="transparent" //ios khong ho tro
-              placeholder="Tên sản phẩm"
-              onChangeText={text => this.setState({ ip: text })}
+              value={query}
+              onChangeText={(text) =>{
+                this.setState({query : text})
+             //   this.props.dispatch({type: "SEARCH", textSearch: this.state.textSearch})
+              }}
             />
             <TouchableOpacity
               onPress={() => {
-                console.log("SEARCH IN HEADER: " + this.props.textSearch);
+                //alert(  navigation.state.params.query)
               }}
             >
               <Image
@@ -196,9 +233,9 @@ class MainHeader extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={wrapSettings}>
+          {/* <View style={wrapSettings}>
             <TouchableOpacity>{MENUJSX}</TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     );
@@ -209,7 +246,7 @@ const optionsStyles = {
   optionsContainer: {
     borderColor: CONST.BORDER_COLOR,
     borderWidth: 1,
-    width: 250,
+    width: 250
   }
 };
 
@@ -218,31 +255,33 @@ const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
   containerAll: {
-    backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER
   },
 
   container: {
     height: CONST.HEADER_HEIGHT,
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   iconSearch: {
     height: 30,
-    width: 30,
+    width: 30
   },
 
   inputText: {
     fontSize: 18,
-    width: width - 124,
+    width: width - 86,
     height: 40
   },
 
   item: {
-    padding: 0,
+    padding: 0
   },
-
+  wrapTextInput: {
+    alignItems: "center"
+  },
   wrapperSearch: {
     flexDirection: "row",
     alignItems: "center",
@@ -293,7 +332,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    textSearch: state.textSearch
+    textSearch: state.textSearch,
+    products : state.products,
   };
 }
 //make this component available to the app

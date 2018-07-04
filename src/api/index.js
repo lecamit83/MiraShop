@@ -1,0 +1,1 @@
+export const PRODUCT_API = "http://api.hifapp.com/api/thuoc";

@@ -41,6 +41,12 @@ const ProductStack = StackNavigator(
     AddMyPham: {
       screen: AddMyPham
     },
+    DetailCompany: {
+      screen: Management
+    },
+    DetailsScreen: {
+      screen: Details
+    },
   },
   {
     initialRouteName: "MainScreen"

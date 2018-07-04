@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
-
+import Header from "./header/CompanyHeader";
 
 const {height, width} = Dimensions.get("window");
 const LAT_DEL = 0.012;
 const LNG_DEL = LAT_DEL * width / height;
 
 class MapViews extends Component {
-  static navigationOptions = {};
+  static navigationOptions =({navigation}) =>({
+    header: <Header navigation={navigation} title="Bản Đồ" />
+  });
 
   constructor(props) {
     super(props);
@@ -44,7 +46,7 @@ class MapViews extends Component {
         });
       },
       err => {
-        alert(err);
+        console.log(err);
       },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
@@ -53,7 +55,7 @@ class MapViews extends Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView style={{ flex: 1 }} initialRegion={this.state.region}>
-          <Marker coordinate={this.state.marker} title="MiraShop" description="31-TranPhu" />
+          <Marker coordinate={this.state.marker} title="MiraShop" description="31-TranPhu" onPress={()=>this.props.navigation.navigate("DetailCompany")}/>
         </MapView>
       </View>
     );

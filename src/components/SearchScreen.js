@@ -10,8 +10,14 @@ import {
   Dimensions,
   ScrollView
 } from "react-native";
-import {connect} from "react-redux";
-import { BACKGROUND_COLOR , BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER } from "../const/Const";
+import { connect } from "react-redux";
+import Autocomplete from "react-native-autocomplete-input";
+
+import {
+  BACKGROUND_COLOR,
+  BACKGROUND_COLOR_INPUT,
+  BACKGROUND_COLOR_HEADER
+} from "../const/Const";
 
 // create a component
 class SearchScreen extends Component {
@@ -21,9 +27,9 @@ class SearchScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state={
-      textSearch : "",  
-    }
+    this.state = {
+      textSearch: ""
+    };
   }
   render() {
     const {
@@ -36,9 +42,10 @@ class SearchScreen extends Component {
       inputText,
       welcomeText,
       line,
-      welcomeWrapper
+      welcomeWrapper,
+      wrap
     } = styles;
-
+    const { textSearch } = this.state;
     return (
       <View style={container}>
         <View style={logoApp}>
@@ -46,18 +53,18 @@ class SearchScreen extends Component {
         </View>
         <View style={searchIcon}>
           <View style={wrapperSearch}>
-            <TextInput
+            <TextInput 
               style={inputText}
               underlineColorAndroid="transparent"
-              placeholder="Nhập tên sản phẩm bạn muốn tìm"
-              onChangeText={(textSearch)=>this.setState({textSearch})}
+              placeholder="Nhap ten san pham..."
+              onChangeText={(text)=>this.setState({textSearch : text})}
             />
             <View style={line} />
             <TouchableOpacity
               onPress={() => {
                 this.props.dispatch({
                   type: "SEARCH",
-                  textSearch : this.state.textSearch,
+                  textSearch: this.state.textSearch
                 });
                 this.props.navigation.navigate("MainStack");
                 console.log("SEARCH IN SCREENSEARCH: " + this.state.textSearch);
@@ -78,14 +85,14 @@ class SearchScreen extends Component {
   }
 }
 
-const { width ,height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 // define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_HEADER,
-    padding: 15,
+    padding: 15
   },
 
   logoApp: {
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
   },
 
   searchIcon: {
-    flex: 5,
+    flex: 5
   },
 
   wrapperSearch: {
@@ -107,7 +114,9 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 25,
-    //backgroundColor: 'rgba(0,0,0,0)', 
+    height: 50,
+    justifyContent: "space-between"
+    //backgroundColor: 'rgba(0,0,0,0)',
   },
 
   image: {
@@ -120,15 +129,15 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     marginLeft: 5,
-    marginRight: 5,
+    marginRight: 5
   },
 
-  inputText: { 
-    flex: 1, 
+  inputText: {
+    width: width - 100,
     height: 40,
-    fontSize: 20, 
+    fontSize: 20,
     marginLeft: 5,
-    marginRight: 5,
+    marginRight: 5
   },
 
   welcomeText: {
@@ -138,10 +147,10 @@ const styles = StyleSheet.create({
     opacity: 0.6
   },
 
-  line: { 
+  line: {
     backgroundColor: BACKGROUND_COLOR_HEADER,
-    width: 1, 
-    height: 30, 
+    width: 1,
+    height: 30
   },
 
   welcomeWrapper: {
@@ -150,6 +159,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignContent: "center",
     margin: 16
+  },
+  list: {
+    paddingRight: 7,
+    paddingLeft: 7,
+    margin: 0,
+    borderWidth: 0,
+    maxHeight: 100 // necessary to make scrolling of list possible see:
+    // https://github.com/l-urence/react-native-autocomplete-input/issues/57
   }
 });
 

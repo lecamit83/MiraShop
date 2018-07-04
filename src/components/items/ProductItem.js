@@ -35,98 +35,142 @@ import {
 class ProductItem extends Component {
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, name, cost } = this.props;
+    const { navigation, items  } = this.props;
 
     return (
-      // <TouchableOpacity
-      //   // style={item}
-      //   style = {{marginLeft: 5, marginRight: 5}}
-      //   onPress={() => navigation.navigate("DetailsScreen", {name: name, cost: cost})}
-      // >
-      //   <Image style={image} source={require("../../images/sp.png")} />
-      //   <View style={info}>
-      //     <View  style={textWrap}>
-      //       <Text style={{fontSize: 17, color: "#FF8F00" }} >{name}</Text>
-      //       <Text style={{ marginTop: 5 }}>{`${cost}đ`}</Text>
-      //     </View>
-      //     <TouchableOpacity style={wrap}
-      //       onPress={()=>alert("ADD")}
-      //     >
-      //       <View style={buttonAdd}>
-      //         <Image style={icon} source={require("../../images/add.png")} />
-      //         <Text>Thêm Sản Phẩm</Text>
-      //       </View>
-      //     </TouchableOpacity>
-      //   </View>
-      // </TouchableOpacity>
-
       <TouchableOpacity
-        style={{ marginLeft: 5, marginRight: 5 }}
         onPress={() =>
-          navigation.navigate("DetailsScreen", { name: name, cost: cost })
+          navigation.navigate("DetailsScreen", {items: items})
         }
       >
-        <Card style={{ flex: 0 }}>
-          <CardItem bordered>
-            <Left>
-              <Thumbnail source={require("../../images/sp.png")} />
-              <Body>
-                <Text style={{ fontSize: 17 }}>Tên Sản Phẩm</Text>
-                <Text style={{ marginTop: 5 }} note>
-                  April 15, 2018
-                </Text>
-              </Body>
-            </Left>
-            <TouchableOpacity onPress={() => { navigation.navigate("MapScreen") }} >
-              <Right>
+        <Card style={item}>
+          <CardItem style={{ height: 40 }}>
+            <View style={textWrap}>
+              <Text style={{ color: "black", fontWeight: "bold" }}>{items.product_name}</Text>
+            </View>
+          </CardItem>
+          <View style={line} />
+          <Image style={image} source={{uri : items.product_image}} />
+
+          <CardItem
+            style={{
+              backgroundColor: BACKGROUND_COLOR_HEADER,
+              height: 40,
+              margin: 2,
+              justifyContent: "space-between"
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("MapScreen");
+              }}
+            >
+              <View
+                style={{
+                  width: width / 5,
+                  alignItems: 'flex-start',
+                }}
+              >
                 <Image
-                  style={{ height: 35, width: 35 }}
+                  style={icon}
                   source={require("../../images/directions_black.png")}
                 />
-              </Right>
+              </View>
             </TouchableOpacity>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Image
-                source={require("../../images/sp.png")}
-                style={{ height: 200, width: width - 40, flex: 1 }}
-              />
-              <Text style={{ marginTop: 10 }}>
-                Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
-                day
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem
-            style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
-          >
-            <Left>
-              {/* <Icon active name = "logo-usd" style={{ color: "#FFFFFF", width: 15, height: 15 }} /> */}
-              <Text
-                style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
-              >
-                1.500.000 đ
-              </Text>
-            </Left>
-            <Right>
-              <TouchableOpacity onPress={() =>
+
+            <TouchableOpacity
+              onPress={() =>
                 Toast.show({
                   text: "Wrong password!",
                   buttonText: "Okay",
                   buttonTextStyle: { color: "#008000" },
                   buttonStyle: { backgroundColor: "#5cb85c" }
                 })
-              }>
+              }
+            >
+              <View
+                style={{
+                  width: width / 5,
+                  alignItems: 'flex-end',
+                }}
+              >
                 <Image
                   style={icon}
                   source={require("../../images/add_to_company_white.png")}
                 />
-              </TouchableOpacity>
-            </Right>
+              </View>
+            </TouchableOpacity>
           </CardItem>
         </Card>
       </TouchableOpacity>
+
+      // <TouchableOpacity
+      //   style={{ marginLeft: 5, marginRight: 5 }}
+      //   onPress={() =>
+      //     navigation.navigate("DetailsScreen", { name: name, cost: cost })
+      //   }
+      // >
+      //   <Card style={{ flex: 0 }}>
+      //     <CardItem bordered>
+      //       <Left>
+      //         <Thumbnail source={require("../../images/sp.png")} />
+      //         <Body>
+      //           <Text style={{ fontSize: 17 }}>{name}</Text>
+      //           <Text style={{ marginTop: 5 }} note>
+      //             April 15, 2018
+      //           </Text>
+      //         </Body>
+      //       </Left>
+      //       <TouchableOpacity onPress={() => { navigation.navigate("MapScreen") }} >
+      //         <Right>
+      //           <Image
+      //             style={{ height: 35, width: 35 }}
+      //             source={require("../../images/directions_black.png")}
+      //           />
+      //         </Right>
+      //       </TouchableOpacity>
+      //     </CardItem>
+      //     <CardItem>
+      //       <Body>
+      //         <Image
+      //           source={require("../../images/sp.png")}
+      //           style={{ height: 200, width: width - 40, flex: 1 }}
+      //         />
+      //         <Text style={{ marginTop: 10 }}>
+      //           Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
+      //           day
+      //         </Text>
+      //       </Body>
+      //     </CardItem>
+      //     <CardItem
+      //       style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
+      //     >
+      //       <Left>
+      //         {/* <Icon active name = "logo-usd" style={{ color: "#FFFFFF", width: 15, height: 15 }} /> */}
+      //         <Text
+      //           style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
+      //         >
+      //           1.500.000 đ
+      //         </Text>
+      //       </Left>
+      //       <Right>
+      //         <TouchableOpacity onPress={() =>
+      //           Toast.show({
+      //             text: "Wrong password!",
+      //             buttonText: "Okay",
+      //             buttonTextStyle: { color: "#008000" },
+      //             buttonStyle: { backgroundColor: "#5cb85c" }
+      //           })
+      //         }>
+      //           <Image
+      //             style={icon}
+      //             source={require("../../images/add_to_company_white.png")}
+      //           />
+      //         </TouchableOpacity>
+      //       </Right>
+      //     </CardItem>
+      //   </Card>
+      // </TouchableOpacity>
     );
   }
 }
@@ -134,9 +178,9 @@ class ProductItem extends Component {
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
-    margin: 4,
+    margin: 2,
     height: height / 2 + 10,
-    width: width / 2 - 8,
+    width: width / 2 - 4,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
     borderWidth: 1,
@@ -145,42 +189,30 @@ const styles = StyleSheet.create({
 
   line: {
     backgroundColor: BACKGROUND_COLOR_HEADER,
-    height: 0.3,
-    marginLeft: 15,
-    marginRight: 15
+    height: 1,
+    width: width / 2 - 16,
+    opacity: 1,
+    backgroundColor: "#EBEBEB",
+    alignSelf: "center"
   },
 
   image: {
-    height: height / 3,
-    width: width / 2 - 40,
+    height: height / 2 - 85,
+    width: width / 2 - 16,
     alignSelf: "center",
+    margin: 4,
     justifyContent: "center",
-    marginTop: 5,
-    resizeMode: "contain"
+    resizeMode: "stretch"
   },
 
   textWrap: {
     justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 3
-  },
-
-  wrap: {
-    borderRadius: 5,
-    margin: 10,
-    backgroundColor: "yellow",
-    width: width / 2 - 40,
-    alignItems: "center",
-    height: 30,
-    justifyContent: "center"
+    alignItems: "center"
   },
 
   icon: {
     height: 30,
-    width: 30,
-    marginLeft: 5
+    width: 30
   },
 
   buttonAdd: {
