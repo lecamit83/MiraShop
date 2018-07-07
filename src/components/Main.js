@@ -25,8 +25,6 @@ class Main extends Component {
     const { container, wrapperItem } = styles; 
     const { navigation, products } = this.props;
     const { query } = this.state;
-    console.log(products);
-    
     return (
       <View style={container}>
         <FlatList

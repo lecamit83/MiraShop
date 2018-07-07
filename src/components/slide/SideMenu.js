@@ -48,7 +48,7 @@ class SideMenu extends Component {
       wrapText,
       text
     } = styles;
-    const { navigation } = this.props;
+    const { navigation, account } = this.props;
 
     const IsntLoginJSX = (
       <ScrollView>
@@ -350,9 +350,18 @@ class SideMenu extends Component {
         </List>
       </Content>
     );
-
-    // const SideMenuJSX = this.props.isLogin ? IsLoginJSX : IsntLoginJSX;
-    const LOGINJSX = this.props.isLogin ? null : LOGIN;
+    var LOGINJSX;
+    if(account) {
+      if(account.status){
+        LOGINJSX = null;
+      } else {
+        LOGINJSX = LOGIN;
+      }
+    } else {
+      LOGINJSX = LOGIN;
+    }
+    console.log(account);
+    
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
@@ -367,13 +376,13 @@ class SideMenu extends Component {
                 fontSize: 17,
                 color: "#FFF",
                 fontWeight: "bold",
-                marginTop: 10,
+                marginTop: 5,
                 marginBottom: 5
               }}
             >
-              USER NAME
+              {(account && account.status) ? account.useraccount_fullname : null}
             </Text>
-            <Text note>31 Trần Phú, Q. Hải Châu, TP. Đà Nẵng</Text>
+            <Text note>{(account && account.status) ? account.useraccount_diachi : null}</Text>
           </Body>
 
           {LOGINJSX}
@@ -386,7 +395,7 @@ class SideMenu extends Component {
 
 function mapStateToProps(state) {
   return {
-    isLogin: state.login
+    account: state.login.account
   };
 }
 

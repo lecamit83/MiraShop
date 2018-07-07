@@ -2,14 +2,22 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Container, Content, Form, Item, Button, Input, Label } from 'native-base';
-
+import { connect } from "react-redux";
 import UserInput from "./items/UserInput";
 import Header from "./header/CompanyHeader";
 import { SO_DIEN_THOAI, PASSWORD, SIGN_IN, BACKGROUND_COLOR_HEADER } from "../const/Const";
+import {postData} from "../redux/actions/actionCreators";
 // create a component
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username : '',
+      password : '',
+    }
+  }
   render() {
-    const { navigation } = this.props;
+    const { navigation , account } = this.props;
     return (
       // <View style={styles.contentWrapper}>
       //   <Header navigation={navigation} title={SIGN_IN} />
@@ -30,13 +38,16 @@ class SignIn extends Component {
           <Form>
             <Item floatingLabel >
               <Label>{SO_DIEN_THOAI}</Label>
-              <Input />
+              <Input onChangeText={(username)=>this.setState({username})} />
             </Item>
             <Item floatingLabel>
               <Label>{PASSWORD}</Label>
-              <Input />
+              <Input onChangeText={(password)=>this.setState({password})} secureTextEntry={true} />
             </Item>
-            <Button full info style = {{margin: 15, marginTop: 45, borderRadius: 5, backgroundColor: BACKGROUND_COLOR_HEADER}}>
+            <Button full info style = {styles.button} onPress={()=>{
+              this.props.postData(this.state);
+              navigation.goBack();
+            }} >
               <Text>ĐĂNG NHẬP</Text>
             </Button>
           </Form>
@@ -66,8 +77,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "green",
     padding: 5
-  }
+  },
+  button: {margin: 15, marginTop: 45, borderRadius: 5, backgroundColor: BACKGROUND_COLOR_HEADER},
 });
 
 //make this component available to the app
-export default SignIn;
+function mapStateToProps(state) {
+  return {
+    account : state.login.account,
+  };
+}
+
+export default connect(mapStateToProps,{ postData })(SignIn);
