@@ -280,7 +280,7 @@ class SideMenu extends Component {
             <Text style={{ fontWeight: "bold" }}>DANH MỤC SẢN PHẨM</Text>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("ThuocStack") }}>
               <Left>
                 <Icon name="medical" />
               </Left>
@@ -293,7 +293,7 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("TPCNStack") }}>
               <Left>
                 <Icon name="medkit" />
               </Left>
@@ -306,7 +306,7 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("VTYTStack") }}>
               <Left>
                 <Icon name="cog" />
               </Left>
@@ -319,7 +319,7 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MainStack") }}>
+            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MyPhamStack") }}>
               <Left>
                 <Icon name="color-filter" />
               </Left>
@@ -360,7 +360,9 @@ class SideMenu extends Component {
     } else {
       LOGINJSX = LOGIN;
     }
+    console.log('===================Account=================');
     console.log(account);
+    console.log('====================================');
     
     return (
       <SafeAreaView style={container}>

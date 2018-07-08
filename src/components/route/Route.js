@@ -21,7 +21,7 @@ const {height, width} = Dimensions.get("window");
 const ProductStack = StackNavigator(
   {
     MainScreen: {
-      screen: Main
+      screen: Main,
     },
     DetailsScreen: {
       screen: Details
@@ -97,7 +97,16 @@ const AddNewStack = StackNavigator(
 
 const Drawer = DrawerNavigator(
   {
-    MainStack: {
+    ThuocStack: {
+      screen: ProductStack
+    },
+    TPCNStack: {
+      screen: ProductStack
+    },
+    VTYTStack: {
+      screen: ProductStack
+    },
+    MyPhamStack: {
       screen: ProductStack
     },
     CompanyStack: {
@@ -115,7 +124,7 @@ const Drawer = DrawerNavigator(
   },
   {
     drawerWidth : width * 0.8,
-    initialRouteName: "MainStack",
+    initialRouteName: "ThuocStack",
     contentComponent: props => <SideMenu {...props} />
   }
 );

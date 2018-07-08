@@ -5,8 +5,8 @@ import { postUser } from "../../api/postData";
 export function fetchDataRequest() {
   return { type: TYPE.FETCH_REQUEST };
 }
-export function fetchDataSuccess(data) {
-  return { type: TYPE.FETCH_SUCCESS, data };
+export function fetchDataSuccess(data, id) {
+  return { type: TYPE.FETCH_SUCCESS, data, id };
 }
 export function fetchDataError() {
   return { type: TYPE.FETCH_ERROR };
@@ -15,12 +15,12 @@ export function fetchDataError() {
 export function postSignIn(account) {
   return { type: TYPE.POST_SIGN_IN, account };
 }
-export function fetchData() {
+export function fetchData(id, page) {
   return dispatch => {
     dispatch(fetchDataRequest());
-    return fetchPosts()
+    return fetchPosts(id, page)
       .then(resJSON => {
-        dispatch(fetchDataSuccess(resJSON));
+        dispatch(fetchDataSuccess(resJSON , id));
       })
       .catch(err => {
         dispatch(fetchDataError());
