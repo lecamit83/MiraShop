@@ -186,7 +186,7 @@ class Details extends Component {
                 <TouchableOpacity
                   onPress={() => {
                     Toast.show({
-                      text: "Wrong password!",
+                      text: "Thêm thất bại!",
                       buttonText: "Okay",
                       buttonTextStyle: { color: "#008000" },
                       buttonStyle: { backgroundColor: "#5cb85c" }

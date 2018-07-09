@@ -1,5 +1,5 @@
 import * as TYPE from "../Const";
-import { fetchPosts } from "../../api/getData";
+import { fetchPosts, fetchComp } from "../../api/getData";
 import { postUser } from "../../api/postData";
 // GET products
 export function fetchDataRequest() {
@@ -20,22 +20,41 @@ export function fetchData(id, page) {
     dispatch(fetchDataRequest());
     return fetchPosts(id, page)
       .then(resJSON => {
-        dispatch(fetchDataSuccess(resJSON , id));
+        dispatch(fetchDataSuccess(resJSON, id));
       })
       .catch(err => {
         dispatch(fetchDataError());
       });
   };
 }
-export function postData(user){
-  return dispatch=>{
+export function postData(user) {
+  return dispatch => {
     return postUser(user)
-    .then(resJSON => {
-      dispatch(postSignIn(resJSON));
-      //logic handle
-    })
-    .catch((err) => {
-      postSignIn(err);
-    });
-  }
+      .then(resJSON => {
+        dispatch(postSignIn(resJSON));
+        //logic handle
+      })
+      .catch(err => {
+        postSignIn(err);
+      });
+  };
+}
+//fetch List Company {Nha cung cap}
+export function fetchCompanySuccess(data) {
+  return { type: TYPE.FETCH_COMPANY_SUCCESS, data };
+}
+export function fetchCompanyError() {
+  return { type: TYPE.FETCH_COMPANY_ERROR };
+}
+export function fetchCompany(url) {
+  return dispatch => {
+    return fetchComp(url)
+      .then(resJSON => {
+        dispatch(fetchCompanySuccess(resJSON));
+      })
+      .catch(err => {
+        console.log(err);
+        fetchCompanyError();
+      });
+  };
 }

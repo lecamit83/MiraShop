@@ -3,3 +3,5 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const POST_SIGN_IN = 'SIGN_IN';
 export const POST_SIGN_OUT = 'SIGN_OUT';
+export const FETCH_COMPANY_SUCCESS = 'FETCH_COMPANY_SUCCESS';
+export const FETCH_COMPANY_ERROR = 'FETCH_COMPANY_ERROR';

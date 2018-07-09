@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Header from "./header/MainHeaders"
 import Item from "./items/CompanyItem";
 import { BACKGROUND_COLOR } from "../const/Const";
+import {fetchCompany} from "../redux/actions/actionCreators";
 
 class ListCompany extends Component {
   static navigationOptions = ({navigation})=>({
@@ -15,6 +16,10 @@ class ListCompany extends Component {
   render() {
     const { container, wrapperItem } = styles;
     const { navigation, companys } = this.props;
+    console.log('ListCompany ');
+    console.log(companys);
+    
+    
     return (
       <View style={container}>
         <FlatList
@@ -25,6 +30,9 @@ class ListCompany extends Component {
         />
       </View>
     );
+  }
+  componentDidMount(){
+    this.props.fetchCompany('http://api.hifapp.com/api/ncc');
   }
 }
 
@@ -45,7 +53,7 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    companys: state.companys,
+    companys: state.companys.arrCo,
   };
 }
-export default connect(mapStateToProps)(ListCompany);
+export default connect(mapStateToProps , {fetchCompany})(ListCompany);
