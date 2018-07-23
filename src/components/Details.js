@@ -38,6 +38,7 @@ import {
   Toast
 } from "native-base";
 
+
 // create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -68,7 +69,67 @@ class Details extends Component {
 
     const { items, isProfile } = this.props.navigation.state.params;
     const { navigation } = this.props;
-
+    console.log(this.props);
+    const INFOR = ( <Card>
+      <CardItem header>
+        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+          Thành Phần
+        </Text>
+      </CardItem>
+      <CardItem bordered>
+        <Body>
+          <Text>
+            Mô tả về thành phần của thuốc hoặc sản phẩm. Tại đây có thể là
+            thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
+            cung cấp.
+          </Text>
+        </Body>
+      </CardItem>
+      <CardItem header>
+        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+          Thông tin mô tả
+        </Text>
+      </CardItem>
+      <CardItem bordered>
+        <Body>
+          <Text>
+            Immersive Immersive mode is best when users need to interact
+            heavily with the screen, such as playing a game or interacting
+            with an image gallery. You may show and hide your app’s controls
+            along with the system bars as needed. Interaction: Swipe from
+            any edge of the screen to make the system bars appear. The first
+            time an app goes full-screen, this swipe gesture is explained.
+            Edge swipe exception: Apps that use the swipe-from-edge gesture
+            to perform actions should also display the system bars when that
+            gesture is used. For example, a drawing app that uses an edge
+            swipe (such as to draw a line) should also display the system
+            bars semi-transparently for a few seconds any time that gesture
+            occurs.
+          </Text>
+        </Body>
+      </CardItem>
+      <CardItem header>
+        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+          Tác dụng
+        </Text>
+      </CardItem>
+      <CardItem>
+        <Body>
+          <Text>
+            Mô tả về tác dụng của thuốc hoặc sản phẩm. Tại đây có thể là
+            thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
+            cung cấp.
+          </Text>
+        </Body>
+      </CardItem>
+    </Card>);
+    const SSS = (
+      <CardItem header>
+        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+        {items.ten}
+        </Text>
+      </CardItem>
+    );
     return (
       <ScrollView
         style={{
@@ -207,59 +268,7 @@ class Details extends Component {
             </Right>
           </CardItem>
         </Card>
-        <Card>
-          <CardItem header>
-            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-              Thành Phần
-            </Text>
-          </CardItem>
-          <CardItem bordered>
-            <Body>
-              <Text>
-                Mô tả về thành phần của thuốc hoặc sản phẩm. Tại đây có thể là
-                thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
-                cung cấp.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem header>
-            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-              Thông tin mô tả
-            </Text>
-          </CardItem>
-          <CardItem bordered>
-            <Body>
-              <Text>
-                Immersive Immersive mode is best when users need to interact
-                heavily with the screen, such as playing a game or interacting
-                with an image gallery. You may show and hide your app’s controls
-                along with the system bars as needed. Interaction: Swipe from
-                any edge of the screen to make the system bars appear. The first
-                time an app goes full-screen, this swipe gesture is explained.
-                Edge swipe exception: Apps that use the swipe-from-edge gesture
-                to perform actions should also display the system bars when that
-                gesture is used. For example, a drawing app that uses an edge
-                swipe (such as to draw a line) should also display the system
-                bars semi-transparently for a few seconds any time that gesture
-                occurs.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem header>
-            <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-              Tác dụng
-            </Text>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Text>
-                Mô tả về tác dụng của thuốc hoặc sản phẩm. Tại đây có thể là
-                thông tin khác dựa vào dữ liệu được nhập từ admin hoặc từ nhà
-                cung cấp.
-              </Text>
-            </Body>
-          </CardItem>
-        </Card>
+        {INFOR}
       </ScrollView>
     );
   }

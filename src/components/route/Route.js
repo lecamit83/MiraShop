@@ -15,13 +15,135 @@ import SideMenu from "../slide/SideMenu";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import ListCompany from "../ListCompany";
+import MainHeader from "../header/MainHeaders";
 
 const {height, width} = Dimensions.get("window");
 
-const ProductStack = StackNavigator(
+const ThuocStack = StackNavigator(
   {
     MainScreen: {
-      screen: Main,
+      //screen: (props) => < Main {...props}  />
+      screen: (props) => <Main  {...props} screenProps={0}/>,
+      navigationOptions :  ({ navigation }) => ({
+        header: <MainHeader navigation={navigation} />
+      })
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+    MapScreen: {
+      screen: MapViews
+    },
+    AddThuoc: {
+      screen: AddThuoc
+    },
+    AddTPCN: {
+      screen: AddTPCN
+    },
+    AddVTandTBYT: {
+      screen: AddVTandTBYT
+    },
+    AddMyPham: {
+      screen: AddMyPham
+    },
+    DetailCompany: {
+      screen: Management
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+  },
+  {
+    initialRouteName: "MainScreen"
+  }
+);
+
+const TPCNStack = StackNavigator(
+  {
+    MainScreen: {
+      //screen: (props) => < Main {...props}  />
+      screen: (props) => <Main  {...props} screenProps={1}/>,
+      navigationOptions :  ({ navigation }) => ({
+        header: <MainHeader navigation={navigation} />
+      })
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+    MapScreen: {
+      screen: MapViews
+    },
+    AddThuoc: {
+      screen: AddThuoc
+    },
+    AddTPCN: {
+      screen: AddTPCN
+    },
+    AddVTandTBYT: {
+      screen: AddVTandTBYT
+    },
+    AddMyPham: {
+      screen: AddMyPham
+    },
+    DetailCompany: {
+      screen: Management
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+  },
+  {
+    initialRouteName: "MainScreen"
+  }
+);
+
+const VTYTStack = StackNavigator(
+  {
+    MainScreen: {
+      //screen: (props) => < Main {...props}  />
+      screen: (props) => <Main  {...props} screenProps={2}/>,
+      navigationOptions :  ({ navigation }) => ({
+        header: <MainHeader navigation={navigation} />
+      })
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+    MapScreen: {
+      screen: MapViews
+    },
+    AddThuoc: {
+      screen: AddThuoc
+    },
+    AddTPCN: {
+      screen: AddTPCN
+    },
+    AddVTandTBYT: {
+      screen: AddVTandTBYT
+    },
+    AddMyPham: {
+      screen: AddMyPham
+    },
+    DetailCompany: {
+      screen: Management
+    },
+    DetailsScreen: {
+      screen: Details
+    },
+  },
+  {
+    initialRouteName: "MainScreen"
+  }
+);
+
+const MyPhamStack = StackNavigator(
+  {
+    MainScreen: {
+      //screen: (props) => < Main {...props}  />
+      screen: (props) => <Main  {...props} screenProps={3}/>,
+      navigationOptions :  ({ navigation }) => ({
+        header: <MainHeader navigation={navigation} />
+      })
     },
     DetailsScreen: {
       screen: Details
@@ -98,16 +220,17 @@ const AddNewStack = StackNavigator(
 const Drawer = DrawerNavigator(
   {
     ThuocStack: {
-      screen: ProductStack
+      screen: ThuocStack
     },
     TPCNStack: {
-      screen: ProductStack
+     // screen:  () => < ProductStack screenProps={{type : 1}} />,
+     screen : TPCNStack
     },
     VTYTStack: {
-      screen: ProductStack
+      screen: VTYTStack
     },
     MyPhamStack: {
-      screen: ProductStack
+      screen: MyPhamStack
     },
     CompanyStack: {
       screen: CompanyStack
@@ -125,7 +248,7 @@ const Drawer = DrawerNavigator(
   {
     drawerWidth : width * 0.8,
     initialRouteName: "ThuocStack",
-    contentComponent: props => <SideMenu {...props} />
+    contentComponent: (props) => <SideMenu {...props} />
   }
 );
 

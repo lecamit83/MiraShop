@@ -19,6 +19,9 @@ import {
   MenuTrigger
 } from "react-native-popup-menu";
 
+import { DrawerActions } from 'react-navigation';
+
+
 import Autocomplete from "react-native-autocomplete-input";
 
 import {
@@ -201,9 +204,7 @@ class MainHeader extends Component {
         <View style={container}>
           <View style={wrapMenu}>
             <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("DrawerOpen");
-              }}
+              onPress={() => {navigation.navigate("DrawerOpen");}}
             >
               <Image
                 source={require("../../images/menu_white.png")}

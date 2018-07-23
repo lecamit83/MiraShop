@@ -11,9 +11,9 @@ import {fetchData} from "../redux/actions/actionCreators";
 var urls = ["http://api.hifapp.com/api/thuoc?page=", "http://api.hifapp.com/api/tpcn?page=", "http://api.hifapp.com/api/vttb?page=", "http://api.hifapp.com/api/mypham?page="];
 // create a component
 class Main extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: <MainHeader navigation={navigation} />
-  });
+  // static navigationOptions = ({ navigation }) => ({
+  //   header: <MainHeader navigation={navigation} />
+  // });
   constructor(props) { 
     super(props);
   }
@@ -21,8 +21,7 @@ class Main extends Component {
   render() {
     const { container, wrapperItem } = styles; 
     const { navigation, products, pages } = this.props;
-    const { key } = this.props.navigation.state;
-    var id = this.props.navigation.state.key.split('-')[2];
+    var id = this.props.screenProps;
     return (
       <View style={container}>
         <FlatList
@@ -41,7 +40,7 @@ class Main extends Component {
     );
   }
   componentDidMount(){
-    var id = this.props.navigation.state.key.split('-')[2];
+    var id = this.props.screenProps;
     this.props.fetchData(id, this.props.pages[id]);
   }
 }

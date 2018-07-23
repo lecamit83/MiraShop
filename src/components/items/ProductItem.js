@@ -35,22 +35,22 @@ import {
 class ProductItem extends Component {
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, items  } = this.props;
+    const { navigation, items } = this.props;
 
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("DetailsScreen", {items: items})
-        }
+        onPress={() => navigation.navigate("DetailsScreen", { items: items })}
       >
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
             <View style={textWrap}>
-              <Text style={{ color: "black", fontWeight: "bold" }}>{items.product_name}</Text>
+              <Text style={{ color: "black", fontWeight: "bold" }}>
+                {items.product_name}
+              </Text>
             </View>
           </CardItem>
           <View style={line} />
-          <Image style={image} source={{uri : items.product_image}} />
+          <Image style={image} source={{ uri: items.product_image }} />
 
           <CardItem
             style={{
@@ -68,7 +68,7 @@ class ProductItem extends Component {
               <View
                 style={{
                   width: width / 5,
-                  alignItems: 'flex-start',
+                  alignItems: "flex-start"
                 }}
               >
                 <Image
@@ -79,19 +79,35 @@ class ProductItem extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() =>
-                Toast.show({
-                  text: "Thêm thất bại!",
-                  buttonText: "Okay",
-                  buttonTextStyle: { color: "#008000" },
-                  buttonStyle: { backgroundColor: "#5cb85c" }
+              onPress={() => {
+                // Toast.show({
+                //   text: "Thêm thất bại!",
+                //   buttonText: "Okay",
+                //   buttonTextStyle: { color: "#008000" },
+                //   buttonStyle: { backgroundColor: "#5cb85c" }
+                // });
+
+                fetch("http://api.hifapp.com/api/nbl/update/product", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json; charset=UTF-8"
+                  },
+                  body: JSON.stringify(items)
                 })
-              }
+                  .then(res => res.json())
+                  .then(resJSON => {
+                    console.log("OnPress Add");
+
+                    console.log(resJSON);
+                  })
+                  .catch(err => console.log(err));
+              }}
             >
               <View
                 style={{
                   width: width / 5,
-                  alignItems: 'flex-end',
+                  alignItems: "flex-end"
                 }}
               >
                 <Image

@@ -280,7 +280,12 @@ class SideMenu extends Component {
             <Text style={{ fontWeight: "bold" }}>DANH MỤC SẢN PHẨM</Text>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("ThuocStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("ThuocStack");
+              }}
+            >
               <Left>
                 <Icon name="medical" />
               </Left>
@@ -293,7 +298,12 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("TPCNStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("TPCNStack");
+              }}
+            >
               <Left>
                 <Icon name="medkit" />
               </Left>
@@ -306,7 +316,12 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("VTYTStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("VTYTStack");
+              }}
+            >
               <Left>
                 <Icon name="cog" />
               </Left>
@@ -319,7 +334,12 @@ class SideMenu extends Component {
             </TouchableOpacity>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("MyPhamStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("MyPhamStack");
+              }}
+            >
               <Left>
                 <Icon name="color-filter" />
               </Left>
@@ -335,7 +355,12 @@ class SideMenu extends Component {
             <Text style={{ fontWeight: "bold" }}>CÔNG TY</Text>
           </ListItem>
           <ListItem icon>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("CompanyStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("CompanyStack");
+              }}
+            >
               <Left>
                 <Icon name="search" />
               </Left>
@@ -351,8 +376,8 @@ class SideMenu extends Component {
       </Content>
     );
     var LOGINJSX;
-    if(account) {
-      if(account.status){
+    if (account) {
+      if (account.status) {
         LOGINJSX = null;
       } else {
         LOGINJSX = LOGIN;
@@ -360,15 +385,20 @@ class SideMenu extends Component {
     } else {
       LOGINJSX = LOGIN;
     }
-    console.log('===================Account=================');
+    console.log("===================Account=================");
     console.log(account);
-    console.log('====================================');
-    
+    console.log("====================================");
+
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
           <Left>
-            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => { navigation.navigate("CompanyProfileStack") }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("CompanyProfileStack");
+              }}
+            >
               <Thumbnail source={require("../../images/profile.png")} />
             </TouchableOpacity>
           </Left>
@@ -382,9 +412,11 @@ class SideMenu extends Component {
                 marginBottom: 5
               }}
             >
-              {(account && account.status) ? account.useraccount_fullname : null}
+              {account && account.status ? account.useraccount_fullname : null}
             </Text>
-            <Text note>{(account && account.status) ? account.useraccount_diachi : null}</Text>
+            <Text note>
+              {account && account.status ? account.useraccount_diachi : null}
+            </Text>
           </Body>
 
           {LOGINJSX}
@@ -420,8 +452,8 @@ const styles = StyleSheet.create({
   },
 
   imageLogo: {
-    width: width * 2 / 3,
-    height: width * 2 / 3 * 66 / 144
+    width: (width * 2) / 3,
+    height: (((width * 2) / 3) * 66) / 144
   },
 
   wrapIndex: {
