@@ -27,57 +27,92 @@ import {
 import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
 
 // create a component
-class ProductItem extends Component {
+class SubItem extends Component {
   render() {
-    const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, name, cost } = this.props;
+    const { item, image, icon, textWrap, line } = styles;
+    const { navigation, name, cost , items} = this.props;
     return (
       <TouchableOpacity
-        style={{ marginLeft: 5, marginRight: 5 }}
-        onPress={() =>
-          navigation.navigate("DetailsScreen", { name: name, cost: cost, isProfile: true })
-        }
+        onPress={() => navigation.navigate("DetailsScreen", { items: items })}
       >
-        <Card style={{ flex: 0 }}>
-          <CardItem bordered>
-            <Left>
-              <Thumbnail source={require("../../images/sp.png")} />
-              <Body>
-                <Text style={{ fontSize: 17 }}>Tên Sản Phẩm</Text>
-                <Text style={{ marginTop: 5 }} note>
-                  April 15, 2018
-                </Text>
-              </Body>
-            </Left>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Image
-                source={require("../../images/sp.png")}
-                style={{ height: 200, width: width - 40, flex: 1 }}
-              />
-              <Text style={{ marginTop: 10 }}>
-                Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
-                day
+        <Card style={item}>
+          <CardItem style={{ height: 40 }}>
+            <View style={textWrap}>
+              <Text style={{ color: "black", fontWeight: "bold" }}>
+                {items.product_name}
               </Text>
-            </Body>
+            </View>
           </CardItem>
+          <View style={line} />
+          <Image style={image} source={{ uri: items.product_image }} />
+
           <CardItem
-            style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
+            style={{
+              backgroundColor: BACKGROUND_COLOR_HEADER,
+              height: 40,
+              margin: 2,
+              justifyContent: "space-between"
+            }}
           >
-            <Left>
-              <Text
-                style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("MapScreen");
+              }}
+            >
+              <View
+                style={{
+                  width: width / 5,
+                  alignItems: "flex-start"
+                }}
               >
-                1.500.000 đ
-              </Text>
-            </Left>
-            <Right>
-              <Image
-                style={icon}
-                source={require("../../images/remove_from_company_white.png")}
-              />
-            </Right>
+                <Image
+                  style={icon}
+                  source={require("../../images/directions_black.png")}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                // Toast.show({
+                //   text: "Thêm thất bại!",
+                //   buttonText: "Okay",
+                //   buttonTextStyle: { color: "#008000" },
+                //   buttonStyle: { backgroundColor: "#5cb85c" }
+                // });
+
+                fetch("http://api.hifapp.com/api/nbl/update/product", {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json; charset=UTF-8"
+                  },
+                  body: JSON.stringify({
+                    "product_id" : items.product_id,
+                    "useraccount_id" : account.useraccount_id 
+                  })
+                })
+                  .then(res => res.json())
+                  .then(resJSON => {
+                    console.log("OnPress Add");
+
+                    console.log(resJSON);
+                  })
+                  .catch(err => console.log(err));
+              }}
+            >
+              <View
+                style={{
+                  width: width / 5,
+                  alignItems: "flex-end"
+                }}
+              >
+                <Image
+                  style={icon}
+                  source={require("../../images/add_to_company_white.png")}
+                />
+              </View>
+            </TouchableOpacity>
           </CardItem>
         </Card>
       </TouchableOpacity>
@@ -131,7 +166,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  }
+  },
+  line: {
+    backgroundColor: BACKGROUND_COLOR_HEADER,
+    height: 1,
+    width: width / 2 - 16,
+    opacity: 1,
+    backgroundColor: "#EBEBEB",
+    alignSelf: "center"
+  },
 });
 
-export default ProductItem;
+export default SubItem;

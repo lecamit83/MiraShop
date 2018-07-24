@@ -30,12 +30,13 @@ import {
   BACKGROUND_COLOR_HEADER,
   BACKGROUND_COLOR
 } from "../../const/Const";
+import {connect} from "react-redux";
 
 // create a component
 class ProductItem extends Component {
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, items } = this.props;
+    const { navigation, items, account } = this.props;
 
     return (
       <TouchableOpacity
@@ -93,7 +94,10 @@ class ProductItem extends Component {
                     Accept: "application/json",
                     "Content-Type": "application/json; charset=UTF-8"
                   },
-                  body: JSON.stringify(items)
+                  body: JSON.stringify({
+                    "product_id" : items.product_id,
+                    "useraccount_id" : account.useraccount_id 
+                  })
                 })
                   .then(res => res.json())
                   .then(resJSON => {
@@ -239,4 +243,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductItem;
+function mapStateToProps(state) {
+  return {
+    account: state.login.account
+  };
+}
+export default connect(mapStateToProps)(ProductItem);

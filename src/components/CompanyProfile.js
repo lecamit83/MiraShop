@@ -35,6 +35,7 @@ import {
 import Header from "./header/CompanyHeader";
 import ItemCompanyProduct from "./items/SubItem";
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
+import {fetchProductCompany} from "../redux/actions/actionCreators"
 
 // create a component
 class Management extends Component {
@@ -47,6 +48,12 @@ class Management extends Component {
       nameOfCompany: "MiRa Shop",
       emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng"
     };
+  }
+  componentDidMount() {
+    let id = this.props.account.useraccount_id;
+    console.log('componentDidMount Management');
+    
+    this.props.fetchProductCompany("http://api.hifapp.com/api/nbl/product?userid=" + id);
   }
   render() {
     const { navigation, companyProduct } = this.props;
@@ -85,9 +92,9 @@ class Management extends Component {
           </ListItem>
           <FlatList
             data={companyProduct}
-            renderItem={({ item }) => <ItemCompanyProduct navigation={navigation} name={item.name} cost={item.cost} />}
+            renderItem={({ item }) => <ItemCompanyProduct navigation={navigation} items={item} />}
             keyExtractor={(item, index) => index.toString()}
-            numColumns={1}
+            numColumns={2}
           />
         </View>
       </ScrollView>
@@ -163,7 +170,8 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    companyProduct: state.companyProduct,
+    companyProduct: state.productCompany.proCompany,
+    account : state.login.account,  
   };
 }
-export default connect(mapStateToProps)(Management);
+export default connect(mapStateToProps , {fetchProductCompany})(Management);

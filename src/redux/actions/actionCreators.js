@@ -1,5 +1,5 @@
 import * as TYPE from "../Const";
-import { fetchPosts, fetchComp } from "../../api/getData";
+import { fetchPosts, fetchComp, fetchProduct } from "../../api/getData";
 import { postUser } from "../../api/postData";
 // GET products
 export function fetchDataRequest() {
@@ -55,6 +55,28 @@ export function fetchCompany(url) {
       .catch(err => {
         console.log(err);
         fetchCompanyError();
+      });
+  };
+}
+//fetch List Product of Company
+export function fetchProductCompanySuccess(data) {
+  return { type: TYPE.FETCH_PRODUCT_COMPANY_SUCCESS, data };
+}
+export function fetchProductCompanyError() {
+  return { type: TYPE.FETCH_PRODUCT_COMPANY_ERROR };
+}
+
+export function fetchProductCompany(url) {
+  return dispatch => {
+    return fetchProduct(url)
+      .then(resJSON => {
+        console.log(resJSON);
+        
+        dispatch(fetchProductCompanySuccess(resJSON));
+      })
+      .catch(err => {
+        console.log(err);
+        fetchProductCompanyError();
       });
   };
 }
