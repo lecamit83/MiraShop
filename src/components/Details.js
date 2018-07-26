@@ -389,7 +389,7 @@ class Details extends Component {
         <View style={line} />
         <CardItem header>
           <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-          Thông số kĩ thuật
+            Thông số kĩ thuật
           </Text>
         </CardItem>
         <CardItem bordered>

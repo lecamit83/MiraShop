@@ -23,6 +23,7 @@ import {
   Body,
   Right
 } from "native-base";
+import {connect} from "react-redux";
 
 import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
 
@@ -30,7 +31,7 @@ import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROU
 class SubItem extends Component {
   render() {
     const { item, image, icon, textWrap, line } = styles;
-    const { navigation, name, cost , items} = this.props;
+    const { navigation, items , account} = this.props;
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { items: items })}
@@ -38,7 +39,7 @@ class SubItem extends Component {
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
             <View style={textWrap}>
-              <Text style={{ color: "black", fontWeight: "bold" }}>
+              <Text numberOfLines={1} style={{ color: "black", fontWeight: "bold" , overflow: "scroll"}}>
                 {items.product_name}
               </Text>
             </View>
@@ -82,7 +83,7 @@ class SubItem extends Component {
                 // });
 
                 fetch("http://api.hifapp.com/api/nbl/update/product", {
-                  method: "POST",
+                  method: "DELETE",
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json; charset=UTF-8"
@@ -92,7 +93,7 @@ class SubItem extends Component {
                     "useraccount_id" : account.useraccount_id 
                   })
                 })
-                  .then(res => res.json())
+                  .then(res => res.json())  
                   .then(resJSON => {
                     console.log("OnPress Add");
 
@@ -109,7 +110,7 @@ class SubItem extends Component {
               >
                 <Image
                   style={icon}
-                  source={require("../../images/add_to_company_white.png")}
+                  source={require("../../images/remove_from_company_white.png")}
                 />
               </View>
             </TouchableOpacity>
@@ -123,21 +124,21 @@ class SubItem extends Component {
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
-    margin: 4,
-    height: height / 2 + 10,
-    width: width / 2 - 8,
+    margin: 2,
+    height: (width / 2 - 4) * 1.618,
+    width: width / 2 - 4,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: BORDER_COLOR
   },
   image: {
-    height: height / 3,
-    width: width / 2 - 40,
+    height:(width / 2 - 4) * 1.618 - 95,
+    width: width / 2 - 16,
     alignSelf: "center",
+    margin: 4,
     justifyContent: "center",
-    marginTop: 5,
-    resizeMode: "contain"
+    resizeMode: "stretch"
   },
   textWrap: {
     justifyContent: "center",
@@ -177,4 +178,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SubItem;
+function mapStateToProps(state) {
+  return {
+    account: state.login.account
+  };
+}
+
+export default connect(mapStateToProps)(SubItem);

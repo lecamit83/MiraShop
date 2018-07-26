@@ -38,7 +38,7 @@ import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
 import {fetchProductCompany} from "../redux/actions/actionCreators"
 
 // create a component
-class Management extends Component {
+class CompanyProfiles extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: <Header navigation={navigation} title="Thông Tin Công Ty" Goto="MainStack" />
   })
@@ -46,17 +46,29 @@ class Management extends Component {
     super(props);
     this.state = {
       nameOfCompany: "MiRa Shop",
-      emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng"
+      emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng",
+      arrProducts : []
     };
   }
   componentDidMount() {
     let id = this.props.account.useraccount_id;
     console.log('componentDidMount Management');
-    
     this.props.fetchProductCompany("http://api.hifapp.com/api/nbl/product?userid=" + id);
+    console.log("setState");
+    this.setState({arrProducts : this.props.companyProduct});
   }
   render() {
     const { navigation, companyProduct } = this.props;
+    console.log("render CompanyProfiles");
+    
+    console.log(companyProduct);
+
+    const {arrProducts} = this.state;
+    console.log("arrProducts");
+    
+    console.log(arrProducts);
+    
+
     return (
       <ScrollView>
         <Content style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}>
@@ -91,7 +103,7 @@ class Management extends Component {
             <Text style={{ fontWeight: "bold" }}>DANH DÁCH SẢN PHẨM BÁN</Text>
           </ListItem>
           <FlatList
-            data={companyProduct}
+            data={ companyProduct }
             renderItem={({ item }) => <ItemCompanyProduct navigation={navigation} items={item} />}
             keyExtractor={(item, index) => index.toString()}
             numColumns={2}
@@ -174,4 +186,4 @@ function mapStateToProps(state) {
     account : state.login.account,  
   };
 }
-export default connect(mapStateToProps , {fetchProductCompany})(Management);
+export default connect(mapStateToProps , {fetchProductCompany})(CompanyProfiles);

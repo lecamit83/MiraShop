@@ -38,6 +38,8 @@ class ProductItem extends Component {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
     const { navigation, items, account } = this.props;
 
+    let useraccount_id = (account) ? account.useraccount_id : null;
+    
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { items: items })}
@@ -45,7 +47,7 @@ class ProductItem extends Component {
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
             <View style={textWrap}>
-              <Text style={{ color: "black", fontWeight: "bold" }}>
+              <Text numberOfLines={1} style={{ color: "black", fontWeight: "bold", overflow: "scroll"}}>
                 {items.product_name}
               </Text>
             </View>
@@ -96,7 +98,7 @@ class ProductItem extends Component {
                   },
                   body: JSON.stringify({
                     "product_id" : items.product_id,
-                    "useraccount_id" : account.useraccount_id 
+                    "useraccount_id" : useraccount_id
                   })
                 })
                   .then(res => res.json())
@@ -199,7 +201,7 @@ const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
     margin: 2,
-    height: height / 2 + 10,
+    height: (width / 2 - 4) * 1.618,
     width: width / 2 - 4,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: height / 2 - 85,
+    height: (width / 2 - 4) * 1.618 - 95,
     width: width / 2 - 16,
     alignSelf: "center",
     margin: 4,

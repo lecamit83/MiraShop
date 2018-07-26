@@ -274,7 +274,8 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 18,
     width: width - 86,
-    height: 40
+    height: 40,
+    fontFamily: "serif"
   },
 
   item: {

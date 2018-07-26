@@ -47,7 +47,7 @@ class CompanyHeader extends Component {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{ color: "#212121", fontSize: 22, fontWeight: "400" }}>
+          <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", fontFamily: "serif" }}>
             {this.state.title}
           </Text>
         </View>

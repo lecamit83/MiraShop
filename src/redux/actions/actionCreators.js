@@ -70,8 +70,6 @@ export function fetchProductCompany(url) {
   return dispatch => {
     return fetchProduct(url)
       .then(resJSON => {
-        console.log(resJSON);
-        
         dispatch(fetchProductCompanySuccess(resJSON));
       })
       .catch(err => {

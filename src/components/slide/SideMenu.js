@@ -50,206 +50,6 @@ class SideMenu extends Component {
     } = styles;
     const { navigation, account } = this.props;
 
-    const IsntLoginJSX = (
-      <ScrollView>
-        <TouchableOpacity
-          style={item}
-          onPress={() => navigation.navigate("MainStack")}
-        >
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/hospital_products.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.ALL_SP}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medicine.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.THUOC}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/healthy_foods.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.TP_CN}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medical_supplies.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.VT_YT}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medical_supplies.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.MY_PHAM}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/searchIcon.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.TIM_CONG_TY}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-    );
-
-    const IsLoginJSX = (
-      <ScrollView>
-        <TouchableOpacity
-          style={item}
-          onPress={() => navigation.navigate("MainStack")}
-        >
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/hospital_products.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.ALL_SP}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medicine.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.THUOC}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/healthy_foods.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.TP_CN}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medical_supplies.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.VT_YT}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity style={item}>
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/medical_supplies.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.MY_PHAM}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity
-          style={item}
-          onPress={() => this.props.navigation.navigate("ManageStack")}
-        >
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image
-                style={icon}
-                source={require("../../images/profile.png")}
-              />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.QUAN_LI}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-        <TouchableOpacity
-          style={item}
-          onPress={() => this.props.dispatch({ type: "SIGN_OUT" })}
-        >
-          <View style={index}>
-            <View style={wrapImage}>
-              <Image style={icon} source={require("../../images/logout.png")} />
-            </View>
-            <View style={wrapText}>
-              <Text style={text}>{CONST.SIGN_OUT}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={line} />
-      </ScrollView>
-    );
-
     const LOGIN = (
       <View style={sign}>
         <Button
@@ -358,6 +158,24 @@ class SideMenu extends Component {
             <TouchableOpacity
               style={{ flexDirection: "row" }}
               onPress={() => {
+                navigation.navigate("CompanyProfileStack");
+              }}
+            >
+              <Left>
+                <Icon name="search" />
+              </Left>
+              <Body>
+                <Text>Quản Lí Công Ty</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
                 navigation.navigate("CompanyStack");
               }}
             >
@@ -372,9 +190,115 @@ class SideMenu extends Component {
               </Right>
             </TouchableOpacity>
           </ListItem>
+          
         </List>
       </Content>
     );
+    const LIST_MENU_ITEM_LOGIN = (
+      <Content>
+        <List>
+          <ListItem itemDivider>
+            <Text style={{ fontWeight: "bold" }}>DANH MỤC SẢN PHẨM</Text>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("ThuocStack");
+              }}
+            >
+              <Left>
+                <Icon name="medical" />
+              </Left>
+              <Body>
+                <Text>Thuốc</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("TPCNStack");
+              }}
+            >
+              <Left>
+                <Icon name="medkit" />
+              </Left>
+              <Body>
+                <Text>Thực Phẩm Chức Năng</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("VTYTStack");
+              }}
+            >
+              <Left>
+                <Icon name="cog" />
+              </Left>
+              <Body>
+                <Text>Vật Tư & Thiết Bị Y Tế</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("MyPhamStack");
+              }}
+            >
+              <Left>
+                <Icon name="color-filter" />
+              </Left>
+              <Body>
+                <Text>Mỹ Phẩm</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem itemDivider>
+            <Text style={{ fontWeight: "bold" }}>CÔNG TY</Text>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("CompanyStack");
+              }}
+            >
+              <Left>
+                <Icon name="search" />
+              </Left>
+              <Body>
+                <Text>Tìm Công Ty</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          
+        </List>
+      </Content>
+    );
+
+    var SIDE_MENU = (account) ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
     var LOGINJSX;
     if (account) {
       if (account.status) {
@@ -396,7 +320,7 @@ class SideMenu extends Component {
             <TouchableOpacity
               style={{ flexDirection: "row" }}
               onPress={() => {
-                navigation.navigate("CompanyProfileStack");
+                //navigation.navigate("CompanyProfileStack");
               }}
             >
               <Thumbnail source={require("../../images/profile.png")} />
@@ -418,10 +342,9 @@ class SideMenu extends Component {
               {account && account.status ? account.useraccount_diachi : null}
             </Text>
           </Body>
-
           {LOGINJSX}
         </View>
-        <View style={wrapIndex}>{LIST_MENU_ITEM}</View>
+        <View style={wrapIndex}>{SIDE_MENU}</View>
       </SafeAreaView>
     );
   }
