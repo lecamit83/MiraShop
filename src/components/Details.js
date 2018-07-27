@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import {
   View,
-  // Text,
   StyleSheet,
   ScrollView,
   Image,
@@ -10,34 +9,16 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import Swiper from "react-native-swiper";
+import { Card, CardItem, Text, Body, Left, Right, Toast } from "native-base";
+import { connect } from "react-redux";
+
 import Headers from "./header/CompanyHeader";
-import Slide from "./slide/Slide";
 import {
-  BORDER_COLOR,
   BACKGROUND_COLOR_HEADER,
-  BACKGROUND_COLOR_INPUT,
   BACKGROUND_COLOR,
   LINE
 } from "../const/Const";
-
-import {
-  Container,
-  Header,
-  Title,
-  Content,
-  Button,
-  Icon,
-  Card,
-  CardItem,
-  Text,
-  Body,
-  Left,
-  Right,
-  IconNB,
-  Toast
-} from "native-base";
-
+import { addProduct } from "../api/postData";
 // create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -51,8 +32,8 @@ class Details extends Component {
     const { icon, line } = styles;
 
     const { items, isProfile } = this.props.navigation.state.params;
-    const { navigation } = this.props;
-    console.log(items);
+    const { navigation, account } = this.props;
+    let useraccount_id = account ? account.useraccount_id : null;
     const INFOR = [
       <Card>
         <CardItem header>
@@ -542,61 +523,61 @@ class Details extends Component {
         </CardItem>
       </Card>,
       <Card>
-      <CardItem header>
-        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-          Thành Phần
-        </Text>
-      </CardItem>
-      <CardItem bordered>
-        <Body>
-          <Text>{items.mypham_thanhphan}</Text>
-        </Body>
-      </CardItem>
-      <View style={line} />
-      <CardItem header>
-        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-        Công dụng
-        </Text>
-      </CardItem>
-      <CardItem bordered>
-        <Body>
-          <Text>{items.mypham_congdung}</Text>
-        </Body>
-      </CardItem>
-      <View style={line} />
-      <CardItem header>
-        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-        Thành phần
-        </Text>
-      </CardItem>
-      <CardItem bordered>
-        <Body>
-          <Text>{items.mypham_thanhphan}</Text>
-        </Body>
-      </CardItem>
-      <View style={line} />
-      <CardItem header>
-        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-          Nhà sản xuất
-        </Text>
-      </CardItem>
-      <CardItem>
-        <Body>
-          <Text>{items.product_nhasanxuat}</Text>
-        </Body>
-      </CardItem>
-      <View style={line} />
-      <CardItem header>
-        <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
-          Xuất xứ
-        </Text>
-      </CardItem>
-      <CardItem>
-        <Body>
-          <Text>{items.product_xuatxu}</Text>
-        </Body>
-      </CardItem>
-    </Card>
+        <CardItem header>
+          <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+            Thành Phần
+          </Text>
+        </CardItem>
+        <CardItem bordered>
+          <Body>
+            <Text>{items.mypham_thanhphan}</Text>
+          </Body>
+        </CardItem>
+        <View style={line} />
+        <CardItem header>
+          <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+            Công dụng
+          </Text>
+        </CardItem>
+        <CardItem bordered>
+          <Body>
+            <Text>{items.mypham_congdung}</Text>
+          </Body>
+        </CardItem>
+        <View style={line} />
+        <CardItem header>
+          <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+            Thành phần
+          </Text>
+        </CardItem>
+        <CardItem bordered>
+          <Body>
+            <Text>{items.mypham_thanhphan}</Text>
+          </Body>
+        </CardItem>
+        <View style={line} />
+        <CardItem header>
+          <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+            Nhà sản xuất
+          </Text>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>{items.product_nhasanxuat}</Text>
+          </Body>
+        </CardItem>
+        <View style={line} />
+        <CardItem header>
+          <Text style={{ fontSize: 17, color: BACKGROUND_COLOR_HEADER }}>
+            Xuất xứ
+          </Text>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>{items.product_xuatxu}</Text>
+          </Body>
+        </CardItem>
+      </Card>
     ];
 
     return (
@@ -706,34 +687,41 @@ class Details extends Component {
           >
             <Left>
               <Text
-                style={{ fontWeight: "bold", fontSize: 17, color: "#FFFFFF" }}
+                numberOfLines={1}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 17,
+                  color: "#FFFFFF",
+                  overflow: "scroll"
+                }}
               >
                 Hạn sử dụng: {items.product_hansudung}
               </Text>
             </Left>
             <Right>
-              {!isProfile ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    Toast.show({
-                      text: "Thêm thất bại!",
-                      buttonText: "Okay",
-                      buttonTextStyle: { color: "#008000" },
-                      buttonStyle: { backgroundColor: "#5cb85c" }
-                    });
-                  }}
-                >
-                  <Image
-                    style={icon}
-                    source={require("../images/add_to_company_white.png")}
-                  />
-                </TouchableOpacity>
-              ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  var data = {
+                    product_id: items.product_id,
+                    useraccount_id: useraccount_id
+                  };
+                  addProduct(data)
+                    .then(resJSON =>
+                      Toast.show({
+                        text: resJSON.message,
+                        buttonText: "Okay",
+                        buttonTextStyle: { color: "#008000" },
+                        buttonStyle: { backgroundColor: "#5cb85c" }
+                      })
+                    )
+                    .catch(err => console.log(err));
+                }}
+              >
                 <Image
                   style={icon}
-                  source={require("../images/remove_from_company_white.png")}
+                  source={require("../images/add_to_company_white.png")}
                 />
-              )}
+              </TouchableOpacity>
             </Right>
           </CardItem>
         </Card>
@@ -797,4 +785,9 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default Details;
+function mapStateToProps(state) {
+  return {
+    account: state.login.account
+  }
+}
+export default connect(mapStateToProps)(Details);

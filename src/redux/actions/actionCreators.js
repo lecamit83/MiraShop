@@ -1,3 +1,4 @@
+import { Toast } from "native-base";
 import * as TYPE from "../Const";
 import { fetchPosts, fetchComp, fetchProduct } from "../../api/getData";
 import { postUser } from "../../api/postData";

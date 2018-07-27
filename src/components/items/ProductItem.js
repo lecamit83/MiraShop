@@ -8,29 +8,15 @@ import {
   Image
 } from "react-native";
 
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right,
-  Toast
-} from "native-base";
+import { Card, CardItem, Text, Toast } from "native-base";
 
 import {
   BORDER_COLOR,
   BACKGROUND_COLOR_INPUT,
   BACKGROUND_COLOR_HEADER,
-  BACKGROUND_COLOR
 } from "../../const/Const";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import { addProduct } from "../../api/postData";
 
 // create a component
 class ProductItem extends Component {
@@ -38,8 +24,8 @@ class ProductItem extends Component {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
     const { navigation, items, account } = this.props;
 
-    let useraccount_id = (account) ? account.useraccount_id : null;
-    
+    let useraccount_id = account ? account.useraccount_id : null;
+
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { items: items })}
@@ -47,7 +33,14 @@ class ProductItem extends Component {
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
             <View style={textWrap}>
-              <Text numberOfLines={1} style={{ color: "black", fontWeight: "bold", overflow: "scroll"}}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: "black",
+                  fontWeight: "bold",
+                  overflow: "scroll"
+                }}
+              >
                 {items.product_name}
               </Text>
             </View>
@@ -83,30 +76,19 @@ class ProductItem extends Component {
 
             <TouchableOpacity
               onPress={() => {
-                // Toast.show({
-                //   text: "Thêm thất bại!",
-                //   buttonText: "Okay",
-                //   buttonTextStyle: { color: "#008000" },
-                //   buttonStyle: { backgroundColor: "#5cb85c" }
-                // });
-
-                fetch("http://api.hifapp.com/api/nbl/update/product", {
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json; charset=UTF-8"
-                  },
-                  body: JSON.stringify({
-                    "product_id" : items.product_id,
-                    "useraccount_id" : useraccount_id
-                  })
-                })
-                  .then(res => res.json())
-                  .then(resJSON => {
-                    console.log("OnPress Add");
-
-                    console.log(resJSON);
-                  })
+                var data = {
+                  product_id: items.product_id,
+                  useraccount_id: useraccount_id
+                };
+                addProduct(data)
+                  .then(resJSON =>
+                    Toast.show({
+                      text: resJSON.message,
+                      buttonText: "Okay",
+                      buttonTextStyle: { color: "#008000" },
+                      buttonStyle: { backgroundColor: "#5cb85c" }
+                    })
+                  )
                   .catch(err => console.log(err));
               }}
             >
@@ -125,74 +107,6 @@ class ProductItem extends Component {
           </CardItem>
         </Card>
       </TouchableOpacity>
-
-      // <TouchableOpacity
-      //   style={{ marginLeft: 5, marginRight: 5 }}
-      //   onPress={() =>
-      //     navigation.navigate("DetailsScreen", { name: name, cost: cost })
-      //   }
-      // >
-      //   <Card style={{ flex: 0 }}>
-      //     <CardItem bordered>
-      //       <Left>
-      //         <Thumbnail source={require("../../images/sp.png")} />
-      //         <Body>
-      //           <Text style={{ fontSize: 17 }}>{name}</Text>
-      //           <Text style={{ marginTop: 5 }} note>
-      //             April 15, 2018
-      //           </Text>
-      //         </Body>
-      //       </Left>
-      //       <TouchableOpacity onPress={() => { navigation.navigate("MapScreen") }} >
-      //         <Right>
-      //           <Image
-      //             style={{ height: 35, width: 35 }}
-      //             source={require("../../images/directions_black.png")}
-      //           />
-      //         </Right>
-      //       </TouchableOpacity>
-      //     </CardItem>
-      //     <CardItem>
-      //       <Body>
-      //         <Image
-      //           source={require("../../images/sp.png")}
-      //           style={{ height: 200, width: width - 40, flex: 1 }}
-      //         />
-      //         <Text style={{ marginTop: 10 }}>
-      //           Noi dung mo ta ngan gon san pham se hien thi toi da 02 dong tai
-      //           day
-      //         </Text>
-      //       </Body>
-      //     </CardItem>
-      //     <CardItem
-      //       style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
-      //     >
-      //       <Left>
-      //         {/* <Icon active name = "logo-usd" style={{ color: "#FFFFFF", width: 15, height: 15 }} /> */}
-      //         <Text
-      //           style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 20 }}
-      //         >
-      //           1.500.000 đ
-      //         </Text>
-      //       </Left>
-      //       <Right>
-      //         <TouchableOpacity onPress={() =>
-      //           Toast.show({
-      //             text: "Wrong password!",
-      //             buttonText: "Okay",
-      //             buttonTextStyle: { color: "#008000" },
-      //             buttonStyle: { backgroundColor: "#5cb85c" }
-      //           })
-      //         }>
-      //           <Image
-      //             style={icon}
-      //             source={require("../../images/add_to_company_white.png")}
-      //           />
-      //         </TouchableOpacity>
-      //       </Right>
-      //     </CardItem>
-      //   </Card>
-      // </TouchableOpacity>
     );
   }
 }

@@ -1,37 +1,27 @@
 import React, { Component } from "react";
 import {
   View,
-  // Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
   Image
 } from "react-native";
 
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right
-} from "native-base";
-import {connect} from "react-redux";
+import { Card, CardItem, Text, Toast } from "native-base";
+import { connect } from "react-redux";
 
-import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
+import {
+  BORDER_COLOR,
+  BACKGROUND_COLOR_INPUT,
+  BACKGROUND_COLOR_HEADER
+} from "../../const/Const";
+import { deleteProduct } from "../../api/deleteData";
 
 // create a component
 class SubItem extends Component {
   render() {
     const { item, image, icon, textWrap, line } = styles;
-    const { navigation, items , account} = this.props;
+    const { navigation, items, account } = this.props;
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { items: items })}
@@ -39,7 +29,14 @@ class SubItem extends Component {
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
             <View style={textWrap}>
-              <Text numberOfLines={1} style={{ color: "black", fontWeight: "bold" , overflow: "scroll"}}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: "black",
+                  fontWeight: "bold",
+                  overflow: "scroll"
+                }}
+              >
                 {items.product_name}
               </Text>
             </View>
@@ -75,29 +72,20 @@ class SubItem extends Component {
 
             <TouchableOpacity
               onPress={() => {
-                // Toast.show({
-                //   text: "Thêm thất bại!",
-                //   buttonText: "Okay",
-                //   buttonTextStyle: { color: "#008000" },
-                //   buttonStyle: { backgroundColor: "#5cb85c" }
-                // });
-
-                fetch("http://api.hifapp.com/api/nbl/update/product", {
-                  method: "DELETE",
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json; charset=UTF-8"
-                  },
-                  body: JSON.stringify({
-                    "product_id" : items.product_id,
-                    "useraccount_id" : account.useraccount_id 
-                  })
-                })
-                  .then(res => res.json())  
+                var data = {
+                  product_id: items.product_id,
+                  useraccount_id: account.useraccount_id
+                };
+                deleteProduct(data)
                   .then(resJSON => {
-                    console.log("OnPress Add");
-
                     console.log(resJSON);
+                    
+                    Toast.show({
+                      text: resJSON.message,
+                      buttonText: "Okay",
+                      buttonTextStyle: { color: "#008000" },
+                      buttonStyle: { backgroundColor: "#5cb85c" }
+                    })
                   })
                   .catch(err => console.log(err));
               }}
@@ -133,7 +121,7 @@ const styles = StyleSheet.create({
     borderColor: BORDER_COLOR
   },
   image: {
-    height:(width / 2 - 4) * 1.618 - 95,
+    height: (width / 2 - 4) * 1.618 - 95,
     width: width / 2 - 16,
     alignSelf: "center",
     margin: 4,
@@ -145,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 3,
+    marginTop: 3
   },
   wrap: {
     borderRadius: 5,
@@ -175,7 +163,7 @@ const styles = StyleSheet.create({
     opacity: 1,
     backgroundColor: "#EBEBEB",
     alignSelf: "center"
-  },
+  }
 });
 
 function mapStateToProps(state) {

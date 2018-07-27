@@ -29,6 +29,7 @@ import {
 import * as CONST from "../../const/Const";
 import { connect } from "react-redux";
 
+
 class SideMenu extends Component {
   constructor(props) {
     super(props);
@@ -123,7 +124,7 @@ class SideMenu extends Component {
               }}
             >
               <Left>
-                <Icon name="cog" />
+                <Icon name="thermometer" />
               </Left>
               <Body>
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
@@ -141,7 +142,7 @@ class SideMenu extends Component {
               }}
             >
               <Left>
-                <Icon name="color-filter" />
+                <Icon name="flower" />
               </Left>
               <Body>
                 <Text>Mỹ Phẩm</Text>
@@ -162,7 +163,7 @@ class SideMenu extends Component {
               }}
             >
               <Left>
-                <Icon name="search" />
+                <Icon name="home" />
               </Left>
               <Body>
                 <Text>Quản Lí Công Ty</Text>
@@ -244,7 +245,7 @@ class SideMenu extends Component {
               }}
             >
               <Left>
-                <Icon name="cog" />
+                <Icon name="thermometer" />
               </Left>
               <Body>
                 <Text>Vật Tư & Thiết Bị Y Tế</Text>
@@ -262,7 +263,7 @@ class SideMenu extends Component {
               }}
             >
               <Left>
-                <Icon name="color-filter" />
+                <Icon name="flower" />
               </Left>
               <Body>
                 <Text>Mỹ Phẩm</Text>
