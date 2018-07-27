@@ -1,73 +1,65 @@
 import React, { Component } from "react";
+import { StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+
 import {
-  View,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  ImageBackground,
-  Image
-} from "react-native";
+  Card,
+  CardItem,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right
+} from "native-base";
 
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-
-import { BORDER_COLOR, BACKGROUND_COLOR_INPUT, BACKGROUND_COLOR_HEADER, BACKGROUND_COLOR } from "../../const/Const";
+import { BORDER_COLOR, BACKGROUND_COLOR_INPUT } from "../../const/Const";
 
 // create a component
 class ProductItem extends Component {
   render() {
-    const { item, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, name, address } = this.props;
+    const { navigation, itemProps } = this.props;
     return (
       <TouchableOpacity
         // style={item}
-        style = {{ marginLeft: 5, marginRight: 5 }}
-        onPress = {() => navigation.navigate("DetailCompany", { name: name, address: address })}
+        style={{ marginLeft: 5, marginRight: 5 }}
+        onPress={() =>
+          navigation.navigate("DetailCompany", { name: itemProps.useraccount_DVKD, address: itemProps.useraccount_diachi })
+        }
       >
-        {/* <Image style={image} source={require("../../images/sp.png")} />
-        <View style={info}>
-          <View  style={textWrap}>
-            <Text style={{fontSize: 17, color: "#FF8F00" }} >{name}</Text>
-            <Text style={{ marginTop: 5 }}>{`${cost}đ`}</Text>
-          </View>
-          <TouchableOpacity style={wrap}
-            onPress={()=>alert("ADD")}
-          >
-            <View style={buttonAdd}>
-              <Image style={icon} source={require("../../images/add.png")} />
-              <Text>Thêm Sản Phẩm</Text>
-            </View>
-          </TouchableOpacity>
-        </View> */}
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail source={require("../../images/sp.png")} />
+              <Icon name="contact" style={{ height: 40, width: 40 }} />
               <Body>
-                <Text style={{ fontSize: 17 }}>Tên Công Ty</Text>
-                <Text style={{ marginTop: 5 }} note>địa chỉ công ty</Text>
+                <Text style={styles.nameOfCompany}>
+                  {itemProps.useraccount_DVKD}
+                </Text>
+                <Text numberOfLines={1} style={styles.addressOfCompany} note>
+                  Địa chỉ: {itemProps.useraccount_diachi}
+                </Text>
+                <Text numberOfLines={1} style={styles.addressOfCompany} note>
+                  Mã số thuế: {itemProps.useraccount_masothue}
+                </Text>
               </Body>
             </Left>
           </CardItem>
-          <CardItem cardBody>
-            <Image source={require("../../images/sp.png")} style={{ height: 200, width: null, flex: 1 }} />
-          </CardItem>
           <CardItem>
             <Left>
-              <Button transparent>
-                <Icon active name="call" />
+              <Button transparent iconLeft>
+                <Icon name="call" />
                 <Text>Phone</Text>
               </Button>
             </Left>
             <Body>
-              <Button transparent>
-                <Icon active name="logo-facebook" />
-                <Text>Messenger</Text>
+              <Button transparent iconLeft>
+                <Icon name="logo-facebook" />
+                <Text>Facebook</Text>
               </Button>
             </Body>
             <Right>
-            <Button transparent>
-              <Icon active name = "chatboxes" />
-              <Text>Zalo</Text>
+              <Button transparent iconLeft>
+                <Icon name="chatboxes"/>
+                <Text>Zalo</Text>
               </Button>
             </Right>
           </CardItem>
@@ -79,6 +71,17 @@ class ProductItem extends Component {
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
+  nameOfCompany: {
+    fontSize: 19,
+    fontFamily: "serif"
+  },
+  addressOfCompany: {
+    marginTop: 5,
+    fontSize: 10,
+    overflow: "scroll",
+    opacity: 0.7,
+    fontFamily: "serif"
+  },
   item: {
     margin: 4,
     height: height / 2 + 10,
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 3,
+    marginTop: 3
   },
   wrap: {
     borderRadius: 5,

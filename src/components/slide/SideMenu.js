@@ -1,21 +1,9 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  // Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions
-} from "react-native";
+import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native";
 
-import { DrawerItems, SafeAreaView } from "react-navigation";
+import { SafeAreaView } from "react-navigation";
 import {
-  Container,
-  Header,
   Content,
-  Card,
-  CardItem,
   Thumbnail,
   List,
   ListItem,
@@ -29,26 +17,12 @@ import {
 import * as CONST from "../../const/Const";
 import { connect } from "react-redux";
 
-
 class SideMenu extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const {
-      container,
-      wrapLogo,
-      wrapIndex,
-      item,
-      imageLogo,
-      sign,
-      line,
-      index,
-      wrapImage,
-      icon,
-      wrapText,
-      text
-    } = styles;
+    const { container, wrapLogo, wrapIndex, item, imageLogo, sign } = styles;
     const { navigation, account } = this.props;
 
     const LOGIN = (
@@ -191,7 +165,6 @@ class SideMenu extends Component {
               </Right>
             </TouchableOpacity>
           </ListItem>
-          
         </List>
       </Content>
     );
@@ -294,12 +267,11 @@ class SideMenu extends Component {
               </Right>
             </TouchableOpacity>
           </ListItem>
-          
         </List>
       </Content>
     );
 
-    var SIDE_MENU = (account) ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
+    var SIDE_MENU = account ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
     var LOGINJSX;
     if (account) {
       if (account.status) {

@@ -203,6 +203,9 @@ const CompanyProfileStack = StackNavigator(
     DetailsScreen: {
       screen: Details
     },
+    MapScreen: {
+      screen: MapViews
+    },
   },
   {
     initialRouteName: "CompanyProfile"
@@ -246,7 +249,7 @@ const Drawer = DrawerNavigator(
     },
   },
   {
-    drawerWidth : width * 0.8,
+    drawerWidth : width * 0.85,
     initialRouteName: "ThuocStack",
     contentComponent: (props) => <SideMenu {...props} />
   }

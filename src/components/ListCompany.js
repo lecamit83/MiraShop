@@ -24,7 +24,7 @@ class ListCompany extends Component {
       <View style={container}>
         <FlatList
           data={companys}
-          renderItem={({item}) => <Item navigation={navigation} name={item.name} address={item.address}/>}
+          renderItem={({item}) => <Item navigation={navigation} itemProps={item}/>}
           keyExtractor={(item, index) => index.toString()}
           numColumns={1}
         />
