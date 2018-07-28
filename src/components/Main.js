@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ListView, FlatList, StatusBar, TouchableOpacity } from "react-native";
+import { View, StyleSheet, FlatList, AsyncStorage } from "react-native";
 import { connect } from "react-redux";
 import { MenuProvider } from "react-native-popup-menu";
 
@@ -22,6 +22,7 @@ class Main extends Component {
     const { container, wrapperItem } = styles; 
     const { navigation, products, pages } = this.props;
     var id = this.props.screenProps;
+    
     return (
       <View style={container}>
         <FlatList

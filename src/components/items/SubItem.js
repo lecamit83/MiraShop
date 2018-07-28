@@ -16,12 +16,13 @@ import {
   BACKGROUND_COLOR_HEADER
 } from "../../const/Const";
 import { deleteProduct } from "../../api/deleteData";
+import {deleteProductOfCompany } from "../../redux/actions/actionCreators";
 
 // create a component
 class SubItem extends Component {
   render() {
     const { item, image, icon, textWrap, line } = styles;
-    const { navigation, items, account } = this.props;
+    const { navigation, items, account, index, companyProfileInstance } = this.props;
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { items: items })}
@@ -37,7 +38,7 @@ class SubItem extends Component {
                   overflow: "scroll"
                 }}
               >
-                {items.product_name}
+                {items.product_name} - {index}
               </Text>
             </View>
           </CardItem>
@@ -72,22 +73,13 @@ class SubItem extends Component {
 
             <TouchableOpacity
               onPress={() => {
+                companyProfileInstance.state.arrProducts.splice(index, 1)
+                companyProfileInstance.setState({ arrProducts : companyProfileInstance.state.arrProducts })
                 var data = {
                   product_id: items.product_id,
                   useraccount_id: account.useraccount_id
                 };
-                deleteProduct(data)
-                  .then(resJSON => {
-                    console.log(resJSON);
-                    
-                    Toast.show({
-                      text: resJSON.message,
-                      buttonText: "Okay",
-                      buttonTextStyle: { color: "#008000" },
-                      buttonStyle: { backgroundColor: "#5cb85c" }
-                    })
-                  })
-                  .catch(err => console.log(err));
+                this.props.deleteProductOfCompany(data, companyProfileInstance.state.arrProducts);
               }}
             >
               <View
@@ -172,4 +164,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SubItem);
+export default connect(mapStateToProps, {deleteProductOfCompany})(SubItem);

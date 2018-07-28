@@ -2,10 +2,7 @@
 import React, { Component } from "react";
 import {
   View,
-  // Text,
   StyleSheet,
-  TouchableOpacity,
-  Image,
   FlatList,
   ScrollView,
   Dimensions
@@ -14,64 +11,60 @@ import {
 import { connect } from "react-redux";
 
 import {
-  Container,
   Content,
-  Card,
-  CardItem,
   Form,
-  List,
   ListItem,
   Item,
   Text,
   Label,
   Input,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right
+  Button
 } from "native-base";
 
 import Header from "./header/CompanyHeader";
 import ItemCompanyProduct from "./items/SubItem";
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
-import {fetchProductCompany} from "../redux/actions/actionCreators"
+import { fetchProductCompany } from "../redux/actions/actionCreators";
 
 // create a component
 class CompanyProfiles extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: <Header navigation={navigation} title="Thông Tin Công Ty" Goto="MainStack" />
-  })
+    header: (
+      <Header
+        navigation={navigation}
+        title="Thông Tin Công Ty"
+        Goto="MainStack"
+      />
+    )
+  });
   constructor(props) {
     super(props);
     this.state = {
-      nameOfCompany: "MiRa Shop",
-      emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng",
-      arrProducts : []
+      arrProducts: [],
     };
   }
   componentDidMount() {
     let id = this.props.account.useraccount_id;
-    console.log('componentDidMount Management');
-    this.props.fetchProductCompany("http://api.hifapp.com/api/nbl/product?userid=" + id);
-    console.log("setState");
-    this.setState({arrProducts : this.props.companyProduct});
+    this.props.fetchProductCompany(
+      "http://api.hifapp.com/api/nbl/product?userid=" + id
+    );
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.state.arrProducts !== nextProps.companyProduct) {
+      this.setState({arrProducts : nextProps.companyProduct})
+    }
   }
   render() {
+    console.log("render");
+
     const { navigation, companyProduct } = this.props;
-    console.log("render CompanyProfiles");
-    
-    console.log(companyProduct);
-
-    const {arrProducts} = this.state;
-    console.log("arrProducts");
-    
+    const { arrProducts } = this.state;
     console.log(arrProducts);
-    
-
     return (
       <ScrollView>
-        <Content style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}>
+        <Content
+          style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}
+        >
           <Form>
             <Item floatingLabel>
               <Label>Họ Tên</Label>
@@ -93,7 +86,16 @@ class CompanyProfiles extends Component {
               <Label>Zalo</Label>
               <Input />
             </Item>
-            <Button full info style={{ margin: 15, marginTop: 25, borderRadius: 5, backgroundColor: BACKGROUND_COLOR_HEADER }}>
+            <Button
+              full
+              info
+              style={{
+                margin: 15,
+                marginTop: 25,
+                borderRadius: 5,
+                backgroundColor: BACKGROUND_COLOR_HEADER
+              }}
+            >
               <Text>CẬP NHẬT</Text>
             </Button>
           </Form>
@@ -103,10 +105,18 @@ class CompanyProfiles extends Component {
             <Text style={{ fontWeight: "bold" }}>DANH DÁCH SẢN PHẨM BÁN</Text>
           </ListItem>
           <FlatList
-            data={ companyProduct }
-            renderItem={({ item }) => <ItemCompanyProduct navigation={navigation} items={item} />}
+            data={arrProducts}
+            renderItem={({ item, index }) => (
+              <ItemCompanyProduct
+                navigation={navigation}
+                items={item}
+                index={index}
+                companyProfileInstance={this}
+              />
+            )}
             keyExtractor={(item, index) => index.toString()}
             numColumns={2}
+            extraData={this.state}
           />
         </View>
       </ScrollView>
@@ -118,7 +128,7 @@ const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
     // backgroundColor: BACKGROUND_COLOR
   },
   intro: {
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     height: 35,
-    width: 35,
+    width: 35
     // resizeMode: "contain"
   },
   nameCompany: {
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
     marginRight: width / 4
   },
   textContact: {
-    fontSize: 10,
+    fontSize: 10
   },
   listItems: {
     // flexWrap: "wrap",
@@ -183,7 +193,10 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     companyProduct: state.productCompany.proCompany,
-    account : state.login.account,  
+    account: state.login.account
   };
 }
-export default connect(mapStateToProps , {fetchProductCompany})(CompanyProfiles);
+export default connect(
+  mapStateToProps,
+  { fetchProductCompany }
+)(CompanyProfiles);

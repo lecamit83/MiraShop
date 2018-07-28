@@ -2,6 +2,7 @@ import { Toast } from "native-base";
 import * as TYPE from "../Const";
 import { fetchPosts, fetchComp, fetchProduct } from "../../api/getData";
 import { postUser } from "../../api/postData";
+import { deleteProduct } from "../../api/deleteData";
 // GET products
 export function fetchDataRequest() {
   return { type: TYPE.FETCH_REQUEST };
@@ -67,6 +68,10 @@ export function fetchProductCompanyError() {
   return { type: TYPE.FETCH_PRODUCT_COMPANY_ERROR };
 }
 
+export function deleteProductCompanySuccess(data) {
+  return { type: TYPE.DELETE_PRODUCT_COMPANY_SUCCESS, data };
+}
+
 export function fetchProductCompany(url) {
   return dispatch => {
     return fetchProduct(url)
@@ -76,6 +81,26 @@ export function fetchProductCompany(url) {
       .catch(err => {
         console.log(err);
         fetchProductCompanyError();
+      });
+  };
+}
+
+export function deleteProductOfCompany(user, data) {
+  return dispatch => {
+    return deleteProduct(user)
+      .then(resJSON => {
+        console.log("deleteProductOfCompany");
+        
+        Toast.show({
+          text: resJSON.message,
+          buttonText: "Okay",
+          buttonTextStyle: { color: "#008000" },
+          buttonStyle: { backgroundColor: "#5cb85c" }
+        });
+        dispatch(deleteProductCompanySuccess(data));
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 }

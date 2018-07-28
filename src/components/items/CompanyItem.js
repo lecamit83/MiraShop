@@ -23,7 +23,7 @@ class ProductItem extends Component {
         // style={item}
         style={{ marginLeft: 5, marginRight: 5 }}
         onPress={() =>
-          navigation.navigate("DetailCompany", { name: itemProps.useraccount_DVKD, address: itemProps.useraccount_diachi })
+          navigation.navigate("DetailCompany", { itemsProps: itemProps })
         }
       >
         <Card>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     overflow: "scroll",
     opacity: 0.7,
-    fontFamily: "serif"
+    fontFamily: "serif" 
   },
   item: {
     margin: 4,

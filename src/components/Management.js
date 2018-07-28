@@ -2,10 +2,7 @@
 import React, { Component } from "react";
 import {
   View,
-  // Text,
   StyleSheet,
-  TouchableOpacity,
-  Image,
   FlatList,
   ScrollView,
   Dimensions
@@ -14,12 +11,8 @@ import {
 import { connect } from "react-redux";
 
 import {
-  Container,
-  Content,
   Card,
   CardItem,
-  Thumbnail,
-  List,
   ListItem,
   Text,
   Button,
@@ -32,35 +25,32 @@ import {
 import Header from "./header/CompanyHeader";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
+import { fetchProductCompany } from "../redux/actions/actionCreators";
 
 // create a component
 class Management extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: <Header navigation={navigation} title="Thông Tin Công Ty" />
-  })
+  });
   constructor(props) {
     super(props);
-    this.state = {
-      nameOfCompany: "MiRa Shop",
-      emailCompany: "31 Trần Phú - Q. Hải Châu - TP. Đà Nẵng"
-    };
+  }
+  componentDidMount() {
+    let id = this.props.navigation.state.params.itemsProps.useraccount_id;
+    this.props.fetchProductCompany("http://api.hifapp.com/api/nbl/product?userid=" + id);
   }
   render() {
     const { navigation, companyProduct } = this.props;
+    const { itemsProps } = this.props.navigation.state.params;
     return (
       <ScrollView>
         <Card style={styles.intro}>
           <View style={styles.wrapInfo}>
-            {/* <Image
-                style={styles.imageLogo}
-                source={require("../images/logo.png")}
-              /> */}
-            <Thumbnail source={require("../images/profile.png")} />
             <View style={styles.wrapText}>
               <Text style={styles.nameCompany}>
-                {this.state.nameOfCompany}
+                {itemsProps.useraccount_DVKD}
               </Text>
-              <Text note >{this.state.emailCompany}</Text>
+              <Text note>{itemsProps.useraccount_diachi}</Text>
             </View>
           </View>
           <CardItem>
@@ -90,9 +80,11 @@ class Management extends Component {
           </ListItem>
           <FlatList
             data={companyProduct}
-            renderItem={({ item }) => <Item navigation={navigation} name={item.name} cost={item.cost} />}
+            renderItem={({ item }) => (
+              <Item navigation={navigation} items={item} />
+            )}
             keyExtractor={(item, index) => index.toString()}
-            numColumns={1}
+            numColumns={2}
           />
         </View>
       </ScrollView>
@@ -104,7 +96,7 @@ const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
     // backgroundColor: BACKGROUND_COLOR
   },
   intro: {
@@ -139,14 +131,15 @@ const styles = StyleSheet.create({
   },
   icon: {
     height: 35,
-    width: 35,
+    width: 35
     // resizeMode: "contain"
   },
   nameCompany: {
-    fontSize: 17,
+    fontSize: 20,
     color: BACKGROUND_COLOR_HEADER,
     fontWeight: "bold",
-    marginBottom: 5
+    marginBottom: 5,
+    fontFamily: "serif"
   },
   contact: {
     flexDirection: "row",
@@ -155,7 +148,7 @@ const styles = StyleSheet.create({
     marginRight: width / 4
   },
   textContact: {
-    fontSize: 10,
+    fontSize: 10
   },
   listItems: {
     // flexWrap: "wrap",
@@ -168,7 +161,10 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    companyProduct: state.companyProduct,
+    companyProduct: state.productCompany.proCompany
   };
 }
-export default connect(mapStateToProps)(Management);
+export default connect(
+  mapStateToProps,
+  { fetchProductCompany }
+)(Management);

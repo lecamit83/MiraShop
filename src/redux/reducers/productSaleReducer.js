@@ -10,7 +10,9 @@ const productCompanyReducer = (state = defaultState, action) => {
             return { proCompany : action.data }
         case TYPE.FETCH_PRODUCT_COMPANY_ERROR:
             return { proCompany : [] }
-        default:
+        case TYPE.DELETE_PRODUCT_COMPANY_SUCCESS:        
+            return { proCompany : action.data }
+        default:    
             return state;
     }
     return state;

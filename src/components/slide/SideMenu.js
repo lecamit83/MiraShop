@@ -282,10 +282,6 @@ class SideMenu extends Component {
     } else {
       LOGINJSX = LOGIN;
     }
-    console.log("===================Account=================");
-    console.log(account);
-    console.log("====================================");
-
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>

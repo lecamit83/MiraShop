@@ -15,10 +15,7 @@ class ListCompany extends Component {
   }
   render() {
     const { container, wrapperItem } = styles;
-    const { navigation, companys } = this.props;
-    console.log('ListCompany ');
-    console.log(companys);
-    
+    const { navigation, companys } = this.props;    
     
     return (
       <View style={container}>
@@ -32,7 +29,9 @@ class ListCompany extends Component {
     );
   }
   componentDidMount(){
-    this.props.fetchCompany('http://api.hifapp.com/api/ncc');
+    if(this.props.companys.length == 0) {
+      this.props.fetchCompany("http://api.hifapp.com/api/ncc");
+    }
   }
 }
 
