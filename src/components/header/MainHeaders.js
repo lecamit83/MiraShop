@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import {
   View,
-  // Text,
   StyleSheet,
   Image,
   TextInput,
@@ -19,21 +18,7 @@ import {
   MenuTrigger
 } from "react-native-popup-menu";
 
-import { DrawerActions } from 'react-navigation';
-
-
-import Autocomplete from "react-native-autocomplete-input";
-
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Text,
-  Icon,
-  Right
-} from "native-base";
+import { Card, CardItem, Text, Icon, Right } from "native-base";
 
 import * as CONST from "../../const/Const.js";
 // import * as STYLES from "../../const/Styles.js";
@@ -47,30 +32,22 @@ class MainHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: this.props.textSearch,
+      query: ""
     };
   }
 
-
   render() {
     const { navigation } = this.props;
+    const instance = navigation.getParam("instance");
+    const { query } = this.state;
     const {
-      wrapTextInput,
       wrapMenu,
       iconMenu,
-      wrapSettings,
       iconSettings,
       container,
       wrapperSearch,
       iconSearch,
       inputText,
-      line,
-      index,
-      wrapImage,
-      wrapText,
-      icon,
-      text,
-      item,
       containerAll
     } = styles;
     const MENUJSX = (
@@ -82,64 +59,6 @@ class MainHeader extends Component {
           />
         </MenuTrigger>
         <MenuOptions customStyles={optionsStyles}>
-          {/* <View>
-            <MenuOption onSelect={() => alert(`Save`)}>
-              <View style={index}>
-                <View style={wrapImage}>
-                  <Image
-                    style={icon}
-                    source={require("../../images/medicine.png")}
-                  />
-                </View>
-                <View style={wrapText}>
-                  <Text style={text}>{CONST.THUOC}</Text>
-                </View>
-              </View>
-            </MenuOption>
-            <View style={line} />
-            <MenuOption onSelect={() => alert(`Delete`)} style={item}>
-              <View style={index}>
-                <View style={wrapImage}>
-                  <Image
-                    style={icon}
-                    source={require("../../images/medical_supplies.png")}
-                  />
-                </View>
-                <View style={wrapText}>
-                  <Text style={text}>{CONST.VT_YT}</Text>
-                </View>
-              </View>
-            </MenuOption>
-            <View style={line} />
-            <MenuOption onSelect={() => alert(`Delete`)} style={item}>
-              <View style={index}>
-                <View style={wrapImage}>
-                  <Image
-                    style={icon}
-                    source={require("../../images/medical_supplies.png")}
-                  />
-                </View>
-                <View style={wrapText}>
-                  <Text style={text}>{CONST.MY_PHAM}</Text>
-                </View>
-              </View>
-            </MenuOption>
-            <View style={line} />
-            <MenuOption>
-              <View style={index}>
-                <View style={wrapImage}>
-                  <Image
-                    style={icon}
-                    source={require("../../images/healthy_foods.png")}
-                  />
-                </View>
-                <View style={wrapText}>
-                  <Text style={text}>{CONST.TP_CN}</Text>
-                </View>
-              </View>
-            </MenuOption>
-          </View> */}
-
           <Card>
             <CardItem
               header
@@ -191,7 +110,6 @@ class MainHeader extends Component {
         </MenuOptions>
       </Menu>
     );
-    const {query} = this.state;
 
     return (
       <View style={containerAll}>
@@ -204,7 +122,9 @@ class MainHeader extends Component {
         <View style={container}>
           <View style={wrapMenu}>
             <TouchableOpacity
-              onPress={() => {navigation.navigate("DrawerOpen");}}
+              onPress={() => {
+                navigation.navigate("DrawerOpen");
+              }}
             >
               <Image
                 source={require("../../images/menu_white.png")}
@@ -213,21 +133,17 @@ class MainHeader extends Component {
             </TouchableOpacity>
           </View>
           <View style={wrapperSearch}>
-            <TextInput 
+            <TextInput
               placeholder="Nhập tên sản phẩm ..."
               underlineColorAndroid="transparent"
               style={inputText}
               value={query}
-              onChangeText={(text) =>{
-                this.setState({query : text})
-             //   this.props.dispatch({type: "SEARCH", textSearch: this.state.textSearch})
+              onChangeText={text => {
+                this.setState({ query: text });
+                instance.setState({ query: text });
               }}
             />
-            <TouchableOpacity
-              onPress={() => {
-                //alert(  navigation.state.params.query)
-              }}
-            >
+            <TouchableOpacity onPress={() => {}}>
               <Image
                 source={require("../../images/search_black.png")}
                 style={iconSearch}
@@ -235,8 +151,8 @@ class MainHeader extends Component {
             </TouchableOpacity>
           </View>
           {/* <View style={wrapSettings}>
-            <TouchableOpacity>{MENUJSX}</TouchableOpacity>
-          </View> */}
+              <TouchableOpacity>{MENUJSX}</TouchableOpacity>
+            </View> */}
         </View>
       </View>
     );
@@ -333,10 +249,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {
-    textSearch: state.textSearch,
-    products : state.products,
-  };
+  return {};
 }
 //make this component available to the app
 export default connect(mapStateToProps)(MainHeader);

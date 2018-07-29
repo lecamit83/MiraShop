@@ -25,7 +25,7 @@ const ThuocStack = StackNavigator(
       //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={0}/>,
       navigationOptions :  ({ navigation }) => ({
-        header: <MainHeader navigation={navigation} />
+        header: (props) => <MainHeader {...props} navigation={navigation}  />
       })
     },
     DetailsScreen: {
@@ -64,7 +64,7 @@ const TPCNStack = StackNavigator(
       //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={1}/>,
       navigationOptions :  ({ navigation }) => ({
-        header: <MainHeader navigation={navigation} />
+        header: (props) => <MainHeader {...props} navigation={navigation}  />
       })
     },
     DetailsScreen: {
@@ -103,7 +103,7 @@ const VTYTStack = StackNavigator(
       //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={2}/>,
       navigationOptions :  ({ navigation }) => ({
-        header: <MainHeader navigation={navigation} />
+        header: (props) => <MainHeader {...props} navigation={navigation}  />
       })
     },
     DetailsScreen: {
@@ -142,7 +142,7 @@ const MyPhamStack = StackNavigator(
       //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={3}/>,
       navigationOptions :  ({ navigation }) => ({
-        header: <MainHeader navigation={navigation} />
+        header: (props) => <MainHeader {...props} navigation={navigation}  />
       })
     },
     DetailsScreen: {

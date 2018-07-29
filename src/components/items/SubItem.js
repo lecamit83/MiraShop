@@ -38,7 +38,7 @@ class SubItem extends Component {
                   overflow: "scroll"
                 }}
               >
-                {items.product_name} - {index}
+                {items.product_name}
               </Text>
             </View>
           </CardItem>

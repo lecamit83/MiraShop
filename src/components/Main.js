@@ -1,36 +1,42 @@
 //import liraries
 import React, { Component } from "react";
-import { View, StyleSheet, FlatList, AsyncStorage } from "react-native";
+import { View, StyleSheet, FlatList, AsyncStorage, Text } from "react-native";
 import { connect } from "react-redux";
-import { MenuProvider } from "react-native-popup-menu";
 
-import MainHeader from "./header/MainHeaders";
+import { MenuProvider } from "react-native-popup-menu";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR } from "../const/Const";
-import {fetchData} from "../redux/actions/actionCreators";
-var urls = ["http://api.hifapp.com/api/thuoc?page=", "http://api.hifapp.com/api/tpcn?page=", "http://api.hifapp.com/api/vttb?page=", "http://api.hifapp.com/api/mypham?page="];
+import { fetchData } from "../redux/actions/actionCreators";
+var urls = [
+  "http://api.hifapp.com/api/thuoc?page=",
+  "http://api.hifapp.com/api/tpcn?page=",
+  "http://api.hifapp.com/api/vttb?page=",
+  "http://api.hifapp.com/api/mypham?page="
+];
 // create a component
 class Main extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   header: <MainHeader navigation={navigation} />
-  // });
-  constructor(props) { 
+  constructor(props) {
     super(props);
+    this.state = {
+      query: ""
+    };
   }
 
   render() {
-    const { container, wrapperItem } = styles; 
+    const { container, wrapperItem } = styles;
     const { navigation, products, pages } = this.props;
     var id = this.props.screenProps;
-    
+
     return (
       <View style={container}>
         <FlatList
-          data={products[id]}
-          renderItem={({item}) => <Item navigation={navigation} items={item}/>}
+          data={this._filterProduct(products[id])}
+          renderItem={({ item }) => (
+            <Item navigation={navigation} items={item} />
+          )}
           keyExtractor={(item, index) => {
-            return (item.product_id + '#'+ index);
-          }}  
+            return item.product_id + "#" + index;
+          }}
           numColumns={2}
           onEndReachedThreshold={0.1}
           onEndReached={() => {
@@ -40,9 +46,20 @@ class Main extends Component {
       </View>
     );
   }
-  componentDidMount(){
+
+  _filterProduct(datas) {
+    var filterDatas = datas.filter(
+      data =>
+        data.product_name
+          .toUpperCase()
+          .indexOf(this.state.query.toUpperCase()) > -1
+    );
+    return filterDatas;
+  }
+  componentDidMount() {
     var id = this.props.screenProps;
     this.props.fetchData(id, this.props.pages[id]);
+    this.props.navigation.setParams({ instance: this });
   }
 }
 
@@ -63,8 +80,11 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    products : state.products.posts,
-    pages :  state.products.pages,
+    products: state.products.posts,
+    pages: state.products.pages
   };
 }
-export default connect(mapStateToProps , {fetchData})(Main);
+export default connect(
+  mapStateToProps,
+  { fetchData }
+)(Main);
