@@ -55,11 +55,8 @@ class CompanyProfiles extends Component {
     }
   }
   render() {
-    console.log("render");
-
     const { navigation, companyProduct } = this.props;
-    const { arrProducts } = this.state;
-    console.log(arrProducts);
+    const { arrProducts } = this.state;  
     return (
       <ScrollView>
         <Content

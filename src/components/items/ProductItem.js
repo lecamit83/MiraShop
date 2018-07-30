@@ -28,7 +28,7 @@ class ProductItem extends Component {
 
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("DetailsScreen", { items: items })}
+        onPress={() => navigation.navigate("DetailsScreen", { items: items , isSaled : false})}
       >
         <Card style={item}>
           <CardItem style={{ height: 40 }}>

@@ -22,7 +22,8 @@ import {
   MA_SO_THUE,
   SO_DIEN_THOAI,
   SIGN_UP,
-  BACKGROUND_COLOR_HEADER
+  BACKGROUND_COLOR_HEADER,
+  DIA_CHI
 } from "../const/Const";
 // create a component
 class SignUp extends Component {
@@ -60,6 +61,10 @@ class SignUp extends Component {
             </Item>
             <Item floatingLabel>
               <Label>{HO_TEN}</Label>
+              <Input />
+            </Item>
+            <Item floatingLabel>
+              <Label>{DIA_CHI}*</Label>
               <Input />
             </Item>
             <Item floatingLabel>

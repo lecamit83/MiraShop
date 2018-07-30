@@ -15,7 +15,6 @@ import {
   BACKGROUND_COLOR_INPUT,
   BACKGROUND_COLOR_HEADER
 } from "../../const/Const";
-import { deleteProduct } from "../../api/deleteData";
 import {deleteProductOfCompany } from "../../redux/actions/actionCreators";
 
 // create a component
@@ -25,7 +24,7 @@ class SubItem extends Component {
     const { navigation, items, account, index, companyProfileInstance } = this.props;
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("DetailsScreen", { items: items })}
+        onPress={() => navigation.navigate("DetailsScreen", { items: items , isSaled : true, instance : companyProfileInstance, index : index})}
       >
         <Card style={item}>
           <CardItem style={{ height: 40 }}>

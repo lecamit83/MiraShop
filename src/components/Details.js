@@ -19,6 +19,8 @@ import {
   LINE
 } from "../const/Const";
 import { addProduct } from "../api/postData";
+import { deleteProduct } from "../api/deleteData";
+import { deleteProductOfCompany } from "../redux/actions/actionCreators";
 // create a component
 class Details extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -26,13 +28,14 @@ class Details extends Component {
   });
   constructor(props) {
     super(props);
+    this.state = {
+      isSaled: this.props.navigation.state.params.isSaled
+    };
   }
-
   render() {
     const { icon, line } = styles;
-
-    const { items, isProfile } = this.props.navigation.state.params;
-    const { navigation, account } = this.props;
+    const { items, instance, index } = this.props.navigation.state.params;    
+    const { navigation, account, companyProduct } = this.props;
     let useraccount_id = account ? account.useraccount_id : null;
     const INFOR = [
       <Card>
@@ -588,66 +591,6 @@ class Details extends Component {
           marginRight: 5
         }}
       >
-        {/* <View style={container}>
-          <View style={frameImage}>
-            <Swiper autoplay={true}>
-              {this.state.arrImage.map((item, index) => (
-                <Slide uri={item} key={index} />
-              ))}
-            </Swiper>
-          </View>
-        </View>
-        <View style={intro}>
-          <View style={line} />
-          <View style={product}>
-            <View style={wrapImage} />
-            <View style={wrap}>
-              <Text style={textStyle}>{name}</Text>
-            </View>
-            <TouchableOpacity
-              style={wrapImage}
-              onPress={() => {
-                navigation.navigate("MapScreen");
-              }}
-            >
-              <Image style={icon} source={require("../images/pos.png")} />
-            </TouchableOpacity>
-          </View>
-          <View style={line} />
-          <View style={product}>
-            <View style={wrapImage} />
-            <View style={wrap}>
-              <Text style={textStyle}>{`${cost} đ`}</Text>
-            </View>
-            <TouchableOpacity style={wrapImage} onPress={() => alert("ADD")}>
-              <Image style={icon} source={require("../images/add.png")} />
-            </TouchableOpacity>
-          </View>
-          <View style={line} />
-          <View style={product}>
-            <View />
-            <View style={wrap}>
-              <Text style={textStyle}>Thông Tin Sản Phẩm</Text>
-            </View>
-            <View />
-          </View>
-          <View style={line} />
-          <View>
-            <Text>
-              Immersive Immersive mode is best when users need to interact
-              heavily with the screen, such as playing a game or interacting
-              with an image gallery. You may show and hide your app’s controls
-              along with the system bars as needed. Interaction: Swipe from any
-              edge of the screen to make the system bars appear. The first time
-              an app goes full-screen, this swipe gesture is explained. Edge
-              swipe exception: Apps that use the swipe-from-edge gesture to
-              perform actions should also display the system bars when that
-              gesture is used. For example, a drawing app that uses an edge
-              swipe (such as to draw a line) should also display the system bars
-              semi-transparently for a few seconds any time that gesture occurs.
-            </Text>
-          </View>
-        </View> */}
         <Card>
           <CardItem bordered>
             <Left>
@@ -658,20 +601,18 @@ class Details extends Component {
               </Text>
             </Left>
             <View>
-              {!isProfile ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("MapScreen");
-                  }}
-                >
-                  <Right>
-                    <Image
-                      style={{ height: 35, width: 35 }}
-                      source={require("../images/directions_black.png")}
-                    />
-                  </Right>
-                </TouchableOpacity>
-              ) : null}
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("MapScreen");
+                }}
+              >
+                <Right>
+                  <Image
+                    style={{ height: 35, width: 35 }}
+                    source={require("../images/directions_black.png")}
+                  />
+                </Right>
+              </TouchableOpacity>
             </View>
           </CardItem>
           <CardItem bordered>
@@ -699,29 +640,48 @@ class Details extends Component {
               </Text>
             </Left>
             <Right>
-              <TouchableOpacity
-                onPress={() => {
-                  var data = {
-                    product_id: items.product_id,
-                    useraccount_id: useraccount_id
-                  };
-                  addProduct(data)
-                    .then(resJSON =>
-                      Toast.show({
-                        text: resJSON.message,
-                        buttonText: "Okay",
-                        buttonTextStyle: { color: "#008000" },
-                        buttonStyle: { backgroundColor: "#5cb85c" }
-                      })
-                    )
-                    .catch(err => console.log(err));
-                }}
-              >
-                <Image
-                  style={icon}
-                  source={require("../images/add_to_company_white.png")}
-                />
-              </TouchableOpacity>
+              {!this.state.isSaled ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    var data = {
+                      product_id: items.product_id,
+                      useraccount_id: useraccount_id
+                    };
+                    addProduct(data)
+                      .then(resJSON =>
+                        Toast.show({
+                          text: resJSON.message,
+                          buttonText: "Okay",
+                          buttonTextStyle: { color: "#008000" },
+                          buttonStyle: { backgroundColor: "#5cb85c" }
+                        })
+                      )
+                      .catch(err => console.log(err));
+                  }}
+                >
+                  <Image
+                    style={icon}
+                    source={require("../images/add_to_company_white.png")}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    var data = {
+                      product_id: items.product_id,
+                      useraccount_id: useraccount_id
+                    };
+                    instance.state.arrProducts.splice(index, 1)
+                    instance.setState({ arrProducts : instance.state.arrProducts });
+                    this.props.deleteProductOfCompany(data, instance.state.arrProducts);
+                  }}
+                >
+                  <Image
+                    style={icon}
+                    source={require("../images/remove_from_company_white.png")}
+                  />
+                </TouchableOpacity>
+              )}
             </Right>
           </CardItem>
         </Card>
@@ -787,7 +747,11 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    account: state.login.account
-  }
+    account: state.login.account,
+    companyProduct: state.productCompany.proCompany
+  };
 }
-export default connect(mapStateToProps)(Details);
+export default connect(
+  mapStateToProps,
+  { deleteProductOfCompany }
+)(Details);

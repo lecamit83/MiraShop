@@ -1,53 +1,62 @@
 //import liraries
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Container, Content, Form, Item, Button, Input, Label } from 'native-base';
+import { View, Text, StyleSheet } from "react-native";
+import {
+  Container,
+  Content,
+  Form,
+  Item,
+  Button,
+  Input,
+  Label
+} from "native-base";
 import { connect } from "react-redux";
-import UserInput from "./items/UserInput";
 import Header from "./header/CompanyHeader";
-import { SO_DIEN_THOAI, PASSWORD, SIGN_IN, BACKGROUND_COLOR_HEADER } from "../const/Const";
-import {postData} from "../redux/actions/actionCreators";
+import {
+  SO_DIEN_THOAI,
+  PASSWORD,
+  SIGN_IN,
+  BACKGROUND_COLOR_HEADER
+} from "../const/Const";
+import { postData } from "../redux/actions/actionCreators";
 // create a component
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username : '',
-      password : '',
-    }
+      username: "",
+      password: ""
+    };
   }
   render() {
-    const { navigation , account } = this.props;
+    const { navigation, account } = this.props;
     return (
-      // <View style={styles.contentWrapper}>
-      //   <Header navigation={navigation} title={SIGN_IN} />
-      //   <View>
-      //     <View>
-      //       <UserInput placeholder={SO_DIEN_THOAI} />
-      //       <UserInput placeholder={PASSWORD} secure={true} />
-      //       <TouchableOpacity style={styles.borderButton}>
-      //         <Text style={styles.textButton}>{SIGN_IN}</Text>
-      //       </TouchableOpacity>
-      //     </View>
-      //   </View>
-      // </View>
-
       <Container>
         <Header navigation={navigation} title={SIGN_IN} />
-        <Content style = {{marginLeft: 15, marginRight: 15, alignContent: "center"}}>
+        <Content
+          style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}
+        >
           <Form>
-            <Item floatingLabel >
+            <Item floatingLabel>
               <Label>{SO_DIEN_THOAI}</Label>
-              <Input onChangeText={(username)=>this.setState({username})} />
+              <Input onChangeText={username => this.setState({ username })} />
             </Item>
             <Item floatingLabel>
               <Label>{PASSWORD}</Label>
-              <Input onChangeText={(password)=>this.setState({password})} secureTextEntry={true} />
+              <Input
+                onChangeText={password => this.setState({ password })}
+                secureTextEntry={true}
+              />
             </Item>
-            <Button full info style = {styles.button} onPress={()=>{
-              this.props.postData(this.state);
-              navigation.goBack();
-            }} >
+            <Button
+              full
+              info
+              style={styles.button}
+              onPress={() => {
+                this.props.postData(this.state);
+                navigation.goBack();
+              }}
+            >
               <Text>ĐĂNG NHẬP</Text>
             </Button>
           </Form>
@@ -78,14 +87,22 @@ const styles = StyleSheet.create({
     color: "green",
     padding: 5
   },
-  button: {margin: 15, marginTop: 45, borderRadius: 5, backgroundColor: BACKGROUND_COLOR_HEADER},
+  button: {
+    margin: 15,
+    marginTop: 45,
+    borderRadius: 5,
+    backgroundColor: BACKGROUND_COLOR_HEADER
+  }
 });
 
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    account : state.login.account,
+    account: state.login.account
   };
 }
 
-export default connect(mapStateToProps,{ postData })(SignIn);
+export default connect(
+  mapStateToProps,
+  { postData }
+)(SignIn);

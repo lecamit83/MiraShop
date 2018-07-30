@@ -71,6 +71,9 @@ export function fetchProductCompanyError() {
 export function deleteProductCompanySuccess(data) {
   return { type: TYPE.DELETE_PRODUCT_COMPANY_SUCCESS, data };
 }
+export function deleteProductOfCompanySuccess(data) {
+  return { type: TYPE.DELETE_PRODUCT_COMPANY_SUCCESS, data };
+}
 
 export function fetchProductCompany(url) {
   return dispatch => {
@@ -88,9 +91,7 @@ export function fetchProductCompany(url) {
 export function deleteProductOfCompany(user, data) {
   return dispatch => {
     return deleteProduct(user)
-      .then(resJSON => {
-        console.log("deleteProductOfCompany");
-        
+      .then(resJSON => {  
         Toast.show({
           text: resJSON.message,
           buttonText: "Okay",
@@ -101,6 +102,6 @@ export function deleteProductOfCompany(user, data) {
       })
       .catch(err => {
         console.log(err);
-      });
+    });
   };
 }
