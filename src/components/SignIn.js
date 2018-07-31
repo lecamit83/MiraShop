@@ -1,14 +1,24 @@
 //import liraries
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard
+} from "react-native";
 import {
   Container,
-  Content,
   Form,
   Item,
   Button,
   Input,
-  Label
+  Label,
+  Icon,
+  Right,
+  View,
+  Content
 } from "native-base";
 import { connect } from "react-redux";
 import Header from "./header/CompanyHeader";
@@ -33,65 +43,106 @@ class SignIn extends Component {
     return (
       <Container>
         <Header navigation={navigation} title={SIGN_IN} />
-        <Content
-          style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}
-        >
-          <Form>
-            <Item floatingLabel>
-              <Label>{SO_DIEN_THOAI}</Label>
-              <Input onChangeText={username => this.setState({ username })} />
-            </Item>
-            <Item floatingLabel>
-              <Label>{PASSWORD}</Label>
-              <Input
-                onChangeText={password => this.setState({ password })}
-                secureTextEntry={true}
-              />
-            </Item>
-            <Button
-              full
-              info
-              style={styles.button}
-              onPress={() => {
-                this.props.postData(this.state);
-                navigation.goBack();
-              }}
-            >
-              <Text>ĐĂNG NHẬP</Text>
-            </Button>
-          </Form>
-        </Content>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ImageBackground
+            source={require("../images/demo.png")}
+            style={styles.backgroundImage}
+            resizeMode="contain"
+            opacity={0.2}
+          >
+            <View>
+              <Text style={styles.textWelcome}>Welcome to MiraShop</Text>
+            </View>
+            <Form style={styles.wrapForm}>
+              <View style={styles.wrapInput}>
+                <Item floatingLabel>
+                  <Label>{SO_DIEN_THOAI}</Label>
+                  <Input
+                    onChangeText={username => this.setState({ username })}
+                    numberOfLines={1}
+                    keyboardType="phone-pad"
+                    returnKeyType="next"
+                    autoCorrect={false}
+                    onSubmitEditing={() => {
+                      this.passwordInput._root.focus();
+                    }}
+                  />
+                  <Icon name="call" />
+                </Item>
+              </View>
+              <View style={styles.wrapInput}>
+                <Item floatingLabel>
+                  <Label>{PASSWORD}</Label>
+                  <Input
+                    numberOfLines={1}
+                    onChangeText={password => this.setState({ password })}
+                    secureTextEntry={true}
+                    returnKeyType="done"
+                    autoCorrect={false}
+                    getRef={input => (this.passwordInput = input)}
+                  />
+                  <Icon name="unlock" />
+                </Item>
+              </View>
+              <Button
+                style={styles.button}
+                onPress={() => {
+                  this.props.postData(this.state);
+                  navigation.goBack();
+                }}
+              >
+                <Text style={styles.textButton}>ĐĂNG NHẬP</Text>
+              </Button>
+            </Form>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
       </Container>
     );
   }
 }
 
 // define your styles
-const styles = StyleSheet.create({
-  contentWrapper: {
-    flex: 1,
-    backgroundColor: "white"
-  },
+const { height, width } = Dimensions.get("window");
 
-  borderButton: {
-    marginTop: 5,
-    borderColor: "gray",
-    backgroundColor: "#FFF",
-    borderWidth: 1,
-    alignSelf: "center",
-    marginBottom: 10,
-    borderRadius: 10
-  },
-  textButton: {
-    fontSize: 20,
-    color: "green",
-    padding: 5
+const styles = StyleSheet.create({
+  backgroundImage: {
+    backgroundColor: "#aed581",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
   },
   button: {
-    margin: 15,
-    marginTop: 45,
-    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 30,
+    height: 50,
+    borderRadius: 4,
     backgroundColor: BACKGROUND_COLOR_HEADER
+  },
+  wrapForm: {
+    padding: "4%",
+    width: "96%",
+    backgroundColor: "#c5e1a5",
+    borderRadius: 4,
+    position: "absolute",
+    bottom: 0,
+    margin: "2%",
+    marginBottom: 4
+  },
+  wrapInput: {
+    backgroundColor: "#dcedc8",
+    padding: 4,
+    borderRadius: 4,
+    margin: 4
+  },
+  textButton: {
+    fontSize: 17,
+    color: "white"
+  },
+  textWelcome: {
+    fontSize: 20,
+    color: "red"
   }
 });
 

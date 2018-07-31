@@ -250,7 +250,7 @@ const Drawer = DrawerNavigator(
   },
   {
     drawerWidth : width * 0.85,
-    initialRouteName: "ThuocStack",
+    initialRouteName: "SignUpStack",
     contentComponent: (props) => <SideMenu {...props} />
   }
 );
