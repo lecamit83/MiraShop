@@ -1,9 +1,20 @@
-import { LOGIN_API, ADD_PRODUCT_API } from "./linkAPI";
+import { LOGIN_API, ADD_PRODUCT_API, SIGN_UP_API } from "./linkAPI";
 /**
  * Login API
  */
 export function postUser(data) {
   var URL = LOGIN_API;
+  return fetch(URL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json; charset=UTF-8"
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+}
+export function signUpUser(data) {
+  var URL = SIGN_UP_API;
   return fetch(URL, {
     method: "POST",
     headers: {

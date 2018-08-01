@@ -13,7 +13,7 @@ import { Card, CardItem, Text, Toast } from "native-base";
 import {
   BORDER_COLOR,
   BACKGROUND_COLOR_INPUT,
-  BACKGROUND_COLOR_HEADER,
+  BACKGROUND_COLOR_HEADER
 } from "../../const/Const";
 import { connect } from "react-redux";
 import { addProduct } from "../../api/postData";
@@ -28,7 +28,9 @@ class ProductItem extends Component {
 
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("DetailsScreen", { items: items , isSaled : false})}
+        onPress={() =>
+          navigation.navigate("DetailsScreen", { items: items, isSaled: false })
+        }
       >
         <Card style={item}>
           <CardItem style={{ height: 40 }}>
@@ -80,15 +82,18 @@ class ProductItem extends Component {
                   product_id: items.product_id,
                   useraccount_id: useraccount_id
                 };
+                console.log(data);
+
                 addProduct(data)
-                  .then(resJSON =>
+                  .then(resJSON => {
                     Toast.show({
                       text: resJSON.message,
                       buttonText: "Okay",
                       buttonTextStyle: { color: "#008000" },
                       buttonStyle: { backgroundColor: "#5cb85c" }
-                    })
-                  )
+                    });
+                    console.log(resJSON);
+                  })
                   .catch(err => console.log(err));
               }}
             >

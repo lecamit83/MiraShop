@@ -2,11 +2,12 @@
 import React, { Component } from "react";
 import { View, StyleSheet, FlatList, AsyncStorage, Text } from "react-native";
 import { connect } from "react-redux";
-
 import { MenuProvider } from "react-native-popup-menu";
 import Item from "./items/ProductItem";
+import { Loading } from "./common/Loading";
 import { BACKGROUND_COLOR } from "../const/Const";
 import { fetchData } from "../redux/actions/actionCreators";
+
 var urls = [
   "http://api.hifapp.com/api/thuoc?page=",
   "http://api.hifapp.com/api/tpcn?page=",
@@ -18,15 +19,14 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ""
-    };
+      query: "",
+    };    
   }
-
-  render() {
+  
+  render() { 
     const { container, wrapperItem } = styles;
     const { navigation, products, pages } = this.props;
     var id = this.props.screenProps;
-
     return (
       <View style={container}>
         <FlatList
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     products: state.products.posts,
-    pages: state.products.pages
+    pages: state.products.pages,
+    
   };
 }
 export default connect(

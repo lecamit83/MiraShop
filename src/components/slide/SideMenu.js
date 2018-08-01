@@ -17,15 +17,24 @@ import {
 import * as CONST from "../../const/Const";
 import { connect } from "react-redux";
 
+import deviceStorage from "../../services/deviceStorge";
+import { postSignOut, postSignIn } from "../../redux/actions/actionCreators";
 class SideMenu extends Component {
   constructor(props) {
     super(props);
+    this.deleleJWT = deviceStorage.deleteJWT.bind(this);
+    if (this.props.account == null) {
+      console.log("ALO");
+      
+      deviceStorage.loginJWT(this);
+    }
   }
   render() {
     const { container, wrapLogo, wrapIndex, item, imageLogo, sign } = styles;
     const { navigation, account } = this.props;
-
-    const LOGIN = (
+    console.log(account);
+    
+    const LOG_IN = (
       <View style={sign}>
         <Button
           transparent
@@ -47,7 +56,7 @@ class SideMenu extends Component {
         </Button>
       </View>
     );
-
+    const LOG_OUT = <View />;
     const LIST_MENU_ITEM = (
       <Content>
         <List>
@@ -133,6 +142,24 @@ class SideMenu extends Component {
             <TouchableOpacity
               style={{ flexDirection: "row" }}
               onPress={() => {
+                navigation.navigate("CompanyStack");
+              }}
+            >
+              <Left>
+                <Icon name="search" />
+              </Left>
+              <Body>
+                <Text>Tìm Công Ty</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
                 navigation.navigate("CompanyProfileStack");
               }}
             >
@@ -151,14 +178,15 @@ class SideMenu extends Component {
             <TouchableOpacity
               style={{ flexDirection: "row" }}
               onPress={() => {
-                navigation.navigate("CompanyStack");
+                this.deleleJWT();
+                this.props.dispatch(postSignOut());
               }}
             >
               <Left>
-                <Icon name="search" />
+                <Icon name="log-out" />
               </Left>
               <Body>
-                <Text>Tìm Công Ty</Text>
+                <Text>{CONST.SIGN_OUT}</Text>
               </Body>
               <Right>
                 <Icon name="arrow-forward" />
@@ -272,16 +300,8 @@ class SideMenu extends Component {
     );
 
     var SIDE_MENU = account ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
-    var LOGINJSX;
-    if (account) {
-      if (account.status) {
-        LOGINJSX = null;
-      } else {
-        LOGINJSX = LOGIN;
-      }
-    } else {
-      LOGINJSX = LOGIN;
-    }
+    var LOGINJSX = account && account.status ? LOG_OUT : LOG_IN;
+
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
@@ -325,7 +345,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SideMenu);
+export default connect(
+  mapStateToProps,
+)(SideMenu);
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -364,13 +386,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
-    // marginTop: 15
   },
 
   signIn: {
-    fontSize: 17,
-    // padding: 4,
-    color: "#000"
+    fontSize: 17
   },
 
   line: { backgroundColor: CONST.LINE, height: 1, opacity: 0.6 },

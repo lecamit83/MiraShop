@@ -6,9 +6,11 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
-  Dimensions
+  Dimensions,
+  Modal,
+  TouchableHighlight
 } from "react-native";
-
+import { connect } from "react-redux";
 import {
   Container,
   Content,
@@ -19,8 +21,10 @@ import {
   Label,
   Icon,
   View,
-  Picker
+  Picker,
+  Toast
 } from "native-base";
+import ModalBox from "react-native-modalbox";
 
 import Header from "./header/CompanyHeader";
 import {
@@ -34,6 +38,7 @@ import {
   BACKGROUND_COLOR_HEADER,
   DIA_CHI
 } from "../const/Const";
+import { signUp } from "../redux/actions/actionCreators";
 // create a component
 class SignUp extends Component {
   constructor(props) {
@@ -52,8 +57,13 @@ class SignUp extends Component {
       province_id: 1,
       district_id: 1,
       commune_id: 1,
-      useraccount_location: ""
+      useraccount_location: "",
+      isShowModal: false,
+      modalVisible: false
     };
+  }
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   render() {
@@ -81,9 +91,6 @@ class SignUp extends Component {
                       onChangeText={useraccount_DVKD =>
                         this.setState({ useraccount_DVKD })
                       }
-                      onEndEditing={() => {
-                        console.log("ENDEDITTING");
-                      }}
                       numberOfLines={1}
                       returnKeyType="next"
                       autoCorrect={false}
@@ -233,10 +240,11 @@ class SignUp extends Component {
                       getRef={input => (this.address_input = input)}
                     />
                   </Item>
+
                   <Button
                     full
                     style={styles.button}
-                    onPress={() => console.log(this.state)}
+                    onPress={() => this._signUpUser()}
                   >
                     <Text style={styles.textButton}>ĐĂNG KÝ</Text>
                   </Button>
@@ -248,7 +256,54 @@ class SignUp extends Component {
       </Container>
     );
   }
-
+  isChecked() {
+    if (
+      this.state.useraccount_DVKD &&
+      this.state.useraccount_fullname &&
+      this.state.useraccount_phone &&
+      this.state.useraccount_masothue &&
+      this.state.useraccount_diachi &&
+      this.state.useraccount_password
+    ){
+      if (this.state.useraccount_password.localeCompare(this.state.passwordAgain)==0){
+        return true;
+      }
+      Toast.show({
+        text: "Mật khẩu không trùng khớp!",
+        buttonText: "Okay",
+        buttonTextStyle: { color: "#008000" },
+        buttonStyle: { backgroundColor: "#5cb85c" }
+      });
+    }
+    Toast.show({
+      text: "Bạn cần nhập đủ các mục!",
+      buttonText: "Okay",
+      buttonTextStyle: { color: "#008000" },
+      buttonStyle: { backgroundColor: "#5cb85c" }
+    });
+    return false;
+  }
+  _signUpUser = () => {
+    if (this.isChecked()) {
+      var data = {
+        useraccount_DVKD: this.state.useraccount_DVKD,
+        useraccount_fullname: this.state.useraccount_fullname,
+        useraccount_masothue: this.state.useraccount_masothue,
+        useraccount_phone: this.state.useraccount_phone,
+        useraccount_diachi: this.state.useraccount_diachi,
+        useraccount_location: this.state.useraccount_location,
+        useraccount_password: this.state.useraccount_password,
+        area_id:
+          this.state.province_id +
+          "-" +
+          this.state.district_id +
+          "-" +
+          this.state.commune_id
+      };
+      this.props.signUp(data);
+      this.props.navigation.goBack();
+    }
+  };
   _fetchAddress = url => {
     return fetch(url).then(res => res.json());
   };
@@ -356,7 +411,7 @@ const styles = StyleSheet.create({
     width: "96%",
     backgroundColor: "#c5e1a5",
     borderRadius: 4,
-    margin: "2%",
+    marginHorizontal: "2%",
     marginBottom: 4
   },
   wrapInput: {
@@ -380,4 +435,10 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default SignUp;
+function mapStateToProps(state) {
+  return {};
+}
+export default connect(
+  mapStateToProps,
+  { signUp }
+)(SignUp);

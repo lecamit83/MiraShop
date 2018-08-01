@@ -8,6 +8,9 @@ const loginReducer = ( state = defaultState, action ) => {
         case TYPE.POST_SIGN_IN:{
             return { ...state, account : action.account };
         }
+        case TYPE.POST_SIGN_UP:{
+            return {  ...state, account : null };
+        }
         case TYPE.POST_SIGN_OUT:{
             return {  ...state, account : null };
         }
