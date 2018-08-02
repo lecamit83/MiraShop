@@ -46,7 +46,7 @@ class CompanyProfiles extends Component {
   componentDidMount() {
     let id = this.props.account.useraccount_id;
     this.props.fetchProductCompany(
-      "http://api.hifapp.com/api/nbl/product?userid=" + id
+      "http://api.hifapp.com/api/nbl/product?userid=" + id 
     );
   }
   componentWillReceiveProps(nextProps) {
@@ -55,7 +55,7 @@ class CompanyProfiles extends Component {
     }
   }
   render() {
-    const { navigation, companyProduct } = this.props;
+    const { navigation, companyProduct, account } = this.props;
     const { arrProducts } = this.state;  
     return (
       <ScrollView>

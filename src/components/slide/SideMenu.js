@@ -24,16 +24,13 @@ class SideMenu extends Component {
     super(props);
     this.deleleJWT = deviceStorage.deleteJWT.bind(this);
     if (this.props.account == null) {
-      console.log("ALO");
-      
       deviceStorage.loginJWT(this);
     }
   }
   render() {
     const { container, wrapLogo, wrapIndex, item, imageLogo, sign } = styles;
     const { navigation, account } = this.props;
-    console.log(account);
-    
+  
     const LOG_IN = (
       <View style={sign}>
         <Button

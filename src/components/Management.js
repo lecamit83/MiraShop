@@ -42,6 +42,8 @@ class Management extends Component {
   render() {
     const { navigation, companyProduct } = this.props;
     const { itemsProps } = this.props.navigation.state.params;
+    console.log(itemsProps);
+    
     return (
       <ScrollView>
         <Card style={styles.intro}>
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    companyProduct: state.productCompany.proCompany
+    companyProduct: state.productCompany.proCompany,
   };
 }
 export default connect(

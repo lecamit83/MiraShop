@@ -12,7 +12,9 @@ var urls = [
  */
 export function fetchPosts(id, page) {
   var URL = urls[id] + page;
-  return fetch(URL, { method: "GET" }).then(res => res.json());
+  return fetch(URL, {
+    method: "GET",
+  }).then(res => res.json());
 }
 //fetchCompany function
 export function fetchComp(url) {
@@ -21,5 +23,7 @@ export function fetchComp(url) {
 }
 export function fetchProduct(url) {
   var URL = url;
-  return fetch(URL, { method: "GET" }).then(res => res.json());
+  return fetch(URL, {
+    method: "GET",
+  }).then(res => res.json());
 }

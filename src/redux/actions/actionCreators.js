@@ -24,10 +24,10 @@ export function postSignOut() {
 export function postSignUp() {
   return { type: TYPE.POST_SIGN_UP };
 }
-export function fetchData(id, page) {
+export function fetchData(id, page, token) {
   return dispatch => {
     dispatch(fetchDataRequest());
-    return fetchPosts(id, page)
+    return fetchPosts(id, page, token)
       .then(resJSON => {
         dispatch(fetchDataSuccess(resJSON, id));
       })
