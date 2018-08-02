@@ -22,6 +22,8 @@ import {
   Right
 } from "native-base";
 
+import Communications from "react-native-communications";
+
 import Header from "./header/CompanyHeader";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
@@ -57,7 +59,7 @@ class Management extends Component {
           </View>
           <CardItem>
             <Left>
-              <Button transparent>
+              <Button transparent onPress={()=> {Communications.phonecall(itemsProps.useraccount_phone, true)}} >
                 <Icon active name="call" />
                 <Text>Phone</Text>
               </Button>

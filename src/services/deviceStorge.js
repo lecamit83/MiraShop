@@ -15,10 +15,7 @@ const deviceStorage = {
         try {
             let account = await AsyncStorage.getItem(JSONWEBTOKEN);    
             if (account !== null) {
-                
                 let userInfor = JSON.parse(account);  
-                console.log(userInfor);
-                
                 instance.props.dispatch(postSignIn(userInfor));
             }
         } catch (error) {

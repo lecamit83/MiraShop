@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions, TouchableOpacity } from "react-native";
-
+import Communications from "react-native-communications";
 import {
   Card,
   CardItem,
@@ -18,6 +18,8 @@ import { BORDER_COLOR, BACKGROUND_COLOR_INPUT } from "../../const/Const";
 class ProductItem extends Component {
   render() {
     const { navigation, itemProps } = this.props;
+    console.log(itemProps);
+    
     return (
       <TouchableOpacity
         // style={item}
@@ -45,7 +47,7 @@ class ProductItem extends Component {
           </CardItem>
           <CardItem>
             <Left>
-              <Button transparent iconLeft>
+              <Button transparent iconLeft onPress={() => {Communications.phonecall(itemProps.useraccount_phone, true)}} > 
                 <Icon name="call" />
                 <Text>Phone</Text>
               </Button>
