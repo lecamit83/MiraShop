@@ -24,6 +24,7 @@ class SubItem extends Component {
     const { navigation, items, account, index, companyProfileInstance } = this.props;
     return (
       <TouchableOpacity
+        style={{flex: 1,}}
         onPress={() => navigation.navigate("DetailsScreen", { items: items , isSaled : true, instance : companyProfileInstance, index : index})}
       >
         <Card style={item}>
@@ -104,8 +105,7 @@ const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   item: {
     margin: 2,
-    height: (width / 2 - 4) * 1.618,
-    width: width / 2 - 4,
+    flex: 1,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
     borderWidth: 1,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: (width / 2 - 4) * 1.618 - 95,
-    width: width / 2 - 16,
+    width: "98%",
     alignSelf: "center",
     margin: 4,
     justifyContent: "center",
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   line: {
     backgroundColor: BACKGROUND_COLOR_HEADER,
     height: 1,
-    width: width / 2 - 16,
+    width: "96%",
     opacity: 1,
     backgroundColor: "#EBEBEB",
     alignSelf: "center"

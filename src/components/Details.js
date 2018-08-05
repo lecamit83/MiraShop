@@ -37,6 +37,8 @@ class Details extends Component {
     const { items, instance, index } = this.props.navigation.state.params;    
     const { navigation, account, companyProduct } = this.props;
     let useraccount_id = account ? account.useraccount_id : null;
+    console.log(items);
+    
     const INFOR = [
       <Card>
         <CardItem header>
@@ -591,7 +593,7 @@ class Details extends Component {
           marginRight: 5
         }}
       >
-        <Card>
+        <View>
           <CardItem bordered>
             <Left>
               <Text
@@ -684,7 +686,7 @@ class Details extends Component {
               )}
             </Right>
           </CardItem>
-        </Card>
+        </View>
         {INFOR[items.product_type - 1]}
       </ScrollView>
     );

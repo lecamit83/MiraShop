@@ -20,55 +20,57 @@ import { addProduct } from "../../api/postData";
 
 // create a component
 class ProductItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageSize: {
+        width: 0,
+        height: 0,
+      }
+    };
+  }
+
+  _layoutChangeOrientation({ nativeEvent }) {
+    let widthImage = nativeEvent.layout.width;
+    this.setState({
+      imageSize : {
+        width : widthImage,
+        height : widthImage,
+      }
+    });
+  }
+
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, items, account } = this.props;
+    const { navigation, items, account, widthImage } = this.props;
 
     let useraccount_id = account ? account.useraccount_id : null;
-
     return (
       <TouchableOpacity
+        style={styles.container}
         onPress={() =>
           navigation.navigate("DetailsScreen", { items: items, isSaled: false })
         }
       >
         <Card style={item}>
-          <CardItem style={{ height: 40 }}>
-            <View style={textWrap}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "black",
-                  fontWeight: "bold",
-                  overflow: "scroll"
-                }}
-              >
-                {items.product_name}
-              </Text>
-            </View>
+          <CardItem header style={styles.headerItem}>
+            <Text numberOfLines={1} style={styles.headerItemText}>
+              {items.product_name}
+            </Text>
           </CardItem>
-          <View style={line} />
-          <Image style={image} source={{ uri: items.product_image }} />
-
-          <CardItem
-            style={{
-              backgroundColor: BACKGROUND_COLOR_HEADER,
-              height: 40,
-              margin: 2,
-              justifyContent: "space-between"
-            }}
-          >
+          <CardItem>
+            <View style={line} />
+          </CardItem>
+          <CardItem>
+            <Image style={{width: widthImage * 0.8, height : widthImage * 0.8, resizeMode : "contain"}} source={{ uri: items.product_image }} />
+          </CardItem>
+          <CardItem footer style={styles.button}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("MapScreen");
               }}
             >
-              <View
-                style={{
-                  width: width / 5,
-                  alignItems: "flex-start"
-                }}
-              >
+              <View style={styles.buttonLeft}>
                 <Image
                   style={icon}
                   source={require("../../images/directions_black.png")}
@@ -82,8 +84,6 @@ class ProductItem extends Component {
                   product_id: items.product_id,
                   useraccount_id: useraccount_id
                 };
-                console.log(data);
-
                 addProduct(data)
                   .then(resJSON => {
                     Toast.show({
@@ -92,17 +92,11 @@ class ProductItem extends Component {
                       buttonTextStyle: { color: "#008000" },
                       buttonStyle: { backgroundColor: "#5cb85c" }
                     });
-                    console.log(resJSON);
                   })
                   .catch(err => console.log(err));
               }}
             >
-              <View
-                style={{
-                  width: width / 5,
-                  alignItems: "flex-end"
-                }}
-              >
+              <View style={styles.buttonRight}>
                 <Image
                   style={icon}
                   source={require("../../images/add_to_company_white.png")}
@@ -118,32 +112,34 @@ class ProductItem extends Component {
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
   item: {
-    margin: 2,
-    height: (width / 2 - 4) * 1.618,
-    width: width / 2 - 4,
+    flex: 1,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
-    borderWidth: 1,
-    borderColor: BORDER_COLOR
+    borderColor: BORDER_COLOR,
+    marginHorizontal: 4,
   },
-
+  headerItemText: {
+    color: "black",
+    fontWeight: "bold",
+    overflow: "scroll"
+  },
   line: {
     backgroundColor: BACKGROUND_COLOR_HEADER,
     height: 1,
-    width: width / 2 - 16,
+    width: "100%",
     opacity: 1,
     backgroundColor: "#EBEBEB",
     alignSelf: "center"
   },
 
   image: {
-    height: (width / 2 - 4) * 1.618 - 95,
-    width: width / 2 - 16,
-    alignSelf: "center",
-    margin: 4,
-    justifyContent: "center",
-    resizeMode: "stretch"
+    aspectRatio: 1,
+    width : "100%",
   },
 
   textWrap: {
@@ -156,11 +152,22 @@ const styles = StyleSheet.create({
     width: 30
   },
 
-  buttonAdd: {
-    flex: 1,
-    flexDirection: "row",
+  headerItem: {
+    height: 40
+  },
+  button: {
+    backgroundColor: BACKGROUND_COLOR_HEADER,
+    height: 40,
     justifyContent: "space-between",
-    alignItems: "center"
+    margin: 4
+  },
+  buttonLeft: {
+    width: width / 5,
+    alignItems: "flex-start"
+  },
+  buttonRight: {
+    width: width / 5,
+    alignItems: "flex-end"
   }
 });
 

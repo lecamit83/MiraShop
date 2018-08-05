@@ -20,19 +20,30 @@ class Main extends Component {
     super(props);
     this.state = {
       query: "",
+      imageSize : {
+        width : 0,
+      }
     };    
   }
-  
+ 
+  _onLayoutChange({nativeEvent}) {
+    this.setState({
+      imageSize : {
+        width : nativeEvent.layout.width / 2,
+      }
+    })
+  }
+
   render() { 
     const { container, wrapperItem } = styles;
     const { navigation, products, pages } = this.props;
     var id = this.props.screenProps;
     return (
-      <View style={container}>
+      <View onLayout={this._onLayoutChange.bind(this)} style={container}>
         <FlatList
           data={this._filterProduct(products[id])}
           renderItem={({ item }) => (
-            <Item navigation={navigation} items={item} />
+            <Item navigation={navigation} items={item} widthImage={this.state.imageSize.width}/>
           )}
           keyExtractor={(item, index) => {
             return item.product_id + "#" + index;
@@ -67,7 +78,7 @@ class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // margin: 5,
+    marginHorizontal: 2,
     backgroundColor: BACKGROUND_COLOR
   },
 

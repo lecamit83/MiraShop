@@ -226,7 +226,6 @@ const Drawer = DrawerNavigator(
       screen: ThuocStack
     },
     TPCNStack: {
-     // screen:  () => < ProductStack screenProps={{type : 1}} />,
      screen : TPCNStack
     },
     VTYTStack: {
@@ -249,7 +248,6 @@ const Drawer = DrawerNavigator(
     },
   },
   {
-    drawerWidth : width * 0.85,
     initialRouteName: "ThuocStack",
     contentComponent: (props) => <SideMenu {...props} />
   }

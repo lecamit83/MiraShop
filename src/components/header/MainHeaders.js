@@ -112,7 +112,7 @@ class MainHeader extends Component {
     );
 
     return (
-      <View style={containerAll}>
+      <View>
         <StatusBar
           style={{
             height: Platform.OS === "ios" ? 20 : 0,
@@ -167,19 +167,19 @@ const optionsStyles = {
   }
 };
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get("screen");
 
 // define your styles
 const styles = StyleSheet.create({
   containerAll: {
-    backgroundColor: CONST.BACKGROUND_COLOR_HEADER
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
   },
 
   container: {
     height: CONST.HEADER_HEIGHT,
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   iconSearch: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
 
   inputText: {
     fontSize: 18,
-    width: width - 86,
+    flex: 1,
     height: 40,
     fontFamily: "serif"
   },
@@ -206,7 +206,9 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     height: 40,
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
-    borderColor: CONST.BORDER_COLOR
+    borderColor: CONST.BORDER_COLOR,
+    flex: 1,
+    marginHorizontal: 5,
   },
 
   wrapMenu: {
@@ -217,8 +219,8 @@ const styles = StyleSheet.create({
   iconMenu: {
     height: 30,
     width: 30,
-    marginLeft: 8,
-    marginRight: 8
+    marginLeft: 11,
+    marginRight: 5
   },
 
   wrapSettings: {

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import Header from "./header/CompanyHeader";
 import { MAP_POSITION } from "../Constant";
-import {fetchCompany} from "../redux/actions/actionCreators";
+import { fetchCompany } from "../redux/actions/actionCreators";
 
 const { height, width } = Dimensions.get("window");
 const LAT_DEL = 0.012;
@@ -21,33 +21,37 @@ class MapViews extends Component {
     super(props);
     this.state = {
       regionPosition: {
-        latitude: 16.074971,
-        longitude: 108.2214883,
-        latitudeDelta: LAT_DEL,
-        longitudeDelta: LNG_DEL
-      },
-      markerPosition: {
-        latitude: 16.074971,
-        longitude: 108.2214883
+        latitude: null,
+        longitude: null,
+        latitudeDelta: null,
+        longitudeDelta: null
       }
     };
+  }
+
+  calcDelta(lat, long, accuracy) {
+    const oneDegreeOfLongitudeInMeters = 111.32;
+    const circumference = 40075 / 360;
+
+    const latDelta = accuracy * (1 / (Math.cos(lat) * circumference));
+    const lonDelta = accuracy / oneDegreeOfLongitudeInMeters;
+    this.setState({
+      regionPosition: {
+        latitude: lat,
+        longitude: long,
+        latitudeDelta: Math.max(0, latDelta),
+        longitudeDelta: Math.max(0, lonDelta)
+      }
+    });
   }
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({
-          regionPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LAT_DEL,
-            longitudeDelta: LNG_DEL
-          },
-          markerPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
-        });
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
+        this.calcDelta(lat, long, accuracy);
       },
       err => {
         console.log(err);
@@ -56,14 +60,10 @@ class MapViews extends Component {
     );
     this.watchID = navigator.geolocation.watchPosition(
       position => {
-        this.setState({
-          regionPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LAT_DEL,
-            longitudeDelta: LNG_DEL
-          }
-        });
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;  
+        const accuracy = position.coords.accuracy;
+        this.calcDelta(lat, long, accuracy);
       },
       err => {
         console.log(err);
@@ -77,57 +77,44 @@ class MapViews extends Component {
     );
   }
 
+  _renderMarker() {
+    return {
+      latitude: this.state.regionPosition.latitude,
+      longitude: this.state.regionPosition.longitude
+    };
+  }
+
   render() {
-    const { regionPosition, markerPosition } = this.state;
+    const { regionPosition } = this.state;
     const { map, container, radius, marker } = styles;
     const { companys } = this.props;
-    console.log(companys);
-    
+
     return (
       <View style={container}>
-        <MapView style={map} ref="map" region={regionPosition}>
-          <Marker coordinate={markerPosition}>
-            <View style={radius}>
-              <View style={marker} />
-            </View>
-          </Marker>
-        </MapView>
+        {regionPosition.latitude && regionPosition.longitude ? (
+          <MapView
+            style={map}
+            provider={MapView.PROVIDER_GOOGLE}
+            ref="map"
+            region={regionPosition}
+          >
+            <Marker coordinate={this._renderMarker()}>
+              <View style={radius}>
+                <View style={marker} />
+              </View>
+            </Marker>
+          </MapView>
+        ) : null}
       </View>
     );
   }
   componentDidMount() {
-    if(this.props.companys.length == 0) {
+    if (this.props.companys.length == 0) {
       this.props.fetchCompany("http://api.hifapp.com/api/ncc");
     }
   }
   // Demo AsyncStore = ShareReferences in Android
-  _storeLastPosition = async data => {
-    try {
-      await AsyncStorage.setItem(MAP_POSITION, JSON.stringify(data));
-    } catch (error) {
-      throw error;
-    }
-  };
-  _retrieveLastPosition = async () => {
-    try {
-      const value = await AsyncStorage.getItem(MAP_POSITION);
-      if (value !== null) {
-        var pos = JSON.parse(value);
-        console.log(pos);
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
   componentWillUnmount() {
-    var data = {
-      latitude: this.state.regionPosition.latitude,
-      longitude: this.state.regionPosition.longitude,
-      latitudeDelta: LAT_DEL,
-      longitudeDelta: LNG_DEL
-    };
-    //this._storeLastPosition(data);
-
     navigator.geolocation.clearWatch(this.watchID);
   }
 }
@@ -157,7 +144,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   map: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    width: width
   }
 });
 function mapStateToProps(state) {

@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
   },
 
   wrapLogo: {
-    flex: 3,
+    height : 230,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
