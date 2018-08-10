@@ -34,11 +34,11 @@ class Details extends Component {
   }
   render() {
     const { icon, line } = styles;
-    const { items, instance, index } = this.props.navigation.state.params;    
+    const { items, instance, index } = this.props.navigation.state.params;
     const { navigation, account, companyProduct } = this.props;
     let useraccount_id = account ? account.useraccount_id : null;
     console.log(items);
-    
+
     const INFOR = [
       <Card>
         <CardItem header>
@@ -584,15 +584,10 @@ class Details extends Component {
         </CardItem>
       </Card>
     ];
-
+    console.log(items);
+    
     return (
-      <ScrollView
-        style={{
-          backgroundColor: BACKGROUND_COLOR,
-          marginLeft: 5,
-          marginRight: 5
-        }}
-      >
+      <ScrollView style={styles.container}>
         <View>
           <CardItem bordered>
             <Left>
@@ -621,7 +616,7 @@ class Details extends Component {
             <Body>
               <Image
                 source={{ uri: items.product_image }}
-                style={{ height: 200, width: width - 40, flex: 1 }}
+                style={styles.image}
               />
             </Body>
           </CardItem>
@@ -629,15 +624,7 @@ class Details extends Component {
             style={{ backgroundColor: BACKGROUND_COLOR_HEADER, height: 45 }}
           >
             <Left>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 17,
-                  color: "#FFFFFF",
-                  overflow: "scroll"
-                }}
-              >
+              <Text numberOfLines={1} style={styles.cardText}>
                 Hạn sử dụng: {items.product_hansudung}
               </Text>
             </Left>
@@ -673,9 +660,14 @@ class Details extends Component {
                       product_id: items.product_id,
                       useraccount_id: useraccount_id
                     };
-                    instance.state.arrProducts.splice(index, 1)
-                    instance.setState({ arrProducts : instance.state.arrProducts });
-                    this.props.deleteProductOfCompany(data, instance.state.arrProducts);
+                    instance.state.arrProducts.splice(index, 1);
+                    instance.setState({
+                      arrProducts: instance.state.arrProducts
+                    });
+                    this.props.deleteProductOfCompany(
+                      data,
+                      instance.state.arrProducts
+                    );
                   }}
                 >
                   <Image
@@ -698,8 +690,15 @@ const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: BACKGROUND_COLOR,
+    margin: 4
+  },
+
+  cardText: {
+    fontWeight: "bold",
+    fontSize: 17,
+    color: "#FFFFFF",
+    overflow: "scroll"
   },
 
   frameImage: {
@@ -718,7 +717,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: height / 15
   },
-
+  image: {
+    resizeMode: "contain",
+    aspectRatio: 1.5,
+    width: "100%"
+  },
   wrap: {
     justifyContent: "center",
     alignItems: "center",

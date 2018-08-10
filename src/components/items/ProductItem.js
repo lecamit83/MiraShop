@@ -22,27 +22,10 @@ import { addProduct } from "../../api/postData";
 class ProductItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      imageSize: {
-        width: 0,
-        height: 0,
-      }
-    };
   }
-
-  _layoutChangeOrientation({ nativeEvent }) {
-    let widthImage = nativeEvent.layout.width;
-    this.setState({
-      imageSize : {
-        width : widthImage,
-        height : widthImage,
-      }
-    });
-  }
-
   render() {
     const { item, line, image, info, wrap, icon, buttonAdd, textWrap } = styles;
-    const { navigation, items, account, widthImage } = this.props;
+    const { navigation, items, account } = this.props;
 
     let useraccount_id = account ? account.useraccount_id : null;
     return (
@@ -61,8 +44,8 @@ class ProductItem extends Component {
           <CardItem>
             <View style={line} />
           </CardItem>
-          <CardItem>
-            <Image style={{width: widthImage * 0.8, height : widthImage * 0.8, resizeMode : "contain"}} source={{ uri: items.product_image }} />
+          <CardItem style={{justifyContent: 'center',}} >
+            <Image style={styles.image} source={{ uri: items.product_image }} />
           </CardItem>
           <CardItem footer style={styles.button}>
             <TouchableOpacity
@@ -115,13 +98,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    borderRadius: 4,
   },
   item: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_INPUT,
-    borderRadius: 4,
     borderColor: BORDER_COLOR,
-    marginHorizontal: 4,
   },
   headerItemText: {
     color: "black",
@@ -159,15 +141,15 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR_HEADER,
     height: 40,
     justifyContent: "space-between",
-    margin: 4
+    margin: 2,
   },
   buttonLeft: {
-    width: width / 5,
-    alignItems: "flex-start"
+    width: width / 6,
+    alignItems: "flex-start",
   },
   buttonRight: {
-    width: width / 5,
-    alignItems: "flex-end"
+    width: width / 6,
+    alignItems: "flex-end",
   }
 });
 

@@ -19,41 +19,34 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: "",
-      imageSize : {
-        width : 0,
-      }
-    };    
-  }
- 
-  _onLayoutChange({nativeEvent}) {
-    this.setState({
-      imageSize : {
-        width : nativeEvent.layout.width / 2,
-      }
-    })
+      query: ""
+    };
   }
 
-  render() { 
+  render() {
     const { container, wrapperItem } = styles;
     const { navigation, products, pages } = this.props;
     var id = this.props.screenProps;
     return (
-      <View onLayout={this._onLayoutChange.bind(this)} style={container}>
-        <FlatList
-          data={this._filterProduct(products[id])}
-          renderItem={({ item }) => (
-            <Item navigation={navigation} items={item} widthImage={this.state.imageSize.width}/>
-          )}
-          keyExtractor={(item, index) => {
-            return item.product_id + "#" + index;
-          }}
-          numColumns={2}
-          onEndReachedThreshold={0.1}
-          onEndReached={() => {
-            this.props.fetchData(id, pages[id]);
-          }}
-        />
+      <View style={container}>
+        {products[id].length !== 0 ? (
+          <FlatList
+            data={this._filterProduct(products[id])}
+            renderItem={({ item }) => (
+              <Item navigation={navigation} items={item} />
+            )}
+            keyExtractor={(item, index) => {
+              return item.product_id + "#" + index;
+            }}
+            numColumns={2}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => {
+              this.props.fetchData(id, pages[id]);
+            }}
+          />
+        ) : (
+          <Loading size="large" />
+        )}
       </View>
     );
   }
@@ -92,8 +85,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     products: state.products.posts,
-    pages: state.products.pages,
-    
+    pages: state.products.pages
   };
 }
 export default connect(

@@ -15,57 +15,51 @@ import {
   BACKGROUND_COLOR_INPUT,
   BACKGROUND_COLOR_HEADER
 } from "../../const/Const";
-import {deleteProductOfCompany } from "../../redux/actions/actionCreators";
+import { deleteProductOfCompany } from "../../redux/actions/actionCreators";
 
 // create a component
 class SubItem extends Component {
   render() {
-    const { item, image, icon, textWrap, line } = styles;
-    const { navigation, items, account, index, companyProfileInstance } = this.props;
+    const {
+      navigation,
+      items,
+      account,
+      index,
+      companyProfileInstance
+    } = this.props;
     return (
       <TouchableOpacity
-        style={{flex: 1,}}
-        onPress={() => navigation.navigate("DetailsScreen", { items: items , isSaled : true, instance : companyProfileInstance, index : index})}
+        style={styles.container}
+        onPress={() =>
+          navigation.navigate("DetailsScreen", {
+            items: items,
+            isSaled: true,
+            instance: companyProfileInstance,
+            index: index
+          })
+        }
       >
-        <Card style={item}>
-          <CardItem style={{ height: 40 }}>
-            <View style={textWrap}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "black",
-                  fontWeight: "bold",
-                  overflow: "scroll"
-                }}
-              >
-                {items.product_name}
-              </Text>
-            </View>
+        <Card style={styles.item}>
+          <CardItem style={styles.headerItem}>
+            <Text numberOfLines={1} style={styles.headerItemText}>
+              {items.product_name}
+            </Text>
           </CardItem>
-          <View style={line} />
-          <Image style={image} source={{ uri: items.product_image }} />
-
-          <CardItem
-            style={{
-              backgroundColor: BACKGROUND_COLOR_HEADER,
-              height: 40,
-              margin: 2,
-              justifyContent: "space-between"
-            }}
-          >
+          <CardItem>
+            <View style={styles.line} />
+          </CardItem>
+          <CardItem style={{ justifyContent: "center" }}>
+            <Image style={styles.image} source={{ uri: items.product_image }} />
+          </CardItem>
+          <CardItem style={styles.button}>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("MapScreen");
               }}
             >
-              <View
-                style={{
-                  width: width / 5,
-                  alignItems: "flex-start"
-                }}
-              >
+              <View style={styles.buttonLeft}>
                 <Image
-                  style={icon}
+                  style={styles.icon}
                   source={require("../../images/directions_black.png")}
                 />
               </View>
@@ -73,23 +67,23 @@ class SubItem extends Component {
 
             <TouchableOpacity
               onPress={() => {
-                companyProfileInstance.state.arrProducts.splice(index, 1)
-                companyProfileInstance.setState({ arrProducts : companyProfileInstance.state.arrProducts })
+                companyProfileInstance.state.arrProducts.splice(index, 1);
+                companyProfileInstance.setState({
+                  arrProducts: companyProfileInstance.state.arrProducts
+                });
                 var data = {
                   product_id: items.product_id,
                   useraccount_id: account.useraccount_id
                 };
-                this.props.deleteProductOfCompany(data, companyProfileInstance.state.arrProducts);
+                this.props.deleteProductOfCompany(
+                  data,
+                  companyProfileInstance.state.arrProducts
+                );
               }}
             >
-              <View
-                style={{
-                  width: width / 5,
-                  alignItems: "flex-end"
-                }}
-              >
+              <View style={styles.buttonRight}>
                 <Image
-                  style={icon}
+                  style={styles.icon}
                   source={require("../../images/remove_from_company_white.png")}
                 />
               </View>
@@ -103,57 +97,62 @@ class SubItem extends Component {
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center"
+  },
   item: {
-    margin: 2,
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_INPUT,
     borderRadius: 4,
-    borderWidth: 1,
-    borderColor: BORDER_COLOR
+    borderColor: BORDER_COLOR,
+    marginHorizontal: 4
   },
-  image: {
-    height: (width / 2 - 4) * 1.618 - 95,
-    width: "98%",
-    alignSelf: "center",
-    margin: 4,
-    justifyContent: "center",
-    resizeMode: "stretch"
-  },
-  textWrap: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 3
-  },
-  wrap: {
-    borderRadius: 5,
-    margin: 10,
-    backgroundColor: "yellow",
-    width: width / 2 - 40,
-    alignItems: "center",
-    height: 30,
-    justifyContent: "center"
-  },
-  icon: {
-    height: 24,
-    width: 24,
-    marginRight: 4,
-    resizeMode: "contain"
-  },
-  buttonAdd: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+  headerItemText: {
+    color: "black",
+    fontWeight: "bold",
+    overflow: "scroll"
   },
   line: {
     backgroundColor: BACKGROUND_COLOR_HEADER,
     height: 1,
-    width: "96%",
+    width: "100%",
     opacity: 1,
     backgroundColor: "#EBEBEB",
     alignSelf: "center"
+  },
+
+  image: {
+    aspectRatio: 1,
+    width: "100%"
+  },
+
+  textWrap: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  icon: {
+    height: 30,
+    width: 30
+  },
+
+  headerItem: {
+    height: 40
+  },
+  button: {
+    backgroundColor: BACKGROUND_COLOR_HEADER,
+    height: 40,
+    justifyContent: "space-between",
+    margin: 4
+  },
+  buttonLeft: {
+    width: width / 5,
+    alignItems: "flex-start"
+  },
+  buttonRight: {
+    width: width / 5,
+    alignItems: "flex-end"
   }
 });
 
@@ -163,4 +162,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {deleteProductOfCompany})(SubItem);
+export default connect(
+  mapStateToProps,
+  { deleteProductOfCompany }
+)(SubItem);

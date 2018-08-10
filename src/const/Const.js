@@ -29,3 +29,4 @@ export const PASSWORD = "Mật Khẩu";
 export const PASSWORD_AGAIN = "Nhập Lại Mật Khẩu";
 export const INTRODUCE = "Giới thiệu";
 export const PRODUCT = "Sản Phẩm";
+export const CHECK_IN = "Checkin (*)";

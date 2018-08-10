@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  Platform
+  Platform,
+  Keyboard
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -125,6 +126,7 @@ class MainHeader extends Component {
               onPress={() => {
                 navigation.navigate("DrawerOpen");
               }}
+              onPressOut={Keyboard.dismiss}
             >
               <Image
                 source={require("../../images/menu_white.png")}
@@ -143,7 +145,7 @@ class MainHeader extends Component {
                 instance.setState({ query: text });
               }}
             />
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPressIn={Keyboard.dismiss}>
               <Image
                 source={require("../../images/search_black.png")}
                 style={iconSearch}
@@ -172,14 +174,14 @@ const { height, width } = Dimensions.get("screen");
 // define your styles
 const styles = StyleSheet.create({
   containerAll: {
-    backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
+    backgroundColor: CONST.BACKGROUND_COLOR_HEADER
   },
 
   container: {
     height: CONST.HEADER_HEIGHT,
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   iconSearch: {
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: CONST.BACKGROUND_COLOR_INPUT,
     borderColor: CONST.BORDER_COLOR,
     flex: 1,
-    marginHorizontal: 5,
+    marginHorizontal: 5
   },
 
   wrapMenu: {

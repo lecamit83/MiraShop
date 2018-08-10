@@ -5,6 +5,7 @@ import Main from "../Main";
 import SearchScreen from "../SearchScreen";
 import Details from "../Details";
 import MapViews from "../MapViews";
+import MapSearch from "../MapSearch";
 import Management from "../Management";
 import AddThuoc from "../AddThuoc";
 import AddTPCN from "../AddTPCN";
@@ -16,6 +17,8 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import ListCompany from "../ListCompany";
 import MainHeader from "../header/MainHeaders";
+import BackHeader from "../header/CompanyHeader";
+import {SIGN_UP} from "../../const/Const";
 
 const {height, width} = Dimensions.get("window");
 
@@ -100,7 +103,6 @@ const TPCNStack = StackNavigator(
 const VTYTStack = StackNavigator(
   {
     MainScreen: {
-      //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={2}/>,
       navigationOptions :  ({ navigation }) => ({
         header: (props) => <MainHeader {...props} navigation={navigation}  />
@@ -139,7 +141,6 @@ const VTYTStack = StackNavigator(
 const MyPhamStack = StackNavigator(
   {
     MainScreen: {
-      //screen: (props) => < Main {...props}  />
       screen: (props) => <Main  {...props} screenProps={3}/>,
       navigationOptions :  ({ navigation }) => ({
         header: (props) => <MainHeader {...props} navigation={navigation}  />
@@ -219,6 +220,19 @@ const AddNewStack = StackNavigator(
     },
   }
 )
+const SignUpStack =  StackNavigator({
+  SignUpScreen :{
+    screen : (props) => <SignUp {...props} />,
+    navigationOptions :  ({ navigation }) => ({
+      header: (props) => <BackHeader {...props} navigation={navigation} title={SIGN_UP} Goto="ThuocStack"/>
+    })
+  },
+  CheckIn : {
+    screen : MapSearch
+  }
+}, {
+  initialRouteName: "SignUpScreen"
+})
 
 const Drawer = DrawerNavigator(
   {
@@ -244,11 +258,12 @@ const Drawer = DrawerNavigator(
       screen: SignIn
     },
     SignUpStack: {
-      screen: SignUp
+      screen: SignUpStack
     },
   },
   {
     initialRouteName: "ThuocStack",
+    drawerWidth : width * 0.85,
     contentComponent: (props) => <SideMenu {...props} />
   }
 );

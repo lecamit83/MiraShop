@@ -30,7 +30,8 @@ class SideMenu extends Component {
   render() {
     const { container, wrapLogo, wrapIndex, item, imageLogo, sign } = styles;
     const { navigation, account } = this.props;
-  
+    console.log(account);
+    
     const LOG_IN = (
       <View style={sign}>
         <Button
@@ -324,7 +325,7 @@ class SideMenu extends Component {
             >
               {account && account.status ? account.useraccount_fullname : null}
             </Text>
-            <Text note>
+            <Text numberOfLines={1} note>
               {account && account.status ? account.useraccount_diachi : null}
             </Text>
           </Body>
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
   },
 
   wrapLogo: {
-    height : 230,
+    height : 200,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,

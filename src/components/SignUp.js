@@ -22,7 +22,11 @@ import {
   Icon,
   View,
   Picker,
-  Toast
+  Toast,
+  Textarea,
+  Card,
+  CardItem,
+  Body
 } from "native-base";
 import ModalBox from "react-native-modalbox";
 
@@ -36,7 +40,8 @@ import {
   SO_DIEN_THOAI,
   SIGN_UP,
   BACKGROUND_COLOR_HEADER,
-  DIA_CHI
+  DIA_CHI,
+  CHECK_IN
 } from "../const/Const";
 import { signUp } from "../redux/actions/actionCreators";
 // create a component
@@ -44,9 +49,6 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      province: [],
-      district: [],
-      commune: [],
       useraccount_DVKD: "",
       useraccount_fullname: "",
       useraccount_masothue: "",
@@ -54,34 +56,17 @@ class SignUp extends Component {
       useraccount_diachi: "",
       useraccount_password: "",
       passwordAgain: "",
-      province_id: 1,
-      district_id: 1,
-      commune_id: 1,
-      useraccount_location: "",
-      isShowModal: false,
-      modalVisible: false
+      useraccount_location: ""
     };
-  }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
   }
 
   render() {
     const { navigation } = this.props;
-    const { wrapInput, pickerAddress, lableText } = styles;
-    const {
-      province,
-      district,
-      commune,
-      province_id,
-      district_id,
-      commune_id
-    } = this.state;
+    const { wrapInput } = styles;
     return (
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={{ flex: 1 }}>
-            <Header navigation={navigation} title={SIGN_UP} />
             <Content style={styles.container}>
               <ScrollView>
                 <Form style={styles.wrapForm}>
@@ -174,70 +159,22 @@ class SignUp extends Component {
                       autoCorrect={false}
                       secureTextEntry={true}
                       getRef={input => (this.password_input_again = input)}
-                      onSubmitEditing={() => {
-                        this.address_input._root.focus();
-                      }}
+                      onSubmitEditing={() => {}}
                     />
                   </Item>
-                  <Item style={[wrapInput, pickerAddress]} last picker>
-                    <Label style={lableText}>Tỉnh / Thành Phố:</Label>
-                    <Picker
-                      mode="dialog"
-                      iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: undefined }}
-                      iosHeader="Select your SIM"
-                      selectedValue={province_id}
-                      onValueChange={province_id =>
-                        this.setState({ province_id })
-                      }
-                    >
-                      {this._renderItems(province)}
-                    </Picker>
-                  </Item>
-                  <Item style={[wrapInput, pickerAddress]} last picker>
-                    <Label style={lableText}>Huyện / Quận:</Label>
-                    <Picker
-                      mode="dialog"
-                      iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: undefined }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#007aff"
-                      selectedValue={district_id}
-                      onValueChange={district_id =>
-                        this.setState({ district_id })
-                      }
-                    >
-                      {this._renderDistrictItems(district)}
-                    </Picker>
-                  </Item>
-                  <Item style={[wrapInput, pickerAddress]} last picker>
-                    <Label style={lableText}>Xã / Phường / Thị Trấn:</Label>
-                    <Picker
-                      mode="dialog"
-                      iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: undefined }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#007aff"
-                      selectedValue={commune_id}
-                      onValueChange={commune_id => {
-                        this.setState({ commune_id });
-                      }}
-                    >
-                      {this._renderCommuneItems(commune)}
-                    </Picker>
-                  </Item>
-                  <Item style={wrapInput} floatingLabel last>
+                  <Item style={[wrapInput]} floatingLabel last>
                     <Label>{DIA_CHI}</Label>
                     <Input
-                      onChangeText={useraccount_diachi =>
-                        this.setState({ useraccount_diachi })
-                      }
-                      numberOfLines={1}
+                      onTouchStart={() => {
+                        navigation.navigate("CheckIn", { instance: this });
+                      }}
                       returnKeyType="done"
-                      autoCorrect={false}
+                      value={this.state.useraccount_diachi}
+                      onTouchEnd={Keyboard.dismiss}
+                      numberOfLines={3}
+                      flexWrap="wrap"
                       getRef={input => (this.address_input = input)}
+                      onSubmitEditing={() => {}}
                     />
                   </Item>
 
@@ -257,23 +194,35 @@ class SignUp extends Component {
     );
   }
   isChecked() {
+    const {
+      useraccount_DVKD,
+      useraccount_fullname,
+      useraccount_phone,
+      useraccount_masothue,
+      useraccount_diachi,
+      useraccount_password,
+      passwordAgain
+    } = this.state;
     if (
-      this.state.useraccount_DVKD &&
-      this.state.useraccount_fullname &&
-      this.state.useraccount_phone &&
-      this.state.useraccount_masothue &&
-      this.state.useraccount_diachi &&
-      this.state.useraccount_password
-    ){
-      if (this.state.useraccount_password.localeCompare(this.state.passwordAgain)==0){
+      useraccount_DVKD &&
+      useraccount_fullname &&
+      useraccount_phone &&
+      useraccount_masothue &&
+      useraccount_diachi &&
+      useraccount_password &&
+      passwordAgain
+    ) {
+      if (useraccount_password.localeCompare(passwordAgain) == 0) {
         return true;
+      } else {
+        Toast.show({
+          text: "Mật khẩu không trùng khớp!",
+          buttonText: "Okay",
+          buttonTextStyle: { color: "#008000" },
+          buttonStyle: { backgroundColor: "#5cb85c" }
+        });
+        return false;
       }
-      Toast.show({
-        text: "Mật khẩu không trùng khớp!",
-        buttonText: "Okay",
-        buttonTextStyle: { color: "#008000" },
-        buttonStyle: { backgroundColor: "#5cb85c" }
-      });
     }
     Toast.show({
       text: "Bạn cần nhập đủ các mục!",
@@ -292,98 +241,13 @@ class SignUp extends Component {
         useraccount_phone: this.state.useraccount_phone,
         useraccount_diachi: this.state.useraccount_diachi,
         useraccount_location: this.state.useraccount_location,
-        useraccount_password: this.state.useraccount_password,
-        area_id:
-          this.state.province_id +
-          "-" +
-          this.state.district_id +
-          "-" +
-          this.state.commune_id
+        useraccount_password: this.state.useraccount_password
       };
       this.props.signUp(data);
       this.props.navigation.goBack();
     }
   };
-  _fetchAddress = url => {
-    return fetch(url).then(res => res.json());
-  };
-  componentDidMount() {
-    this._fetchAddress("http://api.hifapp.com/api/address/city")
-      .then(resJSON => this.setState({ province: resJSON }))
-      .catch(err => console.log(err));
-    this._fetchAddress(
-      "http://api.hifapp.com/api/address/district?id=" + this.state.province_id
-    )
-      .then(resJSON => this.setState({ district: resJSON }))
-      .catch(err => console.log(err));
-    this._fetchAddress(
-      "http://api.hifapp.com/api/address/area?id=" + this.state.district_id
-    )
-      .then(resJSON => this.setState({ commune: resJSON }))
-      .catch(err => console.log(err));
-  }
-  componentDidUpdate(previousProps, previousState) {
-    if (previousState.province_id !== this.state.province_id) {
-      this.setState({ district_id: 1 });
-      this._fetchAddress(
-        "http://api.hifapp.com/api/address/district?id=" +
-          this.state.province_id
-      )
-        .then(resJSON => this.setState({ district: resJSON }))
-        .catch(err => console.log(err));
-      this._fetchAddress(
-        "http://api.hifapp.com/api/address/area?id=" + this.state.district_id
-      )
-        .then(resJSON => this.setState({ commune: resJSON }))
-        .catch(err => console.log(err));
-    }
-    if (previousState.district_id !== this.state.district_id) {
-      this._fetchAddress(
-        "http://api.hifapp.com/api/address/area?id=" + this.state.district_id
-      )
-        .then(resJSON => this.setState({ commune: resJSON }))
-        .catch(err => console.log(err));
-    }
-  }
-  _renderItems = datas => {
-    let views = [];
-    for (var i = 0; i < datas.length; i++) {
-      views.push(
-        <Picker.Item
-          label={datas[i].city_name}
-          value={datas[i].city_id}
-          key={"city_id" + datas[i].city_id}
-        />
-      );
-    }
-    return views;
-  };
-  _renderDistrictItems = datas => {
-    let views = [];
-    for (var i = 0; i < datas.length; i++) {
-      views.push(
-        <Picker.Item
-          label={datas[i].district_name}
-          value={datas[i].district_id}
-          key={"district_id" + datas[i].district_id}
-        />
-      );
-    }
-    return views;
-  };
-  _renderCommuneItems = datas => {
-    let views = [];
-    for (var i = 0; i < datas.length; i++) {
-      views.push(
-        <Picker.Item
-          label={datas[i].area_name}
-          value={datas[i].area_id}
-          key={"area_id" + datas[i].area_id}
-        />
-      );
-    }
-    return views;
-  };
+  componentDidMount() {}
 }
 
 const { width } = Dimensions.get("window");

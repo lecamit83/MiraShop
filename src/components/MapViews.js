@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import Header from "./header/CompanyHeader";
 import { MAP_POSITION } from "../Constant";
 import { fetchCompany } from "../redux/actions/actionCreators";
+import { Loading } from "../components/common/Loading";
 
 const { height, width } = Dimensions.get("window");
 const LAT_DEL = 0.012;
@@ -30,8 +31,8 @@ class MapViews extends Component {
   }
 
   calcDelta(lat, long, accuracy) {
-    const oneDegreeOfLongitudeInMeters = 111.32;
-    const circumference = 40075 / 360;
+    const oneDegreeOfLongitudeInMeters = 111.32 / 5;
+    const circumference = 40075 / 1800;
 
     const latDelta = accuracy * (1 / (Math.cos(lat) * circumference));
     const lonDelta = accuracy / oneDegreeOfLongitudeInMeters;
@@ -61,7 +62,7 @@ class MapViews extends Component {
     this.watchID = navigator.geolocation.watchPosition(
       position => {
         const lat = position.coords.latitude;
-        const long = position.coords.longitude;  
+        const long = position.coords.longitude;
         const accuracy = position.coords.accuracy;
         this.calcDelta(lat, long, accuracy);
       },
@@ -76,13 +77,37 @@ class MapViews extends Component {
       }
     );
   }
-
   _renderMarker() {
     return {
       latitude: this.state.regionPosition.latitude,
       longitude: this.state.regionPosition.longitude
     };
   }
+  _renderPositionCompany() {
+    var arrs = [
+      "2 Xuân Thiều 2, Liên Chiểu , Đà Nẵng",
+      "193 Nguyễn Lương Bằng , Liên Chiểu, Đà Nẵng",
+      "545 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
+    ];
+    var views = [];
+    for (let index = 0; index < arrs.length; index++) {
+      const element = arrs[index];
+      fetch("http://maps.google.com/maps/api/geocode/json?address=2 Xuân Thiều 2, Liên Chiểu , Đà Nẵng" + element)
+        .then(res => res.json())
+        .then(resJSON => {
+          if (resJSON.status === "OK") {
+            let pos = {
+              latitude: resJSON.results[0].geometry.location.lat,
+              longitude: resJSON.results[0].geometry.location.lng
+            };
+            views.push(pos);
+          }
+        })
+        .catch(err => console.log(err));
+    }   
+    return views;
+  }
+ 
 
   render() {
     const { regionPosition } = this.state;
@@ -103,8 +128,12 @@ class MapViews extends Component {
                 <View style={marker} />
               </View>
             </Marker>
+            
+            {this._renderPositionCompany()}
           </MapView>
-        ) : null}
+        ) : (
+          <Loading size="large" />
+        )}
       </View>
     );
   }
