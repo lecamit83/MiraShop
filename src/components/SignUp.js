@@ -8,7 +8,8 @@ import {
   Keyboard,
   Dimensions,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  Linking
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -41,9 +42,12 @@ import {
   SIGN_UP,
   BACKGROUND_COLOR_HEADER,
   DIA_CHI,
-  CHECK_IN
+  CHECK_IN,
+  FB_URL
 } from "../const/Const";
 import { signUp } from "../redux/actions/actionCreators";
+
+import Communications from "react-native-communications";
 // create a component
 class SignUp extends Component {
   constructor(props) {
@@ -56,7 +60,8 @@ class SignUp extends Component {
       useraccount_diachi: "",
       useraccount_password: "",
       passwordAgain: "",
-      useraccount_location: ""
+      useraccount_location: "",
+      fb_url : "",
     };
   }
 
@@ -128,6 +133,23 @@ class SignUp extends Component {
                       autoCorrect={false}
                       getRef={input => (this.phone_number = input)}
                       onSubmitEditing={() => {
+                        this.profile_fb._root.focus();
+                      }}
+                    />
+                  </Item>
+                  <Item style={wrapInput} floatingLabel last>
+                    <Label>{FB_URL}</Label>
+                    <Input
+                      onFocus={()=>this.openFBprofile()}
+                      value={this.state.fb_url}
+                      onChangeText={fb_url =>
+                        this.setState({ fb_url })
+                      }
+                      numberOfLines={1}
+                      returnKeyType="next"
+                      autoCorrect={false}
+                      getRef={input => (this.profile_fb = input)}
+                      onSubmitEditing={() => {
                         this.password_input._root.focus();
                       }}
                     />
@@ -170,7 +192,6 @@ class SignUp extends Component {
                       }}
                       returnKeyType="done"
                       value={this.state.useraccount_diachi}
-                      onTouchEnd={Keyboard.dismiss}
                       numberOfLines={3}
                       flexWrap="wrap"
                       getRef={input => (this.address_input = input)}
@@ -192,6 +213,17 @@ class SignUp extends Component {
         </TouchableWithoutFeedback>
       </Container>
     );
+  }
+   openFBprofile() {
+    Linking.canOpenURL("fb://profile/")
+      .then(support => {
+        if (support) {
+          Linking.openURL("fb://profile/");
+        } else {
+          Linking.openURL("https://www.facebook.com/me");
+        }
+      })
+      .catch(err => console.error("An error occurred", err));
   }
   isChecked() {
     const {

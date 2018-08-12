@@ -45,7 +45,7 @@ class Main extends Component {
             }}
           />
         ) : (
-          <Loading size="large" />
+          <Loading size="large" loading={true}/>
         )}
       </View>
     );

@@ -12,6 +12,7 @@ import Header from "./header/MainHeaders";
 import Item from "./items/CompanyItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 import { fetchCompany } from "../redux/actions/actionCreators";
+import { Loading } from "./common/Loading";
 
 class ListCompany extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -21,15 +22,19 @@ class ListCompany extends Component {
     super(props);
     this.state = {
       query : "",
+      loading : false,
     }
+  }
+  componentWillMount(){
+    this.props.navigation.setParams({ instance: this });
   }
   render() {
     const { container, wrapperItem } = styles;
     const { navigation, companys } = this.props;
-    console.log(companys);
 
     return (
       <View style={container}>
+     
         <FlatList
           data={this._filterCompany(companys)}
           renderItem={({ item }) => (

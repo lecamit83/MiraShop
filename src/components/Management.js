@@ -5,7 +5,8 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Linking
 } from "react-native";
 
 import { connect } from "react-redux";
@@ -65,7 +66,7 @@ class Management extends Component {
               </Button>
             </Left>
             <Body>
-              <Button transparent>
+              <Button transparent >
                 <Icon active name="logo-facebook" />
                 <Text>Messenger</Text>
               </Button>
@@ -93,6 +94,19 @@ class Management extends Component {
         </View>
       </ScrollView>
     );
+  }
+  openMessenger() {
+    console.log("openMessenger");
+    
+    Linking.canOpenURL('https://www.facebook.com/messages/t/100015107284308').then(supported => {
+      console.log(supported);
+      
+        if (supported) {
+            Linking.openURL('https://www.facebook.com/messages/t/100015107284308');
+        } else {
+            console.log('erro');
+        }
+    }).catch(err => console.error('An error occurred', err));
   }
 }
 
