@@ -36,12 +36,12 @@ export function fetchData(id, page, token) {
       });
   };
 }
-export function postData(user) {
+export function postData(user, cbNavigation) {
   return dispatch => {
     return postUser(user)
       .then(resJSON => {
-        dispatch(postSignIn(resJSON));
-        if(resJSON.status) {
+        if (resJSON.status) {
+          dispatch(postSignIn(resJSON));
           deviceStorge.saveJWT(resJSON);
         }
         Toast.show({
@@ -50,9 +50,10 @@ export function postData(user) {
           buttonTextStyle: { color: "#008000" },
           buttonStyle: { backgroundColor: "#5cb85c" }
         });
+        cbNavigation();
       })
       .catch(err => {
-        postSignIn(err);
+       // console.log(err);
       });
   };
 }
@@ -68,11 +69,9 @@ export function signUp(user) {
           buttonStyle: { backgroundColor: "#5cb85c" }
         });
         console.log(resJSON);
-        
       })
       .catch(err => {
         console.log(err);
-        
       });
   };
 }
@@ -126,7 +125,7 @@ export function fetchProductCompany(url) {
 export function deleteProductOfCompany(user, data) {
   return dispatch => {
     return deleteProduct(user)
-      .then(resJSON => {  
+      .then(resJSON => {
         Toast.show({
           text: resJSON.message,
           buttonText: "Okay",
@@ -137,6 +136,6 @@ export function deleteProductOfCompany(user, data) {
       })
       .catch(err => {
         console.log(err);
-    });
+      });
   };
 }

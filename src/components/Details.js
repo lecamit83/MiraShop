@@ -584,8 +584,6 @@ class Details extends Component {
         </CardItem>
       </Card>
     ];
-    console.log(items);
-    
     return (
       <ScrollView style={styles.container}>
         <View>
@@ -600,7 +598,7 @@ class Details extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("MapScreen");
+                  navigation.navigate("MapScreen" , {listAccount : items.listAccount});
                 }}
               >
                 <Right>

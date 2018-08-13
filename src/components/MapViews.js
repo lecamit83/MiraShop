@@ -8,6 +8,7 @@ import Header from "./header/CompanyHeader";
 import { MAP_POSITION } from "../Constant";
 import { fetchCompany } from "../redux/actions/actionCreators";
 import { Loading } from "../components/common/Loading";
+import { API_NBL } from "../api/linkAPI";
 
 const { height, width } = Dimensions.get("window");
 const LAT_DEL = 0.012;
@@ -83,37 +84,38 @@ class MapViews extends Component {
       longitude: this.state.regionPosition.longitude
     };
   }
-  _renderPositionCompany() {
-    var arrs = [
-      "2 Xuân Thiều 2, Liên Chiểu , Đà Nẵng",
-      "193 Nguyễn Lương Bằng , Liên Chiểu, Đà Nẵng",
-      "545 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
-    ];
-    var views = [];
-    for (let index = 0; index < arrs.length; index++) {
-      const element = arrs[index];
-      fetch("http://maps.google.com/maps/api/geocode/json?address=2 Xuân Thiều 2, Liên Chiểu , Đà Nẵng" + element)
-        .then(res => res.json())
-        .then(resJSON => {
-          if (resJSON.status === "OK") {
-            let pos = {
-              latitude: resJSON.results[0].geometry.location.lat,
-              longitude: resJSON.results[0].geometry.location.lng
-            };
-            views.push(pos);
-          }
-        })
-        .catch(err => console.log(err));
-    }   
+  _renderPositionCompany(companys) {
+    let views = [];
+    for (let index = 0; index < companys.length; index++) {
+      const company = companys[index];
+      var position = company.useraccount_location;
+      var location = position.split("|");
+      views.push(
+        <Marker
+          key={position}
+          coordinate={{
+            latitude: Number(location[0]),
+            longitude: Number(location[1])
+          }}
+          title={company.useraccount_DVKD}
+          onCalloutPress={() => {
+            this.props.navigation.navigate("DetailCompany", {
+              itemsProps: company
+            });
+          }}
+        />
+      );
+    }
     return views;
   }
- 
 
   render() {
     const { regionPosition } = this.state;
     const { map, container, radius, marker } = styles;
     const { companys } = this.props;
-
+    const { listAccount } = this.props.navigation.state.params;
+    console.log(listAccount);
+    
     return (
       <View style={container}>
         {regionPosition.latitude && regionPosition.longitude ? (
@@ -123,23 +125,37 @@ class MapViews extends Component {
             ref="map"
             region={regionPosition}
           >
-            <Marker coordinate={this._renderMarker()}>
+            <Marker
+              anchor={{ x: 0.5, y: 0.5 }}
+              coordinate={this._renderMarker()}
+            >
               <View style={radius}>
                 <View style={marker} />
               </View>
             </Marker>
-            
-            {this._renderPositionCompany()}
+
+            {this._renderPositionCompany(this._filterCompanyHaveItem(companys, listAccount))}
           </MapView>
         ) : (
-          <Loading size="large" />
+          <Loading size="large" loading={true} />
         )}
       </View>
     );
   }
+  _filterCompanyHaveItem(companys, listAccount) {
+    let list = [];
+    companys.forEach(company => {
+      for(let index = 0; index < listAccount.length; index++){
+        if(company.useraccount_id === listAccount[index]) {
+          list.push(company);
+        }
+      }
+    });
+    return list;
+  }
   componentDidMount() {
     if (this.props.companys.length == 0) {
-      this.props.fetchCompany("http://api.hifapp.com/api/ncc");
+      this.props.fetchCompany(API_NBL);
     }
   }
   // Demo AsyncStore = ShareReferences in Android

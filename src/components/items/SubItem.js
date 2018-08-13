@@ -54,7 +54,7 @@ class SubItem extends Component {
           <CardItem style={styles.button}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("MapScreen");
+                navigation.navigate("MapScreen", {listAccount : items.listAccount});
               }}
             >
               <View style={styles.buttonLeft}>

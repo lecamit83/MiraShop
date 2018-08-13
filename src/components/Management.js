@@ -20,11 +20,13 @@ import {
   Icon,
   Left,
   Body,
-  Right
+  Right,
+  Toast
 } from "native-base";
 
 import Communications from "react-native-communications";
-
+import { ACCESS_TOKEN } from "../api/access_token";
+import { Loading } from "./common/Loading";
 import Header from "./header/CompanyHeader";
 import Item from "./items/ProductItem";
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
@@ -37,18 +39,22 @@ class Management extends Component {
   });
   constructor(props) {
     super(props);
+    this.state = {
+      loading: false
+    };
   }
   componentDidMount() {
     let id = this.props.navigation.state.params.itemsProps.useraccount_id;
-    this.props.fetchProductCompany("http://api.hifapp.com/api/nbl/product?userid=" + id);
+    this.props.fetchProductCompany(
+      "http://api.hifapp.com/api/nbl/product?userid=" + id
+    );
   }
   render() {
     const { navigation, companyProduct } = this.props;
     const { itemsProps } = this.props.navigation.state.params;
-    console.log(itemsProps);
-    
     return (
       <ScrollView>
+        <Loading loading={this.state.loading} size={"large"} />
         <Card style={styles.intro}>
           <View style={styles.wrapInfo}>
             <View style={styles.wrapText}>
@@ -59,24 +65,35 @@ class Management extends Component {
             </View>
           </View>
           <CardItem>
-            <Left>
-              <Button transparent onPress={()=> {Communications.phonecall(itemsProps.useraccount_phone, true)}} >
-                <Icon active name="call" />
-                <Text>Phone</Text>
+            <View style={styles.wrapButton}>
+              <Button
+                style={{ backgroundColor: "#019688" }}
+                onPress={() => {
+                  Communications.phonecall(itemsProps.useraccount_phone, true);
+                }}
+              >
+                <Icon name="call" />
               </Button>
-            </Left>
-            <Body>
-              <Button transparent >
-                <Icon active name="logo-facebook" />
-                <Text>Messenger</Text>
+              {/* <Button
+                style={{ backgroundColor: "#019688" }}
+                onPress={() => {
+                  // Communications.phonecall(itemsProps.useraccount_phone, true);
+                }}
+              >
+                <Icon name="chatboxes" />
+              </Button> */}
+              <Button
+                style={{ backgroundColor: "#019688" }}
+                onPress={() => {
+                  this.openFacebook(
+                    itemsProps.useraccount_facebook,
+                    this.openFBprofile
+                  );
+                }}
+              >
+                <Icon name="logo-facebook" />
               </Button>
-            </Body>
-            <Right>
-              <Button transparent>
-                <Icon active name="chatboxes" />
-                <Text>Zalo</Text>
-              </Button>
-            </Right>
+            </View>
           </CardItem>
         </Card>
         <View style={styles.listItems}>
@@ -95,18 +112,44 @@ class Management extends Component {
       </ScrollView>
     );
   }
-  openMessenger() {
-    console.log("openMessenger");
-    
-    Linking.canOpenURL('https://www.facebook.com/messages/t/100015107284308').then(supported => {
-      console.log(supported);
-      
-        if (supported) {
-            Linking.openURL('https://www.facebook.com/messages/t/100015107284308');
+  fetch_async = async Uid => {
+    let response = await fetch(
+      `https://graph.fb.me/${Uid}?access_token=${ACCESS_TOKEN}`
+    );
+    let data = await response.json();
+    return data.id;
+  };
+
+  openFBprofile = id => {
+    Linking.canOpenURL("fb://profile/" + "sdsadsa")
+      .then(support => {
+        if (support) {
+          Linking.openURL("fb://profile/" + id);
         } else {
-            console.log('erro');
+          Linking.openURL("https://www.facebook.com/" + id);
         }
-    }).catch(err => console.error('An error occurred', err));
+        this.setState({ loading: false });
+      })
+      .catch(err => console.error("An error occurred", err));
+  };
+
+  openFacebook(url, cb) {
+    if (url !== null) {
+      this.setState({ loading: true });
+      let arr = url.split("/");
+      let arr2 = arr[arr.length - 1].split("=");
+      let Uid = arr2[arr2.length - 1];
+      this.fetch_async(Uid).then(_fbmyId => {
+        cb(_fbmyId);
+      });
+    } else {
+      Toast.show({
+        text: "Bạn chưa cung cấp đường dẫn facebook",
+        buttonText: "Okay",
+        buttonTextStyle: { color: "#008000" },
+        buttonStyle: { backgroundColor: "#5cb85c" }
+      });
+    }
   }
 }
 
@@ -121,8 +164,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    marginLeft: 5,
-    marginRight: 5
+    padding: 4
   },
   wrapInfo: {
     marginTop: 10,
@@ -173,13 +215,20 @@ const styles = StyleSheet.create({
     flex: 1,
     // flexDirection: "row"
     backgroundColor: BACKGROUND_COLOR
+  },
+  wrapButton: {
+    width: "80%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: 8
   }
 });
 
 //make this component available to the app
 function mapStateToProps(state) {
   return {
-    companyProduct: state.productCompany.proCompany,
+    companyProduct: state.productCompany.proCompany
   };
 }
 export default connect(

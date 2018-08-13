@@ -30,31 +30,7 @@ class SideMenu extends Component {
   render() {
     const { container, wrapLogo, wrapIndex, item, imageLogo, sign } = styles;
     const { navigation, account } = this.props;
-    console.log(account);
-    
-    const LOG_IN = (
-      <View style={sign}>
-        <Button
-          transparent
-          onPress={() => {
-            navigation.navigate("SignInStack");
-          }}
-        >
-          {/* <Icon name = "log-in" /> */}
-          <Text style={styles.signIn}>{CONST.SIGN_IN}</Text>
-        </Button>
-        <View style={{ backgroundColor: "black", width: 1, height: 19 }} />
-        <Button
-          transparent
-          onPress={() => {
-            navigation.navigate("SignUpStack");
-          }}
-        >
-          <Text style={styles.signIn}>{CONST.SIGN_UP}</Text>
-        </Button>
-      </View>
-    );
-    const LOG_OUT = <View />;
+
     const LIST_MENU_ITEM = (
       <Content>
         <List>
@@ -293,23 +269,52 @@ class SideMenu extends Component {
               </Right>
             </TouchableOpacity>
           </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("SignInStack");
+              }}
+            >
+              <Left>
+                <Icon name="log-in" />
+              </Left>
+              <Body>
+                <Text>{CONST.SIGN_IN}</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
+          <ListItem icon>
+            <TouchableOpacity
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                navigation.navigate("SignUpStack");
+              }}
+            >
+              <Left>
+                <Icon name="add-circle" />
+              </Left>
+              <Body>
+                <Text>{CONST.SIGN_UP}</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </TouchableOpacity>
+          </ListItem>
         </List>
       </Content>
     );
-
     var SIDE_MENU = account ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
-    var LOGINJSX = account && account.status ? LOG_OUT : LOG_IN;
 
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
           <Left>
-            <TouchableOpacity
-              style={{ flexDirection: "row" }}
-              onPress={() => {
-                //navigation.navigate("CompanyProfileStack");
-              }}
-            >
+            <TouchableOpacity style={{ flexDirection: "row" }}>
               <Thumbnail source={require("../../images/profile.png")} />
             </TouchableOpacity>
           </Left>
@@ -329,7 +334,6 @@ class SideMenu extends Component {
               {account && account.status ? account.useraccount_diachi : null}
             </Text>
           </Body>
-          {LOGINJSX}
         </View>
         <View style={wrapIndex}>{SIDE_MENU}</View>
       </SafeAreaView>
@@ -343,9 +347,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-)(SideMenu);
+export default connect(mapStateToProps)(SideMenu);
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -355,7 +357,7 @@ const styles = StyleSheet.create({
   },
 
   wrapLogo: {
-    height : 200,
+    height: 200,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: CONST.BACKGROUND_COLOR_HEADER,

@@ -29,13 +29,15 @@ import {
   BACKGROUND_COLOR_HEADER
 } from "../const/Const";
 import { postData } from "../redux/actions/actionCreators";
+import { Loading } from "./common/Loading";
 // create a component
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      loading: false
     };
   }
   render() {
@@ -43,6 +45,7 @@ class SignIn extends Component {
     return (
       <Container>
         <Header navigation={navigation} title={SIGN_IN} />
+        <Loading size="large" loading={this.state.loading} />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ImageBackground
             source={require("../images/demo.png")}
@@ -87,9 +90,14 @@ class SignIn extends Component {
               <Button
                 style={styles.button}
                 onPress={() => {
-                  this.props.postData(this.state);
-                  navigation.goBack();
+                  this.setState({ loading: true });
+                  var user = {
+                    username: this.state.username,
+                    password: this.state.password
+                  };
+                  this.props.postData(user, navigation.goBack());
                 }}
+                onPressOut={Keyboard.dismiss}
               >
                 <Text style={styles.textButton}>ĐĂNG NHẬP</Text>
               </Button>
@@ -142,7 +150,8 @@ const styles = StyleSheet.create({
   },
   textWelcome: {
     fontSize: 20,
-    color: "red"
+    color: "blue",
+    fontFamily: 'serif',
   }
 });
 

@@ -12,7 +12,7 @@ import Header from "./header/MainHeaders";
 import Item from "./items/CompanyItem";
 import { BACKGROUND_COLOR } from "../const/Const";
 import { fetchCompany } from "../redux/actions/actionCreators";
-import { Loading } from "./common/Loading";
+import { API_NBL } from "../api/linkAPI";
 
 class ListCompany extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -21,11 +21,11 @@ class ListCompany extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query : "",
-      loading : false,
-    }
+      query: "",
+      loading: false
+    };
   }
-  componentWillMount(){
+  componentWillMount() {
     this.props.navigation.setParams({ instance: this });
   }
   render() {
@@ -34,7 +34,6 @@ class ListCompany extends Component {
 
     return (
       <View style={container}>
-     
         <FlatList
           data={this._filterCompany(companys)}
           renderItem={({ item }) => (
@@ -57,7 +56,7 @@ class ListCompany extends Component {
   }
   componentDidMount() {
     if (this.props.companys.length == 0) {
-      this.props.fetchCompany("http://api.hifapp.com/api/ncc");
+      this.props.fetchCompany(API_NBL);
       this.props.navigation.setParams({ instance: this });
     }
   }

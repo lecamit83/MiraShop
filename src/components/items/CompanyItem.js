@@ -15,7 +15,8 @@ import {
   Icon,
   Left,
   Body,
-  Right
+  Right, 
+  Toast
 } from "native-base";
 
 import { BORDER_COLOR, BACKGROUND_COLOR_INPUT } from "../../const/Const";
@@ -38,7 +39,7 @@ class ProductItem extends Component {
         <Loading loading={this.state.loading} size={"large"} />
         <TouchableOpacity
           // style={item}
-          style={{ marginLeft: 5, marginRight: 5 }}
+          style={{ padding: 4 }}
           onPress={() =>
             navigation.navigate("DetailCompany", { itemsProps: itemProps })
           }
@@ -46,7 +47,15 @@ class ProductItem extends Component {
           <Card>
             <CardItem>
               <Left>
-                <Icon name="contact" style={{ height: 40, width: 40 }} />
+                <Icon
+                  name="contact"
+                  style={{
+                    height: 40,
+                    width: 40,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                />
                 <Body>
                   <Text style={styles.nameOfCompany}>
                     {itemProps.useraccount_DVKD}
@@ -59,39 +68,33 @@ class ProductItem extends Component {
                   </Text>
                 </Body>
               </Left>
-            </CardItem>
-            <CardItem>
-              <Left>
+              <Right>
                 <Button
-                  transparent
-                  iconLeft
+                  style={styles.button}
                   onPress={() => {
                     Communications.phonecall(itemProps.useraccount_phone, true);
                   }}
                 >
                   <Icon name="call" />
-                  <Text>Phone</Text>
                 </Button>
-              </Left>
-              <Body>
+                {/* <Button
+                  style={styles.button}
+                  onPress={() => {
+                    // Communications.phonecall(itemProps.useraccount_phone, true);
+                  }}
+                >
+                  <Icon name="chatboxes" />
+                </Button> */}
                 <Button
-                  transparent
-                  iconLeft
+                  style={styles.button}
                   onPress={() => {
                     this.openFacebook(
-                      "https://www.facebook.com/cam.dep.trai.16T1",
+                      itemProps.useraccount_facebook,
                       this.openFBprofile
                     );
                   }}
                 >
                   <Icon name="logo-facebook" />
-                  <Text>Facebook</Text>
-                </Button>
-              </Body>
-              <Right>
-                <Button transparent iconLeft onPress={() => {}}>
-                  <Icon name="chatboxes" />
-                  <Text>Zalo</Text>
                 </Button>
               </Right>
             </CardItem>
@@ -123,21 +126,31 @@ class ProductItem extends Component {
   };
 
   openFacebook(url, cb) {
-    this.setState({ loading: true });
-    let arr = url.split("/");
-    let arr2 = arr[arr.length - 1].split("=");
-    let Uid = arr2[arr2.length - 1];
-
-    setTimeout(() => {
+    if (url !== null) {
+      this.setState({ loading: true });
+      let arr = url.split("/");
+      let arr2 =
+        arr[arr.length - 1] !== ""
+          ? arr[arr.length - 1].split("=")
+          : arr[arr.length - 2].split("=");
+      let Uid = arr2[arr2.length - 1];
       this.fetch_async(Uid).then(_fbmyId => {
         cb(_fbmyId);
       });
-    }, 5000);
+    } else {
+      Toast.show({
+        text: "Bạn chưa cung cấp đường dẫn facebook",
+        buttonText: "Okay",
+        buttonTextStyle: { color: "#008000" },
+        buttonStyle: { backgroundColor: "#5cb85c" }
+      });
+    }
   }
 }
 
 const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
+  button: { margin: 8, backgroundColor: "#019688", width: 50, height: 50 },
   container: {
     flex: 1
   },
