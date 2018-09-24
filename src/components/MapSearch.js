@@ -66,7 +66,7 @@ class MapSearch extends Component {
                 fetchDetails={true}
                 renderDescription={row => row.description}
                 onPress={(data, details = null) => {
-                  console.log(data, details);
+                  console.log(data.description);
 
                   this.setState({
                     regionPosition: {
@@ -83,7 +83,9 @@ class MapSearch extends Component {
                   instance.setState({
                     useraccount_location: 
                     `${details.geometry.location.lat}|${ details.geometry.location.lng }`,
-                    useraccount_diachi : data.description,
+                  });
+                  instance.setState({
+                    useraccount_diachi : `${data.description}`,
                   });
                 }}
                 query={{

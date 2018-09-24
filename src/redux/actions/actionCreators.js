@@ -1,7 +1,16 @@
 import { Toast } from "native-base";
 import * as TYPE from "../Const";
-import { fetchPosts, fetchComp, fetchProduct } from "../../api/getData";
-import { postUser, signUpUser } from "../../api/postData";
+import {
+  fetchPosts,
+  fetchComp,
+  fetchProduct,
+  fetchInfor
+} from "../../api/getData";
+import {
+  postUser,
+  signUpUser,
+  updateInformationUser
+} from "../../api/postData";
 import { deleteProduct } from "../../api/deleteData";
 import deviceStorge from "../../services/deviceStorge";
 // GET products
@@ -44,6 +53,8 @@ export function postData(user, cbNavigation) {
           dispatch(postSignIn(resJSON));
           deviceStorge.saveJWT(resJSON);
         }
+        console.log(resJSON);
+
         Toast.show({
           text: resJSON.message,
           buttonText: "Okay",
@@ -53,22 +64,57 @@ export function postData(user, cbNavigation) {
         cbNavigation();
       })
       .catch(err => {
-       // console.log(err);
+        // console.log(err);
       });
   };
 }
-export function signUp(user) {
+
+export function updateData(user, uID) {
   return dispatch => {
-    return signUpUser(user)
+    return updateInformationUser(user, uID)
       .then(resJSON => {
-        dispatch(postSignUp());
+        //dispatch(postSignUp());
         Toast.show({
           text: resJSON.message,
           buttonText: "Okay",
           buttonTextStyle: { color: "#008000" },
           buttonStyle: { backgroundColor: "#5cb85c" }
         });
+        console.log("--update--");
+
         console.log(resJSON);
+
+        if (resJSON.status) {
+          return fetchInfor(uID)
+            .then(responeJSON => {
+              console.log("--fetchInformation--");
+              dispatch(postSignIn(responeJSON[0]));
+              deviceStorge.saveJWT(responeJSON[0]);
+              console.log(responeJSON[0]);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function signUp(user, cb) {
+  return dispatch => {
+    return signUpUser(user)
+      .then(resJSON => {
+        //dispatch(postSignUp());
+        Toast.show({
+          text: resJSON.message,
+          buttonText: "Okay",
+          buttonTextStyle: { color: "#008000" },
+          buttonStyle: { backgroundColor: "#5cb85c" }
+        });
+        console.log(resJSON); 
       })
       .catch(err => {
         console.log(err);
@@ -132,6 +178,8 @@ export function deleteProductOfCompany(user, data) {
           buttonTextStyle: { color: "#008000" },
           buttonStyle: { backgroundColor: "#5cb85c" }
         });
+        console.log(resJSON);
+
         dispatch(deleteProductCompanySuccess(data));
       })
       .catch(err => {

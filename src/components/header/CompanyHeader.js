@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  Platform
+  Platform,
+  Keyboard
 } from "react-native";
 
 import {
@@ -39,7 +40,9 @@ class CompanyHeader extends Component {
           }}
         /> */}
         <View>
-          <TouchableOpacity onPress={() => {
+          <TouchableOpacity 
+          onPressOut={Keyboard.dismiss}
+          onPress={() => {
             if(Goto !== undefined) navigation.navigate(Goto);
             else navigation.goBack();
           }}>
@@ -47,12 +50,12 @@ class CompanyHeader extends Component {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", fontFamily: "serif" }}>
+          <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
             {this.state.title}
           </Text>
         </View>
         <View>
-          <Image source={require("../../images/settings.png")} style={icon} />
+          
         </View>
       </View>
     );

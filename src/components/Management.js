@@ -74,14 +74,6 @@ class Management extends Component {
               >
                 <Icon name="call" />
               </Button>
-              {/* <Button
-                style={{ backgroundColor: "#019688" }}
-                onPress={() => {
-                  // Communications.phonecall(itemsProps.useraccount_phone, true);
-                }}
-              >
-                <Icon name="chatboxes" />
-              </Button> */}
               <Button
                 style={{ backgroundColor: "#019688" }}
                 onPress={() => {
@@ -199,7 +191,6 @@ const styles = StyleSheet.create({
     color: BACKGROUND_COLOR_HEADER,
     fontWeight: "bold",
     marginBottom: 5,
-    fontFamily: "serif"
   },
   contact: {
     flexDirection: "row",

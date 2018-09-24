@@ -309,7 +309,8 @@ class SideMenu extends Component {
       </Content>
     );
     var SIDE_MENU = account ? LIST_MENU_ITEM : LIST_MENU_ITEM_LOGIN;
-
+    console.log(account);
+    
     return (
       <SafeAreaView style={container}>
         <View style={wrapLogo}>
@@ -327,11 +328,12 @@ class SideMenu extends Component {
                 marginTop: 5,
                 marginBottom: 5
               }}
+              numberOfLines={1}
             >
-              {account && account.status ? account.useraccount_fullname : null}
+              {account && account.useraccount_id > 0 ? account.useraccount_DVKD : null}
             </Text>
             <Text numberOfLines={1} note>
-              {account && account.status ? account.useraccount_diachi : null}
+              {account && account.useraccount_id > 0 ? account.useraccount_diachi : null}
             </Text>
           </Body>
         </View>

@@ -139,7 +139,7 @@ class ProductItem extends Component {
       });
     } else {
       Toast.show({
-        text: "Bạn chưa cung cấp đường dẫn facebook",
+        text: "Nhà bán lẻ chưa cung cấp đường dẫn facebook",
         buttonText: "Okay",
         buttonTextStyle: { color: "#008000" },
         buttonStyle: { backgroundColor: "#5cb85c" }
@@ -156,14 +156,14 @@ const styles = StyleSheet.create({
   },
   nameOfCompany: {
     fontSize: 19,
-    fontFamily: "serif"
+   
   },
   addressOfCompany: {
     marginTop: 5,
     fontSize: 10,
     overflow: "scroll",
     opacity: 0.7,
-    fontFamily: "serif"
+   
   },
   item: {
     margin: 4,

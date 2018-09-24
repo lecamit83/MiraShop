@@ -61,13 +61,15 @@ class SignUp extends Component {
       useraccount_password: "",
       passwordAgain: "",
       useraccount_location: "",
-      fb_url : "",
+      fb_url: ""
     };
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, Goto } = this.props;
     const { wrapInput } = styles;
+    console.log(this.props);
+
     return (
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -132,28 +134,11 @@ class SignUp extends Component {
                       keyboardType="phone-pad"
                       autoCorrect={false}
                       getRef={input => (this.phone_number = input)}
-                      onSubmitEditing={() => {
-                        this.profile_fb._root.focus();
-                      }}
+                      onSubmitEditing={() => {}}
                     />
                   </Item>
-                  <Item style={wrapInput} floatingLabel last>
-                    <Label>{FB_URL}</Label>
-                    <Input
-                      onFocus={()=>this.openFBprofile()}
-                      value={this.state.fb_url}
-                      onChangeText={fb_url =>
-                        this.setState({ fb_url })
-                      }
-                      numberOfLines={1}
-                      returnKeyType="next"
-                      autoCorrect={false}
-                      getRef={input => (this.profile_fb = input)}
-                      onSubmitEditing={() => {
-                        this.password_input._root.focus();
-                      }}
-                    />
-                  </Item>
+
+                  {/*                
                   <Item style={wrapInput} floatingLabel last>
                     <Label>{PASSWORD}</Label>
                     <Input
@@ -183,7 +168,7 @@ class SignUp extends Component {
                       getRef={input => (this.password_input_again = input)}
                       onSubmitEditing={() => {}}
                     />
-                  </Item>
+                  </Item> */}
                   <Item style={[wrapInput]} floatingLabel last>
                     <Label>{DIA_CHI}</Label>
                     <Input
@@ -202,7 +187,11 @@ class SignUp extends Component {
                   <Button
                     full
                     style={styles.button}
-                    onPress={() => this._signUpUser()}
+                    onPress={() => {
+                      this._signUpUser();
+                      
+                      console.log(this.state);
+                    }}
                   >
                     <Text style={styles.textButton}>ĐĂNG KÝ</Text>
                   </Button>
@@ -214,7 +203,11 @@ class SignUp extends Component {
       </Container>
     );
   }
-   openFBprofile() {
+  goBack() {
+    if (this.props.Goto !== undefined) this.props.navigation.navigate(this.props.Goto);
+    else this.props.navigation.goBack();
+  }
+  openFBprofile() {
     Linking.canOpenURL("fb://profile/")
       .then(support => {
         if (support) {
@@ -232,8 +225,7 @@ class SignUp extends Component {
       useraccount_phone,
       useraccount_masothue,
       useraccount_diachi,
-      useraccount_password,
-      passwordAgain
+      useraccount_location
     } = this.state;
     if (
       useraccount_DVKD &&
@@ -241,21 +233,11 @@ class SignUp extends Component {
       useraccount_phone &&
       useraccount_masothue &&
       useraccount_diachi &&
-      useraccount_password &&
-      passwordAgain
+      useraccount_location
     ) {
-      if (useraccount_password.localeCompare(passwordAgain) == 0) {
-        return true;
-      } else {
-        Toast.show({
-          text: "Mật khẩu không trùng khớp!",
-          buttonText: "Okay",
-          buttonTextStyle: { color: "#008000" },
-          buttonStyle: { backgroundColor: "#5cb85c" }
-        });
-        return false;
-      }
+      return true;
     }
+
     Toast.show({
       text: "Bạn cần nhập đủ các mục!",
       buttonText: "Okay",
@@ -266,17 +248,18 @@ class SignUp extends Component {
   }
   _signUpUser = () => {
     if (this.isChecked()) {
+      console.log("signUP");
+
       var data = {
         useraccount_DVKD: this.state.useraccount_DVKD,
         useraccount_fullname: this.state.useraccount_fullname,
         useraccount_masothue: this.state.useraccount_masothue,
         useraccount_phone: this.state.useraccount_phone,
         useraccount_diachi: this.state.useraccount_diachi,
-        useraccount_location: this.state.useraccount_location,
-        useraccount_password: this.state.useraccount_password
+        useraccount_location: this.state.useraccount_location
       };
-      this.props.signUp(data);
-      this.props.navigation.goBack();
+      this.props.signUp(data, this.goBack());
+      console.log(data);
     }
   };
   componentDidMount() {}

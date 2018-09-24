@@ -18,13 +18,18 @@ import {
   Text,
   Label,
   Input,
-  Button
+  Button,
+  Toast
 } from "native-base";
 
 import Header from "./header/CompanyHeader";
 import ItemCompanyProduct from "./items/SubItem";
+
+import { Loading } from "./common/Loading";
+
 import { BACKGROUND_COLOR, BACKGROUND_COLOR_HEADER } from "../const/Const";
-import { fetchProductCompany } from "../redux/actions/actionCreators";
+import { fetchProductCompany,updateData } from "../redux/actions/actionCreators";
+import {DIA_CHI, SO_DIEN_THOAI} from "../const/Const";
 
 // create a component
 class CompanyProfiles extends Component {
@@ -40,59 +45,94 @@ class CompanyProfiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrProducts: [],
+      loading : false,
+      useraccount_diachi : "",
+      phoneNumber : "",
+      linkFacebook : "",
+      useraccount_location : "",
     };
   }
   componentDidMount() {
     let id = this.props.account.useraccount_id;
     this.props.fetchProductCompany(
-      "http://api.hifapp.com/api/nbl/product?userid=" + id 
+      "http://api.hifapp.com/api/nbl/product?userid=" + id
     );
   }
   componentWillReceiveProps(nextProps) {
-    if(this.state.arrProducts !== nextProps.companyProduct) {
-      this.setState({arrProducts : nextProps.companyProduct})
+    if (this.state.arrProducts !== nextProps.companyProduct) {
+      this.setState({ arrProducts: nextProps.companyProduct });
     }
+  }
+  isFullField = (user) => {
+    if(user.useraccount_diachi === "" || user.useraccount_phone === "" || user.useraccount_facebook === "" || user.useraccount_location === "") {
+      Toast.show({
+        text: "Bạn cần nhập đủ các mục!",
+        buttonText: "Okay",
+        buttonTextStyle: { color: "#008000" },
+        buttonStyle: { backgroundColor: "#5cb85c" }
+      });
+      return false;
+    }
+    return true;
   }
   render() {
     const { navigation, companyProduct, account } = this.props;
-    const { arrProducts } = this.state;  
+    const { arrProducts } = this.state;
+    console.log(account);
+    
     return (
       <ScrollView>
+        <Loading size="large" loading={this.state.loading} />
         <Content
           style={{ marginLeft: 15, marginRight: 15, alignContent: "center" }}
         >
           <Form>
-            <Item floatingLabel>
-              <Label>Họ Tên</Label>
-              <Input />
+            <Item floatingLabel last>
+              <Label>{DIA_CHI}</Label>
+              <Input
+                onTouchStart={() => {
+                  navigation.navigate("CheckIn", { instance: this });
+                }}
+                returnKeyType="done"
+                value={this.state.useraccount_diachi}
+                numberOfLines={3}
+                flexWrap="wrap"
+                onSubmitEditing={() => {
+                  console.log("DIA CHI");
+                }}
+              />
             </Item>
             <Item floatingLabel>
-              <Label>Địa Chỉ</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel>
-              <Label>Số Điện Thoại</Label>
-              <Input />
+              <Label>{SO_DIEN_THOAI}</Label>
+              <Input
+                onChangeText={phoneNumber => this.setState({phoneNumber})}
+                numberOfLines={1}
+                returnKeyType="next"
+                keyboardType="phone-pad"
+              />
             </Item>
             <Item floatingLabel>
               <Label>Facebook</Label>
-              <Input />
+              <Input 
+                onChangeText={linkFacebook => this.setState({linkFacebook})}
+                numberOfLines={1}
+                returnKeyType="done"
+              />
             </Item>
-            <Item floatingLabel>
-              <Label>Zalo</Label>
-              <Input />
-            </Item>
-            <Button
-              full
-              info
-              style={{
-                margin: 15,
-                marginTop: 25,
-                borderRadius: 5,
-                backgroundColor: BACKGROUND_COLOR_HEADER
-              }}
-            >
+            <Button full info style={styles.button} onPress={()=>{
+              //this.setState({ loading: true });
+              var user = {
+                useraccount_diachi: this.state.useraccount_diachi,
+                useraccount_phone: this.state.phoneNumber,
+                useraccount_facebook : this.state.linkFacebook,
+                useraccount_location : this.state.useraccount_location,
+              };
+              console.log(user);
+              if(this.isFullField(user)) {
+                this.props.updateData(user , account.useraccount_id);
+              }
+
+            }}>
               <Text>CẬP NHẬT</Text>
             </Button>
           </Form>
@@ -119,11 +159,20 @@ class CompanyProfiles extends Component {
       </ScrollView>
     );
   }
+  // sai?
+  
+  
 }
 
 const { height, width } = Dimensions.get("window");
 // define your styles
 const styles = StyleSheet.create({
+  button: {
+    margin: 15,
+    marginTop: 25,
+    borderRadius: 5,
+    backgroundColor: BACKGROUND_COLOR_HEADER
+  },
   container: {
     flex: 1
     // backgroundColor: BACKGROUND_COLOR
@@ -195,5 +244,5 @@ function mapStateToProps(state) {
 }
 export default connect(
   mapStateToProps,
-  { fetchProductCompany }
+  { fetchProductCompany, updateData }
 )(CompanyProfiles);

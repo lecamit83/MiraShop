@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   textWelcome: {
     fontSize: 20,
     color: "blue",
-    fontFamily: 'serif',
+    
   }
 });
 

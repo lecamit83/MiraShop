@@ -136,7 +136,7 @@ class MainHeader extends Component {
           </View>
           <View style={wrapperSearch}>
             <TextInput
-              placeholder="Nhập tên sản phẩm ..."
+              placeholder={this.props.placeHolder || "Nhập tên sản phẩm ..."}
               underlineColorAndroid="transparent"
               style={inputText}
               value={query}
@@ -152,9 +152,7 @@ class MainHeader extends Component {
               />
             </TouchableOpacity>
           </View>
-          {/* <View style={wrapSettings}>
-              <TouchableOpacity>{MENUJSX}</TouchableOpacity>
-            </View> */}
+
         </View>
       </View>
     );
@@ -193,7 +191,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     height: 40,
-    fontFamily: "serif"
   },
 
   item: {

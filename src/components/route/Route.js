@@ -143,7 +143,7 @@ const MyPhamStack = StackNavigator(
     MainScreen: {
       screen: (props) => <Main  {...props} screenProps={3}/>,
       navigationOptions :  ({ navigation }) => ({
-        header: (props) => <MainHeader {...props} navigation={navigation}  />
+        header: (props) => <MainHeader {...props} navigation={navigation} />
       })
     },
     DetailsScreen: {
@@ -201,6 +201,9 @@ const CompanyProfileStack = StackNavigator(
     CompanyProfile: {
       screen: CompanyProfile
     },
+    CheckIn : {
+      screen : MapSearch
+    },
     DetailsScreen: {
       screen: Details
     },
@@ -222,7 +225,7 @@ const AddNewStack = StackNavigator(
 )
 const SignUpStack =  StackNavigator({
   SignUpScreen :{
-    screen : (props) => <SignUp {...props} />,
+    screen : (props) => <SignUp {...props} Goto="ThuocStack"/>,
     navigationOptions :  ({ navigation }) => ({
       header: (props) => <BackHeader {...props} navigation={navigation} title={SIGN_UP} Goto="ThuocStack"/>
     })

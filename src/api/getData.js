@@ -27,3 +27,7 @@ export function fetchProduct(url) {
     method: "GET",
   }).then(res => res.json());
 }
+export function fetchInfor(uID) {
+  var URL = "http://api.hifapp.com/api/nbl?id=" + uID;
+  return fetch(URL, { method: "GET" }).then(res => res.json());
+}

@@ -16,7 +16,7 @@ import { API_NBL } from "../api/linkAPI";
 
 class ListCompany extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: props => <Header {...props} navigation={navigation} />
+    header: props => <Header {...props} navigation={navigation} placeHolder="Nhập tên công ty cần tìm..." />
   });
   constructor(props) {
     super(props);
